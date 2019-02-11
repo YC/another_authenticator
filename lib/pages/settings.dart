@@ -17,14 +17,14 @@ class SettingsPage extends StatelessWidget {
         children: <Widget>[
           // App Info
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   // App image
                   Container(
                       height: 125,
-                      width: 125,
+                      width: 150,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: const DecoratedBox(
                           decoration: const BoxDecoration(
@@ -32,22 +32,14 @@ class SettingsPage extends StatelessWidget {
                                   image:
                                       const AssetImage('graphics/icon.png'))))),
                   Container(
-                      width: 125,
+                      width: 160,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // Name of app
-                          FutureBuilder(
-                              future: AppInfo.getAppInfo(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<AppInfo> snapshot) {
-                                if (snapshot.hasData) {
-                                  return Text(snapshot.data.appName,
-                                      style: const TextStyle(fontSize: 25));
-                                }
-                                return Text(
-                                    AppLocalizations.of(context).loading);
-                              }),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 7),
+                              child: Text(AppLocalizations.of(context).appName,
+                                  style: const TextStyle(fontSize: 25))),
                           // Version of app
                           FutureBuilder(
                               future: AppInfo.getAppInfo(),
