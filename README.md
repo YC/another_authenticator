@@ -18,3 +18,7 @@ A two-factor authentication app built with Flutter.
 MIT unless otherwise specified.  
 Further details about used libraries and references are available in
 [`lib/pages/acknowledgements.dart`](acknowledgements.dart).
+
+|Material|Cupertino|
+|----|----|
+|<img src="../readme-assets/material.png" alt="Material" height="450">|<img src="../readme-assets/cupertino.png" alt="Cupertino" height="450">|
