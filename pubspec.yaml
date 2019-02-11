@@ -1,0 +1,36 @@
+name: another_authenticator
+description: A two-factor authentication app implemented with Flutter.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  flutter_localizations:
+    sdk: flutter
+
+  # Flutter team dependencies
+  crypto: ^2.0.6
+  cupertino_icons: ^0.1.2
+
+  # Flutter plugins
+  path_provider: ^0.4.1
+  url_launcher: ^5.0.0
+  package_info: ^0.4.0
+
+  barcode_scan: 0.0.8
+  uuid: 1.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - graphics/icon.png
