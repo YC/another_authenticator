@@ -17,7 +17,7 @@ A two-factor authentication app built with Flutter.
 ## Licenses
 MIT unless otherwise specified.  
 Further details about used libraries and references are available in
-[`lib/pages/acknowledgements.dart`](acknowledgements.dart).
+[`lib/pages/acknowledgements.dart`](lib/pages/acknowledgements.dart).
 
 |Material|Cupertino|
 |----|----|
