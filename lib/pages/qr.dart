@@ -61,10 +61,10 @@ class _ScanQRPageState extends State<ScanQRPage> {
   // Adapted from documentation of flutter_barcode_reader
   Future scan() async {
     try {
-      String barcode = await BarcodeScanner.scan();
-      return Future.value(barcode);
+      var barcode = await BarcodeScanner.scan();
+      return barcode.rawContent;
     } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
         return Future.error(AppLocalizations.of(context).errNoCameraPermission);
       } else {
         return Future.error('${AppLocalizations.of(context).errUnknown} $e');

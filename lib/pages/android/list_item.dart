@@ -88,8 +88,9 @@ class _TOTPListItemState extends State<HomeListItem>
                                 children: <Widget>[
                                   // Issuer
                                   Text(widget.item.issuer,
-                                      style:
-                                          Theme.of(context).textTheme.subhead),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1),
                                   // Generated code
                                   Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -97,10 +98,11 @@ class _TOTPListItemState extends State<HomeListItem>
                                       child: Text(_code,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .display2)),
+                                              .headline3)),
                                   // Account name
                                   Text(widget.item.accountName,
-                                      style: Theme.of(context).textTheme.body1)
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2)
                                 ]),
                             Positioned(
                                 child: AnimatedBuilder(

@@ -91,8 +91,10 @@ class _HomePageState extends State<AndroidHomePage> {
                       Text(AppLocalizations.of(context).appName,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize:
-                                  Theme.of(context).textTheme.title.fontSize)),
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .fontSize)),
                     ])),
             // Settings
             ListTile(
