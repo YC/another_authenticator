@@ -1,12 +1,9 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_localizations/flutter_localizations.dart'
-    show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
-import 'package:another_authenticator/intl/intl.dart'
-    show AppLocalizations, AppLocalizationsDelegate;
-import 'package:another_authenticator/state/state.dart'
-    show RepositoryBase, Repository, FileStorage, AppState;
+import 'package:flutter_localizations/flutter_localizations.dart' show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
+import 'package:another_authenticator/intl/intl.dart' show AppLocalizations, AppLocalizationsDelegate;
+import 'package:another_authenticator/state/state.dart' show RepositoryBase, Repository, FileStorage, AppState;
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
 import 'package:another_authenticator/ui/adaptive.dart' show getPlatform;
 import 'package:another_authenticator/pages/pages.dart';
@@ -16,8 +13,7 @@ void main() => runApp(App());
 class App extends StatefulWidget {
   // Used to read/save state to disk
   static const STATE_FILENAME = "items.json";
-  final RepositoryBase repository =
-      new Repository(new FileStorage(STATE_FILENAME));
+  final RepositoryBase repository = new Repository(new FileStorage(STATE_FILENAME));
 
   @override
   State<StatefulWidget> createState() => _AppState();
@@ -61,12 +57,8 @@ class _AppState extends State<App> {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) =>
-              AndroidHomePage(appState == null ? null : appState.items),
-          '/edit': (context) => AndroidEditPage(
-              appState == null ? null : List<TOTPItem>.from(appState.items),
-              itemsChanged,
-              replaceItems),
+          '/': (context) => AndroidHomePage(appState == null ? null : appState.items),
+          '/edit': (context) => AndroidEditPage(appState == null ? null : List<TOTPItem>.from(appState.items), itemsChanged, replaceItems),
           '/add': (context) => AddPage(addItem),
           '/add/scan': (context) => ScanQRPage(addItem),
           '/settings': (context) => SettingsPage(),
@@ -80,13 +72,10 @@ class _AppState extends State<App> {
       return CupertinoApp(
           title: AppLocalizations.title,
           initialRoute: '/',
+          theme: CupertinoThemeData(brightness: Brightness.light),
           routes: {
-            '/': (context) =>
-                CupertinoHomePage(appState == null ? null : appState.items),
-            '/edit': (context) => CupertinoEditPage(
-                appState == null ? null : List<TOTPItem>.from(appState.items),
-                itemsChanged,
-                replaceItems),
+            '/': (context) => CupertinoHomePage(appState == null ? null : appState.items),
+            '/edit': (context) => CupertinoEditPage(appState == null ? null : List<TOTPItem>.from(appState.items), itemsChanged, replaceItems),
             '/add': (context) => AddPage(addItem),
             '/add/scan': (context) => ScanQRPage(addItem),
             '/settings': (context) => SettingsPage(),
