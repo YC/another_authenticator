@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart' show Color;
 import 'package:flutter/material.dart' show BuildContext, Theme;
 import 'package:flutter/cupertino.dart' show CupertinoTheme;
 export './adaptive_dialog.dart';
-export './adaptive_textfield.dart';
 export './app_scaffold.dart';
 
 /// Gets platform.

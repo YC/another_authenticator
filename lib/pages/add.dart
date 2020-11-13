@@ -135,51 +135,63 @@ class _AddPageState extends State<AddPage> {
               child: ListView(
                 children: <Widget>[
                   // Key
-                  AdaptiveTextField(
-                      controller: _secretController,
-                      textCapitalization: TextCapitalization.characters,
-                      autocorrect: false,
-                      androidData: AdaptiveAndroidTextFieldData(
-                        autovalidate: _secretAutoValidation,
-                        validator: (value) => secretFieldValid()
-                            ? null
-                            : AppLocalizations.of(context).secretInvalidMessage,
-                        decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context).secret),
-                      ),
-                      cupertinoData: AdaptiveCupertinoTextFieldData(
+                  isPlatformAndroid()
+                      ? TextFormField(
+                          controller: _secretController,
+                          textCapitalization: TextCapitalization.characters,
+                          autocorrect: false,
+                          autovalidateMode: _secretAutoValidation
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                          validator: (value) => secretFieldValid()
+                              ? null
+                              : AppLocalizations.of(context)
+                                  .secretInvalidMessage,
+                          decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context).secret),
+                        )
+                      : CupertinoTextField(
+                          controller: _secretController,
+                          textCapitalization: TextCapitalization.characters,
+                          autocorrect: false,
                           decoration: _boxDecoration,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           prefix: Text(AppLocalizations.of(context).secret),
-                          textAlign: TextAlign.right)),
+                          textAlign: TextAlign.right),
                   // Provider
-                  AdaptiveTextField(
-                      controller: _issuerController,
-                      textCapitalization: TextCapitalization.words,
-                      androidData: AdaptiveAndroidTextFieldData(
+                  isPlatformAndroid()
+                      ? TextFormField(
+                          controller: _issuerController,
+                          textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).issuer,
-                              hintText: 'Example Service')),
-                      cupertinoData: AdaptiveCupertinoTextFieldData(
+                              hintText: 'Example Service'),
+                        )
+                      : CupertinoTextField(
+                          controller: _issuerController,
+                          textCapitalization: TextCapitalization.words,
                           decoration: _boxDecoration,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           prefix: Text(AppLocalizations.of(context).issuer),
-                          textAlign: TextAlign.right)),
+                          textAlign: TextAlign.right),
                   // Account name
-                  AdaptiveTextField(
-                      controller: _accountNameController,
-                      keyboardType: TextInputType.emailAddress,
-                      androidData: AdaptiveAndroidTextFieldData(
+                  isPlatformAndroid()
+                      ? TextFormField(
+                          controller: _accountNameController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                               labelText:
                                   AppLocalizations.of(context).accountName,
-                              hintText: 'user@example.com')),
-                      cupertinoData: AdaptiveCupertinoTextFieldData(
+                              hintText: 'user@example.com'),
+                        )
+                      : CupertinoTextField(
+                          controller: _accountNameController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: _boxDecoration,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           prefix:
                               Text(AppLocalizations.of(context).accountName),
-                          textAlign: TextAlign.right)),
+                          textAlign: TextAlign.right),
                   // # of digits
                   isPlatformAndroid()
                       ? InputDecorator(
