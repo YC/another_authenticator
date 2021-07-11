@@ -1,4 +1,4 @@
-package com.example.anotherauthenticator
+package net.steventang.another_authenticator
 
 import io.flutter.embedding.android.FlutterActivity
 
