@@ -20,9 +20,7 @@ bool isPlatformAndroid() {
 
 /// Gets scaffold colour of theme.
 Color getScaffoldColor(BuildContext context) {
-  if (getPlatform() == TargetPlatform.android) {
-    return Theme.of(context).scaffoldBackgroundColor;
-  } else {
-    return CupertinoTheme.of(context).scaffoldBackgroundColor;
-  }
+  return getPlatform() == TargetPlatform.android
+      ? Theme.of(context).scaffoldBackgroundColor
+      : CupertinoTheme.of(context).scaffoldBackgroundColor;
 }

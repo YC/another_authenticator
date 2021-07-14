@@ -34,3 +34,10 @@ flutter:
 
   assets:
     - graphics/icon.png
+    - assets/licenses/dartlang-crypto.txt
+    - assets/licenses/flutter-flutter.txt
+    - assets/licenses/flutter-cupertino_icons.txt
+    - assets/licenses/dartlang-crypto.txt
+    - assets/licenses/apptreesoftware-flutter_barcode_scanner.txt
+    - assets/licenses/daegalus-dart-uuid.txt
+    - assets/licenses/brianegan-flutter_architecture_samples.txt
