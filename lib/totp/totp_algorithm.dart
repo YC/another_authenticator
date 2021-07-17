@@ -1,6 +1,6 @@
 import 'dart:math' show pow;
 import 'dart:typed_data' show Uint64List;
-import 'package:crypto/crypto.dart' show sha1, sha256, Hmac;
+import 'package:crypto/crypto.dart' show sha1, sha256, sha512, Hmac;
 import 'base32.dart' show Base32;
 
 /// Static class for generating TOTP codes.
@@ -54,6 +54,8 @@ class TOTP {
       hash = sha1;
     } else if (algorithm == "sha256") {
       hash = sha256;
+    } else if (algorithm == "sha512") {
+      hash = sha512;
     }
     var hmac = new Hmac(hash, key);
 

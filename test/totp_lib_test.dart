@@ -5,6 +5,8 @@ import 'package:another_authenticator/totp/totp_item.dart';
 import 'package:another_authenticator/totp/base32.dart';
 
 void main() {
+  // https://datatracker.ietf.org/doc/html/rfc4648#section-10
+  // https://stackoverflow.com/a/54263961
   test('Base32', () {
     expect(Base32.decode("MY======"), "f".codeUnits);
     expect(Base32.decode("MZXQ===="), "fo".codeUnits);
@@ -13,6 +15,8 @@ void main() {
     expect(Base32.decode("MZXW6YTB"), "fooba".codeUnits);
     expect(Base32.decode("MZXW6YTBOI======"), "foobar".codeUnits);
     expect(Base32.isBase32("MZXW6YTBOI======"), true);
+    expect(Base32.decode("AE======"), "\x01".codeUnits);
+    expect(Base32.decode("AA======"), "\x00".codeUnits);
   });
 
   test('TOTP - Key URI 1', () {

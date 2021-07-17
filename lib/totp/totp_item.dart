@@ -17,7 +17,9 @@ class TOTPItem {
       : assert(Base32.isBase32(secret) && secret != ''),
         assert(digits == 6 || digits == 8),
         assert(period > 0),
-        assert(algorithm == 'sha1' || algorithm == 'sha256');
+        assert(algorithm == 'sha1' ||
+            algorithm == 'sha256' ||
+            algorithm == "sha512");
 
   /// ID of item
   final String id;
