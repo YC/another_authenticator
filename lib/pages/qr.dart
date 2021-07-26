@@ -9,43 +9,45 @@ import 'package:barcode_scan/barcode_scan.dart' show BarcodeScanner;
 
 /// Page for adding accounts by scanning QR.
 class ScanQRPage extends StatefulWidget {
-  ScanQRPage(this.addItem, {Key key}) : super(key: key);
-
-  // Adds an item
-  final Function addItem;
+  const ScanQRPage({Key key}) : super(key: key);
 
   @override
   _ScanQRPageState createState() => _ScanQRPageState();
 }
 
 class _ScanQRPageState extends State<ScanQRPage> {
-  @override
-  initState() {
+  void initState() {
     super.initState();
 
-    // Scan QR
-    scan().then((value) {
-      // Successful, parse scanned URI and add account
+    // Trigger scan
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
+        final value = await _scan();
+        // Parse scanned value into item and pop
         var item = TOTPItem.fromUri(value);
-        widget.addItem(item);
-        Navigator.of(context).popUntil(ModalRoute.withName('/'));
+        // Pop until scan page
+        Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+        // Pop with scanned item
+        Navigator.of(context).pop(item);
       } catch (e) {
-        showAdaptiveDialog(context,
-            title: Text(AppLocalizations.of(context).error),
-            content:
-                Text(AppLocalizations.of(context).getErrorMessage(e.message)),
-            actions: [
-              AdaptiveDialogAction(
-                  child: Text(AppLocalizations.of(context).ok),
-                  onPressed: () {
-                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                  })
-            ]);
+        await showAdaptiveDialog(
+          context,
+          title: Text(AppLocalizations.of(context).error),
+          content:
+              Text(AppLocalizations.of(context).getErrorMessage(e.message)),
+          actions: [
+            AdaptiveDialogAction(
+              child: Text(AppLocalizations.of(context).ok),
+              onPressed: () {
+                // Pop dialog
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+        Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+        Navigator.of(context).pop();
       }
-    }).catchError((error) {
-      // Unsuccessful, return to home
-      Navigator.pop(context);
     });
   }
 
@@ -59,7 +61,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
 
   // Scans and returns scanned QR code
   // Adapted from documentation of flutter_barcode_reader
-  Future scan() async {
+  Future _scan() async {
     try {
       var barcode = await BarcodeScanner.scan();
       return barcode.rawContent;

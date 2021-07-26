@@ -6,7 +6,10 @@ import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
 class AndroidHomePage extends StatefulWidget {
-  AndroidHomePage(this.items, {Key key}) : super(key: key);
+  AndroidHomePage(this.items, this.addItem, {Key key}) : super(key: key);
+
+  /// Adds an item
+  final Function addItem;
 
   /// List of TOTP items
   final List<TOTPItem> items;
@@ -33,45 +36,54 @@ class _HomePageState extends State<AndroidHomePage> {
                   textAlign: TextAlign.center,
                   style: const TextStyle(height: 1.2))));
     }
+
     return Container(
-        margin: const EdgeInsets.all(10),
-        child: ListView.builder(
-            itemCount: widget.items.length,
-            itemBuilder: (BuildContext context, int index) {
-              var item = widget.items[index];
-              return HomeListItem(item, key: Key(item.id));
-            }));
+      margin: const EdgeInsets.all(10),
+      child: ListView.builder(
+        itemCount: widget.items.length,
+        itemBuilder: (BuildContext context, int index) {
+          var item = widget.items[index];
+          return HomeListItem(item, key: Key(item.id));
+        },
+      ),
+    );
   }
 
   /// Shows add modal
   void showAddModal(BuildContext context) {
     // Show bottom sheet
     showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView(shrinkWrap: true, children: <Widget>[
-                // Scan QR
-                ListTile(
-                  title: Text(AppLocalizations.of(context).addScanQR),
-                  leading: const Icon(Icons.camera_alt),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, "/add/scan");
-                  },
-                ),
-                // Add account manually
-                ListTile(
-                  title: Text(AppLocalizations.of(context).addManualInput),
-                  leading: const Icon(Icons.keyboard_return),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, "/add");
-                  },
-                ),
-              ]));
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              // Scan QR
+              ListTile(
+                title: Text(AppLocalizations.of(context).addScanQR),
+                leading: const Icon(Icons.camera_alt),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final item = await Navigator.pushNamed(context, "/add/scan");
+                  if (item != null) widget.addItem(item);
+                },
+              ),
+              // Add account manually
+              ListTile(
+                title: Text(AppLocalizations.of(context).addManualInput),
+                leading: const Icon(Icons.keyboard_return),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, "/add");
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -82,20 +94,20 @@ class _HomePageState extends State<AndroidHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(AppLocalizations.of(context).appName,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  .fontSize)),
-                    ])),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(AppLocalizations.of(context).appName,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              Theme.of(context).textTheme.headline6.fontSize)),
+                ],
+              ),
+            ),
             // Settings
             ListTile(
                 title: Text(AppLocalizations.of(context).settingsTitle),
@@ -128,24 +140,25 @@ class _HomePageState extends State<AndroidHomePage> {
         ),
       ),
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context).appName),
-          actions: <Widget>[
-            // Edit
-            IconButton(
-              icon: const Icon(Icons.edit),
-              tooltip: AppLocalizations.of(context).edit,
+        title: Text(AppLocalizations.of(context).appName),
+        actions: <Widget>[
+          // Edit
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: AppLocalizations.of(context).edit,
+            onPressed: () {
+              Navigator.pushNamed(context, '/edit');
+            },
+          ),
+          // Add
+          IconButton(
+              icon: const Icon(Icons.add),
+              tooltip: AppLocalizations.of(context).add,
               onPressed: () {
-                Navigator.pushNamed(context, '/edit');
-              },
-            ),
-            // Add
-            IconButton(
-                icon: const Icon(Icons.add),
-                tooltip: AppLocalizations.of(context).add,
-                onPressed: () {
-                  showAddModal(context);
-                })
-          ]),
+                showAddModal(context);
+              })
+        ],
+      ),
       body: _buildList(),
     );
   }
