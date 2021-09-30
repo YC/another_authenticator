@@ -45,7 +45,7 @@ class _EditPageState extends State<AndroidEditPage> {
   ValueNotifier<bool> _hideSave = ValueNotifier(true);
 
   // List of selected items (to be removed)
-  final List<String> _pendingRemovalList = List<String>();
+  final List<String> _pendingRemovalList = [];
 
   // Handles item check
   void addRemovalItem(String id) {

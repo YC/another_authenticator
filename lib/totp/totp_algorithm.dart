@@ -1,5 +1,5 @@
 import 'dart:math' show pow;
-import 'dart:typed_data' show Uint64List;
+import 'dart:typed_data' show Uint8List, Endian;
 import 'package:crypto/crypto.dart' show sha1, sha256, sha512, Hmac;
 import 'base32.dart' show Base32;
 
@@ -46,7 +46,8 @@ class TOTP {
   static String _generateHOTP(
       String secret, int timeCounter, int digits, String algorithm) {
     var key = Base32.decode(secret);
-    var bytes = new Uint64List.fromList([timeCounter]).buffer.asUint8List();
+    var bytes = new Uint8List(8)
+      ..buffer.asByteData().setInt64(0, timeCounter, Endian.big);
 
     // Determine algorithm
     var hash;
@@ -59,7 +60,7 @@ class TOTP {
     }
     var hmac = new Hmac(hash, key);
 
-    var digest = hmac.convert(bytes.reversed.toList());
+    var digest = hmac.convert(bytes);
 
     int offset = digest.bytes[digest.bytes.length - 1] & 0xf;
     int binary = ((digest.bytes[offset] & 0x7f) << 24) |
