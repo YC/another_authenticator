@@ -5,7 +5,7 @@ import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
 import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, showAdaptiveDialog, AdaptiveDialogAction;
-import 'package:barcode_scan/barcode_scan.dart' show BarcodeScanner;
+import 'package:barcode_scan2/barcode_scan2.dart' show BarcodeScanner;
 
 /// Page for adding accounts by scanning QR.
 class ScanQRPage extends StatefulWidget {
