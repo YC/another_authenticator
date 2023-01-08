@@ -57,6 +57,7 @@ class _AppState extends State<App> {
       return MaterialApp(
         title: AppLocalizations.title,
         theme: ThemeData(
+          useMaterial3: true,
           primarySwatch: Colors.blue,
         ),
         initialRoute: '/',
