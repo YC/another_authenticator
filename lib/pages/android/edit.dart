@@ -74,12 +74,12 @@ class _EditPageState extends State<AndroidEditPage> {
               title: Text(AppLocalizations.of(context).removeAccounts),
               content: Text(AppLocalizations.of(context).removalConfirmation),
               actions: [
-                FlatButton(
+                TextButton(
                     child: Text(AppLocalizations.of(context).no),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
-                FlatButton(
+                TextButton(
                   child: Text(AppLocalizations.of(context).yes,
                       style: const TextStyle(color: Colors.red)),
                   onPressed: () {
@@ -104,22 +104,24 @@ class _EditPageState extends State<AndroidEditPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text(AppLocalizations.of(context).exitEditTitle),
-              content: Text(AppLocalizations.of(context).exitEditInfo),
-              actions: [
-                FlatButton(
-                    child: Text(AppLocalizations.of(context).no),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                FlatButton(
-                  child: Text(AppLocalizations.of(context).yes,
-                      style: const TextStyle(color: Colors.red)),
-                  onPressed: () {
-                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                  },
-                )
-              ]);
+            title: Text(AppLocalizations.of(context).exitEditTitle),
+            content: Text(AppLocalizations.of(context).exitEditInfo),
+            actions: [
+              TextButton(
+                child: Text(AppLocalizations.of(context).no),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(AppLocalizations.of(context).yes,
+                    style: const TextStyle(color: Colors.red)),
+                onPressed: () {
+                  Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                },
+              )
+            ],
+          );
         });
     return false;
   }
@@ -175,17 +177,18 @@ class _EditPageState extends State<AndroidEditPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
-                        child: FlatButton(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            onPressed: () {
-                              showRemoveDialog(context);
-                            },
-                            child: Text(
-                                AppLocalizations.of(context).removeAccounts,
-                                style:
-                                    const TextStyle(color: Colors.redAccent))))
+                      child: TextButton(
+                        onPressed: () {
+                          showRemoveDialog(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                              AppLocalizations.of(context).removeAccounts,
+                              style: const TextStyle(color: Colors.redAccent)),
+                        ),
+                      ),
+                    ),
                   ],
                 );
               },

@@ -6,7 +6,6 @@
 /// https://raw.githubusercontent.com/flutter/flutter/master/LICENSE
 
 import 'dart:async' show Future;
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './adaptive_base.dart' show AdaptiveBase;

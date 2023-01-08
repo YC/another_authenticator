@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:another_authenticator/ui/adaptive.dart';
@@ -282,7 +281,7 @@ class _AddPageState extends State<AddPage> {
                   isPlatformAndroid()
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             child: Text(AppLocalizations.of(context).add),
                             onPressed: handleAdd,
                           ))

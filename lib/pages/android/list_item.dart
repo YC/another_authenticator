@@ -71,8 +71,8 @@ class _TOTPListItemState extends State<HomeListItem>
                 onTap: () {
                   Clipboard.setData(
                       ClipboardData(text: widget.codeUnformatted));
-                  Scaffold.of(context).removeCurrentSnackBar();
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(AppLocalizations.of(context).clipboard),
                       duration: const Duration(seconds: 1)));
                 },
