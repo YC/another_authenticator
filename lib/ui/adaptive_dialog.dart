@@ -14,57 +14,23 @@ import './adaptive.dart' show getPlatform;
 class AdaptiveAndroidDialogActionData {
   final Key key;
   final VoidCallback onPressed;
-  final ValueChanged<bool> onHighlightChanged;
-  final ButtonTextTheme textTheme;
-  final Color textColor;
-  final Color disabledTextColor;
-  final Color color;
-  final Color disabledColor;
-  final Color highlightColor;
-  final Color splashColor;
-  final Brightness colorBrightness;
-  final EdgeInsetsGeometry padding;
-  final ShapeBorder shape;
-  final Clip clipBehavior;
-  final MaterialTapTargetSize materialTapTargetSize;
   final Widget child;
 
   AdaptiveAndroidDialogActionData(
-      {this.key,
-      @required this.onPressed,
-      this.onHighlightChanged,
-      this.textTheme,
-      this.textColor,
-      this.disabledTextColor,
-      this.color,
-      this.disabledColor,
-      this.highlightColor,
-      this.splashColor,
-      this.colorBrightness,
-      this.padding,
-      this.shape,
-      this.clipBehavior,
-      this.materialTapTargetSize,
-      @required this.child});
+      {this.key, @required this.onPressed, @required this.child});
 }
 
 class AdaptiveCupertinoDialogActionData {
   final VoidCallback onPressed;
-  final bool isDefaultAction;
-  final bool isDestructiveAction;
   final TextStyle textStyle;
   final Widget child;
 
   AdaptiveCupertinoDialogActionData(
-      {this.onPressed,
-      this.isDefaultAction,
-      this.isDestructiveAction,
-      this.textStyle,
-      @required this.child});
+      {this.onPressed, this.textStyle, @required this.child});
 }
 
 class AdaptiveDialogAction
-    extends AdaptiveBase<FlatButton, CupertinoDialogAction> {
+    extends AdaptiveBase<TextButton, CupertinoDialogAction> {
   final AdaptiveAndroidDialogActionData androidData;
   final AdaptiveCupertinoDialogActionData cupertinoData;
   final VoidCallback onPressed;
@@ -76,23 +42,10 @@ class AdaptiveDialogAction
       @required this.onPressed,
       @required this.child});
 
-  FlatButton createAndroidWidget(BuildContext context) {
-    return FlatButton(
+  TextButton createAndroidWidget(BuildContext context) {
+    return TextButton(
       key: androidData?.key,
       onPressed: androidData?.onPressed ?? onPressed,
-      onHighlightChanged: androidData?.onHighlightChanged,
-      textTheme: androidData?.textTheme,
-      textColor: androidData?.textColor,
-      disabledTextColor: androidData?.disabledTextColor,
-      color: androidData?.color,
-      disabledColor: androidData?.disabledColor,
-      highlightColor: androidData?.highlightColor,
-      splashColor: androidData?.splashColor,
-      colorBrightness: androidData?.colorBrightness,
-      padding: androidData?.padding,
-      shape: androidData?.shape,
-      clipBehavior: androidData?.clipBehavior ?? Clip.none,
-      materialTapTargetSize: androidData?.materialTapTargetSize,
       child: androidData?.child ?? child,
     );
   }
@@ -100,9 +53,6 @@ class AdaptiveDialogAction
   CupertinoDialogAction createCupertinoWidget(BuildContext context) {
     return CupertinoDialogAction(
       onPressed: cupertinoData?.onPressed ?? onPressed,
-      isDefaultAction: cupertinoData?.isDefaultAction ?? false,
-      isDestructiveAction: cupertinoData?.isDestructiveAction ?? false,
-      textStyle: cupertinoData?.textStyle,
       child: cupertinoData?.child ?? child,
     );
   }
@@ -116,8 +66,6 @@ class AdaptiveAndroidAlertDialogData {
   final Widget content;
   final EdgeInsetsGeometry contentPadding;
   final List<Widget> actions;
-  final String semanticLabel;
-  final ShapeBorder shape;
 
   AdaptiveAndroidAlertDialogData(
       {this.key,
@@ -125,9 +73,7 @@ class AdaptiveAndroidAlertDialogData {
       this.titlePadding,
       this.content,
       this.contentPadding,
-      this.actions,
-      this.semanticLabel,
-      this.shape});
+      this.actions});
 }
 
 /// Cupertino alert dialog data
@@ -136,16 +82,9 @@ class AdaptiveCupertinoAlertDialogData {
   final Widget title;
   final Widget content;
   final List<Widget> actions;
-  final ScrollController scrollController;
-  final ScrollController actionScrollController;
 
   AdaptiveCupertinoAlertDialogData(
-      {this.key,
-      this.title,
-      this.content,
-      this.actions,
-      this.scrollController,
-      this.actionScrollController});
+      {this.key, this.title, this.content, this.actions});
 }
 
 Future<T> showAdaptiveDialog<T>(BuildContext context,
@@ -161,27 +100,25 @@ Future<T> showAdaptiveDialog<T>(BuildContext context,
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              key: key ?? androidData?.key,
-              title: title ?? androidData?.title,
-              titlePadding: androidData?.titlePadding,
-              content: content ?? androidData?.content,
-              contentPadding: androidData?.contentPadding ??
-                  const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
-              actions: actions ?? androidData?.actions,
-              semanticLabel: androidData?.semanticLabel,
-              shape: androidData?.shape);
+            key: key ?? androidData?.key,
+            title: title ?? androidData?.title,
+            titlePadding: androidData?.titlePadding,
+            content: content ?? androidData?.content,
+            contentPadding: androidData?.contentPadding ??
+                const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
+            actions: actions ?? androidData?.actions,
+          );
         });
   } else {
     return showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-              key: key ?? cupertinoData?.key,
-              title: title ?? cupertinoData?.title,
-              content: content ?? cupertinoData?.content,
-              actions: actions ?? cupertinoData?.actions,
-              scrollController: cupertinoData?.scrollController,
-              actionScrollController: cupertinoData?.actionScrollController);
+            key: key ?? cupertinoData?.key,
+            title: title ?? cupertinoData?.title,
+            content: content ?? cupertinoData?.content,
+            actions: actions ?? cupertinoData?.actions,
+          );
         });
   }
 }
