@@ -15,8 +15,8 @@ const _libs = [
   },
   {'title': 'dart-lang/crypto', 'path': '$_license_dir/dartlang-crypto.txt'},
   {
-    'title': 'apptreesoftware/flutter_barcode_reader',
-    'path': '$_license_dir/apptreesoftware-flutter_barcode_scanner.txt'
+    'title': 'mono0926/barcode_scan2',
+    'path': '$_license_dir/mono0926-barcode_scan2.txt'
   },
   {
     'title': 'Daegalus/dart-uuid',
