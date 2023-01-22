@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'
     show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
-import 'package:another_authenticator/intl/intl.dart'
-    show AppLocalizations, AppLocalizationsDelegate;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/state/state.dart'
     show RepositoryBase, Repository, FileStorage, AppState;
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
@@ -39,9 +38,9 @@ class _AppState extends State<App> {
   }
 
   // Locale information
-  final Iterable<Locale> supportedLocales = [const Locale('en', 'US')];
+  final Iterable<Locale> supportedLocales = [const Locale('en')];
   final Iterable<LocalizationsDelegate> localizationsDelegates = [
-    const AppLocalizationsDelegate(),
+    AppLocalizations.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
   ];
@@ -55,7 +54,7 @@ class _AppState extends State<App> {
     if (platform == TargetPlatform.android) {
       // Android (Material Design)
       return MaterialApp(
-        title: AppLocalizations.title,
+        onGenerateTitle: (context) => AppLocalizations.of(context).appName,
         theme: ThemeData(
           useMaterial3: true,
           primarySwatch: Colors.blue,
@@ -79,7 +78,7 @@ class _AppState extends State<App> {
     } else if (platform == TargetPlatform.iOS) {
       // iOS (Cupertino)
       return CupertinoApp(
-        title: AppLocalizations.title,
+        onGenerateTitle: (context) => AppLocalizations.of(context).appName,
         initialRoute: '/',
         theme: CupertinoThemeData(brightness: Brightness.light),
         routes: {

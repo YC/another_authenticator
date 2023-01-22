@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart'
     show Divider, ListTile, Material, MaterialPageRoute;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
 import 'package:another_authenticator/ui/adaptive.dart' show AppScaffold;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const _license_dir = 'assets/licenses';
 const _libs = [
@@ -14,6 +14,7 @@ const _libs = [
     'path': '$_license_dir/flutter-cupertino_icons.txt'
   },
   {'title': 'dart-lang/crypto', 'path': '$_license_dir/dartlang-crypto.txt'},
+  {'title': 'dart-lang/intl', 'path': '$_license_dir/dartlang-intl.txt'},
   {
     'title': 'mono0926/barcode_scan2',
     'path': '$_license_dir/mono0926-barcode_scan2.txt'

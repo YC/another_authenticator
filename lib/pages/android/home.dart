@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../l10n/constants.dart' as Constants;
 import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
@@ -120,12 +121,12 @@ class _HomePageState extends State<AndroidHomePage> {
             Divider(height: 10),
             // Source code (in-app browser link)
             ListTile(
-                title: Text(AppLocalizations.of(context).sourceCode),
+                title: Text(AppLocalizations.of(context).source),
                 leading: const Icon(Icons.code),
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  launchURL(AppLocalizations.repo);
+                  launchURL(Constants.REPO);
                 }),
             // License
             ListTile(

@@ -2,7 +2,7 @@ import 'dart:async' show Future;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show ReorderableListView, Icons;
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './edit_list_item.dart' show EditListItem;
 
 /// Cupertino edit page.
@@ -74,7 +74,7 @@ class _EditPageState extends State<CupertinoEditPage> {
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
               title: Text(AppLocalizations.of(context).removeAccounts),
-              content: Text(AppLocalizations.of(context).removalConfirmation),
+              content: Text(AppLocalizations.of(context).removeConfirmation),
               actions: [
                 CupertinoDialogAction(
                     child: Text(AppLocalizations.of(context).cancel),

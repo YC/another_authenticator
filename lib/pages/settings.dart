@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show ListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, isPlatformAndroid;
 import 'package:another_authenticator/helper/url.dart' show launchURL;
 import 'package:package_info/package_info.dart' show PackageInfo;
+import '../l10n/constants.dart' as Constants;
 
 /// Settings page.
 class SettingsPage extends StatelessWidget {
@@ -72,10 +73,10 @@ class SettingsPage extends StatelessWidget {
                 ListTile(
                     dense: true,
                     leading: const Icon(Icons.code),
-                    title: Text(AppLocalizations.of(context).sourceCode,
+                    title: Text(AppLocalizations.of(context).source,
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
-                      launchURL(AppLocalizations.repo);
+                      launchURL(Constants.REPO);
                     }),
                 // Acknowledgements
                 ListTile(

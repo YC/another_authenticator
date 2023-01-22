@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './edit_list_item.dart' show EditListItem;
 
 /// Android edit page.
@@ -72,7 +72,7 @@ class _EditPageState extends State<AndroidEditPage> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text(AppLocalizations.of(context).removeAccounts),
-              content: Text(AppLocalizations.of(context).removalConfirmation),
+              content: Text(AppLocalizations.of(context).removeConfirmation),
               actions: [
                 TextButton(
                     child: Text(AppLocalizations.of(context).no),

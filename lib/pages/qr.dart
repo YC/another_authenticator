@@ -2,7 +2,7 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter/widgets.dart';
 import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
-import 'package:another_authenticator/intl/intl.dart' show AppLocalizations;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, showAdaptiveDialog, AdaptiveDialogAction;
 import 'package:barcode_scan2/barcode_scan2.dart' show BarcodeScanner;
@@ -33,8 +33,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
         await showAdaptiveDialog(
           context,
           title: Text(AppLocalizations.of(context).error),
-          content:
-              Text(AppLocalizations.of(context).getErrorMessage(e.message)),
+          content: Text(e.message),
           actions: [
             AdaptiveDialogAction(
               child: Text(AppLocalizations.of(context).ok),
