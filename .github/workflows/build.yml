@@ -18,6 +18,9 @@ jobs:
         flutter-version: '3.x'
         channel: 'stable'
 
+    - run: dart test
+      working-directory: ./totp
+
     - run: flutter pub get
     - run: flutter test
     - run: flutter build apk

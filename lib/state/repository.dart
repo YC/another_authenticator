@@ -3,7 +3,7 @@ import 'dart:convert' show json;
 import 'package:another_authenticator/state/repository_base.dart'
     show RepositoryBase;
 import 'package:another_authenticator/state/file_storage.dart' show FileStorage;
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 
 /// Is used to load/save state.
 ///

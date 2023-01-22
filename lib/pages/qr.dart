@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter/widgets.dart';
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, showAdaptiveDialog, AdaptiveDialogAction;

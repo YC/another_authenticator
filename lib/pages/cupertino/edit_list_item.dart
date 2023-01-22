@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Material, CheckboxListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoColors;
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 
 /// Item for edit page (Cupertino).
 class EditListItem extends StatefulWidget {

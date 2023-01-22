@@ -1,4 +1,4 @@
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 
 /// Represents app state.
 ///

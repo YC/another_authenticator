@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:another_authenticator/ui/adaptive.dart';
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem, Base32;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem, Base32;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Page for adding accounts.

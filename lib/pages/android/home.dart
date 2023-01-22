@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../l10n/constants.dart' as Constants;
 import './list_item.dart' show HomeListItem;

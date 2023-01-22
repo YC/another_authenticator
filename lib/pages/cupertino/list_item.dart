@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/material.dart' show CircularProgressIndicator;
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Cupertino).

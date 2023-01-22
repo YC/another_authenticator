@@ -29,7 +29,7 @@ class TOTP {
     // Length at which to split at
     int splitLength = code.length == 8 ? 4 : 3;
     // Combine 2 halves
-    return code.substring(0, splitLength) + ' ' + code.substring(splitLength);
+    return '${code.substring(0, splitLength)} ${code.substring(splitLength)}';
   }
 
   /// Generate multiple TOTP values for the given [times].
@@ -46,11 +46,11 @@ class TOTP {
   static String _generateHOTP(
       String secret, int timeCounter, int digits, String algorithm) {
     var key = Base32.decode(secret);
-    var bytes = new Uint8List(8)
+    var bytes = Uint8List(8)
       ..buffer.asByteData().setInt64(0, timeCounter, Endian.big);
 
     // Determine algorithm
-    var hash;
+    var hash = sha1;
     if (algorithm == "sha1") {
       hash = sha1;
     } else if (algorithm == "sha256") {
@@ -58,7 +58,7 @@ class TOTP {
     } else if (algorithm == "sha512") {
       hash = sha512;
     }
-    var hmac = new Hmac(hash, key);
+    var hmac = Hmac(hash, key);
 
     var digest = hmac.convert(bytes);
 
@@ -67,7 +67,7 @@ class TOTP {
         ((digest.bytes[offset + 1] & 0xff) << 16) |
         ((digest.bytes[offset + 2] & 0xff) << 8) |
         (digest.bytes[offset + 3] & 0xff);
-    int otp = binary % (pow(10, digits));
+    num otp = binary % (pow(10, digits));
     return otp.toString().padLeft(digits, "0");
   }
 }

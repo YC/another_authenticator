@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 
 /// Abstract base class for TOTP list item.
-/// 
+///
 /// Contains useful methods which are used to display the item.
 abstract class TOTPListItemBase extends StatefulWidget {
   TOTPListItemBase(this.item, {Key key});

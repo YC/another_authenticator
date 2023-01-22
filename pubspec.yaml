@@ -1,5 +1,6 @@
 name: another_authenticator
 description: A two-factor authentication app implemented with Flutter.
+publish_to: none
 
 version: 1.0.0+1
 
@@ -9,12 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   flutter_localizations:
     sdk: flutter
 
   # Flutter team dependencies
-  crypto: ^3.0.1
   cupertino_icons: ^1.0.3
   intl: ^0.17.0
 
@@ -23,8 +22,12 @@ dependencies:
   url_launcher: ^6.0.9
   package_info: ^2.0.2
 
+  # Internal
+  another_authenticator_totp:
+    path: ./totp
+
+  # External
   barcode_scan2: 4.2.3
-  uuid: 3.0.4
 
 dev_dependencies:
   flutter_test:

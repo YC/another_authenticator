@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 
 /// Item for edit page (Android).
 class EditListItem extends StatefulWidget {

@@ -1,8 +1,7 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:another_authenticator/totp/totp_algorithm.dart';
-import 'package:another_authenticator/totp/totp_uri.dart';
-import 'package:another_authenticator/totp/totp_item.dart';
-import 'package:another_authenticator/totp/base32.dart';
+import 'package:test/test.dart';
+import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_totp/totp_algorithm.dart';
+import 'package:another_authenticator_totp/totp_uri.dart';
 
 void main() {
   // https://datatracker.ietf.org/doc/html/rfc4648#section-10
@@ -42,12 +41,13 @@ void main() {
   });
 
   test('TOTP - Bad Key URI', () {
-    try {
-      TOTPUri.parseURI(
-          "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12");
-    } catch (e) {
-      expect(e.message, 'Incorrect parameters');
-    }
+    expect(
+        () => TOTPUri.parseURI(
+            "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12"),
+        throwsA(allOf(
+            isFormatException,
+            predicate((e) =>
+                e is FormatException && e.message == "Incorrect parameters"))));
   });
 
   test('TOTP - 1542791843', () {

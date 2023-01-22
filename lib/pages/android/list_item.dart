@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
-import 'package:another_authenticator/totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../shared/list_item_base.dart' show TOTPListItemBase;
 

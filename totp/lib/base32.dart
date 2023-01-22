@@ -9,7 +9,7 @@ class Base32 {
     var mapped = input
         .split('')
         .where((c) => c != '=') // remove '='
-        .map((c) => _BASE32_MAP[c])
+        .map((c) => _base32Map[c])
         .toList();
 
     // Initialise list
@@ -36,12 +36,12 @@ class Base32 {
       // print(Uint8List.view(bdata.buffer));
 
       // Bitwise OR the segments together
-      int value = mapped[start] << (8 - n1); // Right-most bits of first
+      int value = mapped[start]! << (8 - n1); // Right-most bits of first
       if (n2 > 0 && mapped.length > start + 1) {
-        value |= (mapped[start + 1] >> (5 - n2)) << n3; // Left-most and shift
+        value |= (mapped[start + 1]! >> (5 - n2)) << n3; // Left-most and shift
       }
       if (n3 > 0 && mapped.length > start + 2) {
-        value |= mapped[start + 2] >> (5 - n3); // Left-most bits of third
+        value |= mapped[start + 2]! >> (5 - n3); // Left-most bits of third
       }
       bdata.setUint8(i, value);
     }
@@ -51,11 +51,11 @@ class Base32 {
 
   /// Determines whether a given string is a valid base32 string.
   static bool isBase32(String input) {
-    return input.split('').every((c) => c == '=' || _BASE32_MAP.containsKey(c));
+    return input.split('').every((c) => c == '=' || _base32Map.containsKey(c));
   }
 
   /// Decode map
-  static const _BASE32_MAP = {
+  static const _base32Map = {
     'A': 0,
     'B': 1,
     'C': 2,

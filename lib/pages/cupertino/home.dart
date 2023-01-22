@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:another_authenticator/totp/totp.dart';
+import 'package:another_authenticator_totp/totp.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './list_item.dart';
 
