@@ -1,3 +1,4 @@
+import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:another_authenticator/ui/adaptive.dart';
@@ -106,8 +107,13 @@ class _AddPageState extends State<AddPage> {
     }
 
     // Initialise and add TOTP item
-    var item = TOTPItem.newTOTPItem(_secretController.text, _digits, _period,
-        "sha1", _issuerController.text, _accountNameController.text);
+    var item = TOTPItem.newTOTPItem(
+        _secretController.text,
+        _digits,
+        _period,
+        OtpHashAlgorithm.sha1,
+        _issuerController.text,
+        _accountNameController.text);
     addItem(item);
   }
 

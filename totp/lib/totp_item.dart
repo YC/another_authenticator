@@ -1,7 +1,7 @@
 import 'package:uuid/uuid.dart' show Uuid;
 import 'base32.dart' show Base32;
-import 'totp_algorithm.dart' show TOTP;
-import 'totp_uri.dart' show TOTPUri;
+import 'totp_algorithm.dart' show OtpHashAlgorithm, TOTP;
+import 'otp_uri.dart' show OtpUri;
 
 /// Represents a TOTP item and associated information.
 ///
@@ -11,15 +11,12 @@ class TOTPItem {
   TOTPItem(this.id, this.secret,
       [this.digits = 6,
       this.period = 30,
-      this.algorithm = "sha1",
+      this.algorithm = OtpHashAlgorithm.sha1,
       this.issuer = "",
       this.accountName = ""])
       : assert(Base32.isBase32(secret) && secret != ''),
-        assert(digits == 6 || digits == 8),
-        assert(period > 0),
-        assert(algorithm == 'sha1' ||
-            algorithm == 'sha256' ||
-            algorithm == "sha512");
+        assert(digits >= 6),
+        assert(period > 0);
 
   /// ID of item
   final String id;
@@ -40,13 +37,13 @@ class TOTPItem {
   final int period;
 
   /// Algorithm (sha1/sha256/sha512)
-  final String algorithm;
+  final OtpHashAlgorithm algorithm;
 
   /// Creates a new TOTP item.
   static TOTPItem newTOTPItem(String secret,
       [int digits = 6,
       int period = 60,
-      String algorithm = "sha1",
+      OtpHashAlgorithm algorithm = OtpHashAlgorithm.sha1,
       String issuer = "",
       String accountName = ""]) {
     String id = Uuid().v4();
@@ -55,7 +52,7 @@ class TOTPItem {
 
   /// Parses a TOTP key URI and returns a TOTPItem.
   static TOTPItem fromUri(String uri) {
-    return TOTPUri.parseURI(uri);
+    return OtpUri.fromUri(uri);
   }
 
   /// Generates a formatted TOTP value for the given [time].

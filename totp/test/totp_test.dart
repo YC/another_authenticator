@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:another_authenticator_totp/totp.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
-import 'package:another_authenticator_totp/totp_uri.dart';
+import 'package:another_authenticator_totp/otp_uri.dart';
 
 void main() {
   // https://datatracker.ietf.org/doc/html/rfc4648#section-10
@@ -19,7 +19,7 @@ void main() {
   });
 
   test('TOTP - Key URI 1', () {
-    var parsed = TOTPUri.parseURI(
+    var parsed = OtpUri.fromUri(
         "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example");
     expect(parsed.accountName, "alice@example.com");
     expect(parsed.algorithm, "sha1");
@@ -30,7 +30,7 @@ void main() {
   });
 
   test('TOTP - Key URI Complete', () {
-    var parsed = TOTPUri.parseURI(
+    var parsed = OtpUri.fromUri(
         "otpauth://totp/ACME%20Co:john.doe@email.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA1&digits=6&period=30");
     expect(parsed.accountName, "john.doe@email.com");
     expect(parsed.algorithm, "sha1");
@@ -42,7 +42,7 @@ void main() {
 
   test('TOTP - Bad Key URI', () {
     expect(
-        () => TOTPUri.parseURI(
+        () => OtpUri.fromUri(
             "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12"),
         throwsA(allOf(
             isFormatException,
@@ -77,7 +77,7 @@ void main() {
     var secret = "A";
     var digits = 8;
     var period = 60;
-    var algorithm = "sha256";
+    var algorithm = OtpHashAlgorithm.sha256;
     var issuer = "bar";
     var accountName = "foo@bar";
     var item =
