@@ -15,7 +15,7 @@ class TOTPItem {
       this.issuer = "",
       this.accountName = ""])
       : assert(Base32.isBase32(secret) && secret != ''),
-        assert(digits >= 6),
+        assert(digits == 6 || digits == 8),
         assert(period > 0);
 
   /// ID of item

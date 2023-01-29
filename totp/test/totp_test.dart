@@ -22,7 +22,7 @@ void main() {
     var parsed = OtpUri.fromUri(
         "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example");
     expect(parsed.accountName, "alice@example.com");
-    expect(parsed.algorithm, "sha1");
+    expect(parsed.algorithm, OtpHashAlgorithm.sha1);
     expect(parsed.digits, 6);
     expect(parsed.issuer, "Example");
     expect(parsed.period, 30);
@@ -33,7 +33,7 @@ void main() {
     var parsed = OtpUri.fromUri(
         "otpauth://totp/ACME%20Co:john.doe@email.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA1&digits=6&period=30");
     expect(parsed.accountName, "john.doe@email.com");
-    expect(parsed.algorithm, "sha1");
+    expect(parsed.algorithm, OtpHashAlgorithm.sha1);
     expect(parsed.digits, 6);
     expect(parsed.issuer, "ACME Co");
     expect(parsed.period, 30);
@@ -48,6 +48,17 @@ void main() {
             isFormatException,
             predicate((e) =>
                 e is FormatException && e.message == "Incorrect parameters"))));
+  });
+
+  test('TOTP - Bad Algorithm', () {
+    expect(
+        () => OtpUri.fromUri(
+            "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12&algorithm=sha??"),
+        throwsA(allOf(
+            isFormatException,
+            predicate((e) =>
+                e is FormatException &&
+                e.message == "Unrecognised algorithm"))));
   });
 
   test('TOTP - 1542791843', () {
