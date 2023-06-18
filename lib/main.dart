@@ -24,7 +24,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   // Stores state of app
-  AppState appState;
+  AppState? appState;
 
   @override
   void initState() {
@@ -54,17 +54,16 @@ class _AppState extends State<App> {
     if (platform == TargetPlatform.android) {
       // Android (Material Design)
       return MaterialApp(
-        onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
         theme: ThemeData(
           useMaterial3: true,
           primarySwatch: Colors.blue,
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => AndroidHomePage(
-              appState == null ? null : appState.items, addItem),
+          '/': (context) => AndroidHomePage(appState?.items, addItem),
           '/edit': (context) => AndroidEditPage(
-              appState == null ? null : List<TotpItem>.from(appState.items),
+              appState == null ? null : List<TotpItem>.from(appState!.items),
               itemsChanged,
               replaceItems),
           '/add': (context) => AddPage(addItem),
@@ -78,14 +77,13 @@ class _AppState extends State<App> {
     } else if (platform == TargetPlatform.iOS) {
       // iOS (Cupertino)
       return CupertinoApp(
-        onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
         initialRoute: '/',
         theme: CupertinoThemeData(brightness: Brightness.light),
         routes: {
-          '/': (context) => CupertinoHomePage(
-              appState == null ? null : appState.items, addItem),
+          '/': (context) => CupertinoHomePage(appState?.items, addItem),
           '/edit': (context) => CupertinoEditPage(
-              appState == null ? null : List<TotpItem>.from(appState.items),
+              appState == null ? null : List<TotpItem>.from(appState!.items),
               itemsChanged,
               replaceItems),
           '/add': (context) => AddPage(addItem),
@@ -104,21 +102,21 @@ class _AppState extends State<App> {
   // Adds a TOTP item to the list
   void addItem(TotpItem item) {
     setState(() {
-      appState.addItem(item);
+      appState!.addItem(item);
     });
-    widget.repository.saveState(appState.items);
+    widget.repository.saveState(appState!.items);
   }
 
   // Replace items in state and save
   void replaceItems(List<TotpItem> items) {
     setState(() {
-      appState.replaceItems(items);
+      appState!.replaceItems(items);
     });
-    widget.repository.saveState(appState.items);
+    widget.repository.saveState(appState!.items);
   }
 
   // Whether items have changed
   bool itemsChanged(List<TotpItem> items) {
-    return !const ListEquality().equals(appState.items, items);
+    return !const ListEquality().equals(appState!.items, items);
   }
 }

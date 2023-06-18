@@ -6,7 +6,7 @@ import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 /// Item for edit page (Cupertino).
 class EditListItem extends StatefulWidget {
   EditListItem(this.item, this.addRemovalItem, this.removeRemovalItem,
-      {Key key})
+      {Key? key})
       : super(key: key);
 
   final TotpItem item;
@@ -46,7 +46,7 @@ class _EditListItem extends State<EditListItem> {
 
                     // Set checkbox state
                     setState(() {
-                      _value = e;
+                      _value = e!;
                     });
                   },
                   value: _value,

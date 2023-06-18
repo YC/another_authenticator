@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: Text(AppLocalizations.of(context).settingsTitle),
+      title: Text(AppLocalizations.of(context)!.settingsTitle),
       body: Column(
         children: <Widget>[
           // App Info
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                       // Name
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 7),
-                          child: Text(AppLocalizations.of(context).appName,
+                          child: Text(AppLocalizations.of(context)!.appName,
                               style: const TextStyle(fontSize: 25))),
                       // Version of app
                       FutureBuilder(
@@ -51,10 +51,10 @@ class SettingsPage extends StatelessWidget {
                         builder: (BuildContext context,
                             AsyncSnapshot<PackageInfo> snapshot) {
                           if (snapshot.hasData) {
-                            return Text(snapshot.data.version,
+                            return Text(snapshot.data!.version,
                                 style: const TextStyle(fontSize: 14));
                           }
-                          return Text(AppLocalizations.of(context).loading);
+                          return Text(AppLocalizations.of(context)!.loading);
                         },
                       ),
                     ],
@@ -73,7 +73,7 @@ class SettingsPage extends StatelessWidget {
                 ListTile(
                     dense: true,
                     leading: const Icon(Icons.code),
-                    title: Text(AppLocalizations.of(context).source,
+                    title: Text(AppLocalizations.of(context)!.source,
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
                       launchURL(Constants.REPO);
@@ -84,7 +84,7 @@ class SettingsPage extends StatelessWidget {
                   leading: isPlatformAndroid()
                       ? const Icon(Icons.book)
                       : const Icon(CupertinoIcons.book),
-                  title: Text(AppLocalizations.of(context).licenses,
+                  title: Text(AppLocalizations.of(context)!.licenses,
                       style: const TextStyle(fontSize: 15)),
                   onTap: () {
                     Navigator.of(context)

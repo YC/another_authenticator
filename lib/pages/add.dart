@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Page for adding accounts.
 class AddPage extends StatefulWidget {
-  AddPage(this.addItem, {Key key}) : super(key: key);
+  AddPage(this.addItem, {Key? key}) : super(key: key);
 
   // Adds an item
   final Function addItem;
@@ -61,20 +61,21 @@ class _AddPageState extends State<AddPage> {
       widget.addItem(item);
       Navigator.pop(context);
     } catch (e) {
-      var errMessage = e.message;
-      if (e.message == 'DUPLICATE_ACCOUNT') {
-        errMessage = AppLocalizations.of(context).errDuplicateAccount;
-      } else if (e.message == 'ID_COLLISION') {
-        errMessage = AppLocalizations.of(context).errIdCollision;
+      // TODO: Fix exception handling
+      var errMessage = e.toString();
+      if (e.toString().contains('DUPLICATE_ACCOUNT')) {
+        errMessage = AppLocalizations.of(context)!.errDuplicateAccount;
+      } else if (e.toString().contains('ID_COLLISION')) {
+        errMessage = AppLocalizations.of(context)!.errIdCollision;
       }
 
       showAdaptiveDialog(
         context,
-        title: Text(AppLocalizations.of(context).error),
+        title: Text(AppLocalizations.of(context)!.error),
         content: Text(errMessage),
         actions: [
           AdaptiveDialogAction(
-              child: Text(AppLocalizations.of(context).ok),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: Navigator.of(context).pop)
         ],
       );
@@ -90,17 +91,17 @@ class _AddPageState extends State<AddPage> {
   // Handle add action
   void handleAdd() {
     // Validate
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     // No iOS validator, so may need to recheck and fail
     if (!secretFieldValid()) {
       showAdaptiveDialog(context,
-          title: Text(AppLocalizations.of(context).error),
-          content: Text(AppLocalizations.of(context).secretInvalidMessage),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(AppLocalizations.of(context)!.secretInvalidMessage),
           actions: [
             AdaptiveDialogAction(
-                child: Text(AppLocalizations.of(context).ok),
+                child: Text(AppLocalizations.of(context)!.ok),
                 onPressed: Navigator.of(context).pop)
           ]);
       return;
@@ -134,12 +135,12 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: Text(AppLocalizations.of(context).addTitle),
+      title: Text(AppLocalizations.of(context)!.addTitle),
       cupertinoNavigationBar: CupertinoNavigationBar(
-          middle: Text(AppLocalizations.of(context).addTitle),
+          middle: Text(AppLocalizations.of(context)!.addTitle),
           trailing: CupertinoButton(
               padding: const EdgeInsets.all(0),
-              child: Text(AppLocalizations.of(context).add),
+              child: Text(AppLocalizations.of(context)!.add),
               onPressed: handleAdd)),
       body: Form(
         key: _formKey,
@@ -158,9 +159,9 @@ class _AddPageState extends State<AddPage> {
                           : AutovalidateMode.disabled,
                       validator: (value) => secretFieldValid()
                           ? null
-                          : AppLocalizations.of(context).secretInvalidMessage,
+                          : AppLocalizations.of(context)!.secretInvalidMessage,
                       decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).secret),
+                          labelText: AppLocalizations.of(context)!.secret),
                     )
                   : CupertinoTextField(
                       controller: _secretController,
@@ -168,7 +169,7 @@ class _AddPageState extends State<AddPage> {
                       autocorrect: false,
                       decoration: _boxDecoration,
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context).secret),
+                      prefix: Text(AppLocalizations.of(context)!.secret),
                       textAlign: TextAlign.right),
               // Provider
               isPlatformAndroid()
@@ -176,7 +177,7 @@ class _AddPageState extends State<AddPage> {
                       controller: _issuerController,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).issuer,
+                          labelText: AppLocalizations.of(context)!.issuer,
                           hintText: 'Example Service'),
                     )
                   : CupertinoTextField(
@@ -184,7 +185,7 @@ class _AddPageState extends State<AddPage> {
                       textCapitalization: TextCapitalization.words,
                       decoration: _boxDecoration,
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context).issuer),
+                      prefix: Text(AppLocalizations.of(context)!.issuer),
                       textAlign: TextAlign.right),
               // Account name
               isPlatformAndroid()
@@ -192,7 +193,7 @@ class _AddPageState extends State<AddPage> {
                       controller: _accountNameController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).accountName,
+                          labelText: AppLocalizations.of(context)!.accountName,
                           hintText: 'user@example.com'),
                     )
                   : CupertinoTextField(
@@ -200,14 +201,14 @@ class _AddPageState extends State<AddPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: _boxDecoration,
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context).accountName),
+                      prefix: Text(AppLocalizations.of(context)!.accountName),
                       textAlign: TextAlign.right),
               // # of digits
               isPlatformAndroid()
                   ? InputDecorator(
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 15),
-                          labelText: AppLocalizations.of(context).digits,
+                          labelText: AppLocalizations.of(context)!.digits,
                           border: InputBorder.none,
                           labelStyle: const TextStyle(fontSize: 20)),
                       child: DropdownButton(
@@ -227,7 +228,7 @@ class _AddPageState extends State<AddPage> {
                       decoration: _boxDecoration,
                       child: ListBody(children: [
                         Padding(
-                            child: Text(AppLocalizations.of(context).digits),
+                            child: Text(AppLocalizations.of(context)!.digits),
                             padding: const EdgeInsets.only(bottom: 8)),
                         CupertinoSegmentedControl(
                           groupValue: _digits.toString(),
@@ -247,7 +248,7 @@ class _AddPageState extends State<AddPage> {
                   ? InputDecorator(
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 10),
-                          labelText: AppLocalizations.of(context).period,
+                          labelText: AppLocalizations.of(context)!.period,
                           border: InputBorder.none,
                           labelStyle: const TextStyle(fontSize: 20)),
                       child: DropdownButton(
@@ -269,7 +270,7 @@ class _AddPageState extends State<AddPage> {
                       decoration: _boxDecoration,
                       child: ListBody(children: [
                         Padding(
-                            child: Text(AppLocalizations.of(context).period),
+                            child: Text(AppLocalizations.of(context)!.period),
                             padding: const EdgeInsets.only(bottom: 8)),
                         CupertinoSegmentedControl(
                           groupValue: _period.toString(),
@@ -289,7 +290,7 @@ class _AddPageState extends State<AddPage> {
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: ElevatedButton(
-                        child: Text(AppLocalizations.of(context).add),
+                        child: Text(AppLocalizations.of(context)!.add),
                         onPressed: handleAdd,
                       ))
                   : Container()

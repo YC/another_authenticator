@@ -8,16 +8,16 @@ import './edit_list_item.dart' show EditListItem;
 /// Cupertino edit page.
 class CupertinoEditPage extends StatefulWidget {
   CupertinoEditPage(this.items, this._itemsChanged, this.replaceItems,
-      {Key key})
+      {Key? key})
       : super(key: key);
 
   final Function replaceItems;
   final Function _itemsChanged;
-  final List<TotpItem> items;
+  final List<TotpItem>? items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {
-    items.removeWhere((item) => itemIDs.contains(item.id));
+    items!.removeWhere((item) => itemIDs.contains(item.id));
   }
 
   // Whether items have changed
@@ -36,7 +36,7 @@ class _EditPageState extends State<CupertinoEditPage> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      widget.items.insert(newIndex, widget.items.removeAt(oldIndex));
+      widget.items!.insert(newIndex, widget.items!.removeAt(oldIndex));
       _refreshHide();
     });
   }
@@ -73,16 +73,16 @@ class _EditPageState extends State<CupertinoEditPage> {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context).removeAccounts),
-              content: Text(AppLocalizations.of(context).removeConfirmation),
+              title: Text(AppLocalizations.of(context)!.removeAccounts),
+              content: Text(AppLocalizations.of(context)!.removeConfirmation),
               actions: [
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).cancel),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
                 CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context).ok),
+                  child: Text(AppLocalizations.of(context)!.ok),
                   onPressed: () {
                     setState(() {
                       widget.removeItems(_pendingRemovalList);
@@ -105,16 +105,16 @@ class _EditPageState extends State<CupertinoEditPage> {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context).exitEditTitle),
-              content: Text(AppLocalizations.of(context).exitEditInfo),
+              title: Text(AppLocalizations.of(context)!.exitEditTitle),
+              content: Text(AppLocalizations.of(context)!.exitEditInfo),
               actions: [
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).cancel),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
                 CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context).ok),
+                  child: Text(AppLocalizations.of(context)!.ok),
                   onPressed: () {
                     Navigator.of(context).popUntil(ModalRoute.withName('/'));
                   },
@@ -131,7 +131,7 @@ class _EditPageState extends State<CupertinoEditPage> {
         onWillPop: _popCallback,
         child: CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-                middle: Text(AppLocalizations.of(context).editTitle),
+                middle: Text(AppLocalizations.of(context)!.editTitle),
                 trailing:
                     Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                   // Trash Icon
@@ -164,7 +164,7 @@ class _EditPageState extends State<CupertinoEditPage> {
                       })
                 ])),
             child: widget.items == null
-                ? Center(child: Text(AppLocalizations.of(context).loading))
+                ? Center(child: Text(AppLocalizations.of(context)!.loading))
                 : SafeArea(
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 5),
@@ -174,7 +174,7 @@ class _EditPageState extends State<CupertinoEditPage> {
                             : CupertinoColors.darkBackgroundGray,
                         child: ReorderableListView(
                             scrollDirection: Axis.vertical,
-                            children: widget.items
+                            children: widget.items!
                                 .map((item) => EditListItem(
                                     item, addRemovalItem, removeRemovalItem,
                                     key: Key(item.id)))

@@ -9,7 +9,7 @@ import 'package:barcode_scan2/barcode_scan2.dart' show BarcodeScanner;
 
 /// Page for adding accounts by scanning QR.
 class ScanQRPage extends StatefulWidget {
-  const ScanQRPage({Key key}) : super(key: key);
+  const ScanQRPage({Key? key}) : super(key: key);
 
   @override
   _ScanQRPageState createState() => _ScanQRPageState();
@@ -32,11 +32,11 @@ class _ScanQRPageState extends State<ScanQRPage> {
       } catch (e) {
         await showAdaptiveDialog(
           context,
-          title: Text(AppLocalizations.of(context).error),
-          content: Text(e.message),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(e.toString()),
           actions: [
             AdaptiveDialogAction(
-              child: Text(AppLocalizations.of(context).ok),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 // Pop dialog
                 Navigator.of(context).pop();
@@ -53,7 +53,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: Text(AppLocalizations.of(context).addScanQR),
+      title: Text(AppLocalizations.of(context)!.addScanQR),
       body: const Center(),
     );
   }
@@ -66,14 +66,15 @@ class _ScanQRPageState extends State<ScanQRPage> {
       return barcode.rawContent;
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.cameraAccessDenied) {
-        return Future.error(AppLocalizations.of(context).errNoCameraPermission);
+        return Future.error(
+            AppLocalizations.of(context)!.errNoCameraPermission);
       } else {
-        return Future.error('${AppLocalizations.of(context).errUnknown} $e');
+        return Future.error('${AppLocalizations.of(context)!.errUnknown} $e');
       }
     } on FormatException {
-      return Future.error(AppLocalizations.of(context).errIncorrectFormat);
+      return Future.error(AppLocalizations.of(context)!.errIncorrectFormat);
     } catch (e) {
-      return Future.error('${AppLocalizations.of(context).errUnknown} $e');
+      return Future.error('${AppLocalizations.of(context)!.errUnknown} $e');
     }
   }
 }

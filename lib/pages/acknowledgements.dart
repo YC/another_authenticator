@@ -34,7 +34,7 @@ class AcknowledgementsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: Text(AppLocalizations.of(context).licenses),
+      title: Text(AppLocalizations.of(context)!.licenses),
       body: Material(
         // color: getScaffoldColor(context),
         child: ListView.separated(
@@ -44,14 +44,14 @@ class AcknowledgementsPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               dense: true,
-              title: Text(_libs[index]['title']),
+              title: Text(_libs[index]['title']!),
               onTap: () {
                 if (_libs[index]['path'] != null) {
-                  rootBundle.loadString(_libs[index]['path']).then((text) {
+                  rootBundle.loadString(_libs[index]['path']!).then((text) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => FullScreenLicense(
-                            _libs[index]['title'], text.trim()),
+                            _libs[index]['title']!, text.trim()),
                       ),
                     );
                   }).catchError((_) => {});

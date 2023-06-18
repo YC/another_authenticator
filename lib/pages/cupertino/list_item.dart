@@ -10,7 +10,7 @@ import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Cupertino).
 class HomeListItem extends TOTPListItemBase {
-  HomeListItem(TotpItem item, {Key key}) : super(item, key: key);
+  HomeListItem(TotpItem item, {Key? key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();
@@ -22,11 +22,11 @@ class _TOTPListItemState extends State<HomeListItem>
   static const double _PROGRESS_INDICATOR_DIMENSION = 25;
 
   // Animation for indicator/code
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   // Code that is being displayed
-  String _code;
+  String _code = "";
 
   @override
   void dispose() {
@@ -103,12 +103,13 @@ class _TOTPListItemState extends State<HomeListItem>
                             ]),
                         Positioned(
                             child: AnimatedBuilder(
-                                animation: _animation,
-                                builder: (BuildContext context, Widget child) =>
-                                    CircularProgressIndicator(
-                                      value: _animation.value,
-                                      strokeWidth: 2.5,
-                                    )),
+                              animation: _animation,
+                              builder: (BuildContext context, Widget? child) =>
+                                  CircularProgressIndicator(
+                                value: _animation.value,
+                                strokeWidth: 2.5,
+                              ),
+                            ),
                             right: 0,
                             bottom: 0,
                             height: _PROGRESS_INDICATOR_DIMENSION,

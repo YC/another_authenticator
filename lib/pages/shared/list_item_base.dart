@@ -5,7 +5,7 @@ import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 ///
 /// Contains useful methods which are used to display the item.
 abstract class TOTPListItemBase extends StatefulWidget {
-  TOTPListItemBase(this.item, {Key key});
+  TOTPListItemBase(this.item, {Key? key});
 
   /// The item/account that is displayed.
   final TotpItem item;

@@ -5,13 +5,13 @@ import './list_item.dart';
 
 /// Cupertino version of home page.
 class CupertinoHomePage extends StatefulWidget {
-  CupertinoHomePage(this.items, this.addItem, {Key key}) : super(key: key);
+  CupertinoHomePage(this.items, this.addItem, {Key? key}) : super(key: key);
 
   /// Adds an item
   final Function addItem;
 
   /// List of TOTP items
-  final List<TotpItem> items;
+  final List<TotpItem>? items;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -32,10 +32,10 @@ class _HomePageState extends State<CupertinoHomePage> {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context).loading),
+              child: Text(AppLocalizations.of(context)!.loading),
             ),
           ));
-    } else if (widget.items.length == 0) {
+    } else if (widget.items!.length == 0) {
       // No Items
       return Container(
           color: backgroundColour,
@@ -43,7 +43,7 @@ class _HomePageState extends State<CupertinoHomePage> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                AppLocalizations.of(context).noAccounts,
+                AppLocalizations.of(context)!.noAccounts,
                 textAlign: TextAlign.center,
                 style: const TextStyle(height: 1.2),
               ),
@@ -55,9 +55,9 @@ class _HomePageState extends State<CupertinoHomePage> {
       color: backgroundColour,
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: ListView.builder(
-        itemCount: widget.items.length,
+        itemCount: widget.items!.length,
         itemBuilder: (BuildContext context, int index) {
-          var item = widget.items[index];
+          var item = widget.items![index];
           return HomeListItem(item, key: Key(item.id));
         },
       ),
@@ -71,11 +71,11 @@ class _HomePageState extends State<CupertinoHomePage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-          title: Text(AppLocalizations.of(context).addTitle),
-          message: Text(AppLocalizations.of(context).addMethodPrompt),
+          title: Text(AppLocalizations.of(context)!.addTitle),
+          message: Text(AppLocalizations.of(context)!.addMethodPrompt),
           actions: <Widget>[
             CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context).addScanQR),
+              child: Text(AppLocalizations.of(context)!.addScanQR),
               onPressed: () {
                 Navigator.pop(context);
                 final item = Navigator.pushNamed(context, "/add/scan");
@@ -83,7 +83,7 @@ class _HomePageState extends State<CupertinoHomePage> {
               },
             ),
             CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context).addManualInput),
+              child: Text(AppLocalizations.of(context)!.addManualInput),
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "/add");
@@ -91,7 +91,7 @@ class _HomePageState extends State<CupertinoHomePage> {
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context).cancel),
+            child: Text(AppLocalizations.of(context)!.cancel),
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context, 'Cancel');
@@ -139,7 +139,7 @@ class _HomePageState extends State<CupertinoHomePage> {
               _showAddModal(context);
             },
           ),
-          middle: Text(AppLocalizations.of(context).appName)),
+          middle: Text(AppLocalizations.of(context)!.appName)),
       child: _buildList(),
     );
   }

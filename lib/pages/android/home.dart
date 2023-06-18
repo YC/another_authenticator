@@ -7,13 +7,13 @@ import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
 class AndroidHomePage extends StatefulWidget {
-  AndroidHomePage(this.items, this.addItem, {Key key}) : super(key: key);
+  AndroidHomePage(this.items, this.addItem, {Key? key}) : super(key: key);
 
   /// Adds an item
   final Function addItem;
 
   /// List of TOTP items
-  final List<TotpItem> items;
+  final List<TotpItem>? items;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,13 +27,13 @@ class _HomePageState extends State<AndroidHomePage> {
       return Center(
           child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context).loading)));
-    } else if (widget.items.length == 0) {
+              child: Text(AppLocalizations.of(context)!.loading)));
+    } else if (widget.items!.length == 0) {
       // No Items
       return Center(
           child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context).noAccounts,
+              child: Text(AppLocalizations.of(context)!.noAccounts,
                   textAlign: TextAlign.center,
                   style: const TextStyle(height: 1.2))));
     }
@@ -41,9 +41,9 @@ class _HomePageState extends State<AndroidHomePage> {
     return Container(
       margin: const EdgeInsets.all(10),
       child: ListView.builder(
-        itemCount: widget.items.length,
+        itemCount: widget.items!.length,
         itemBuilder: (BuildContext context, int index) {
-          var item = widget.items[index];
+          var item = widget.items![index];
           return HomeListItem(item, key: Key(item.id));
         },
       ),
@@ -63,7 +63,7 @@ class _HomePageState extends State<AndroidHomePage> {
             children: <Widget>[
               // Scan QR
               ListTile(
-                title: Text(AppLocalizations.of(context).addScanQR),
+                title: Text(AppLocalizations.of(context)!.addScanQR),
                 leading: const Icon(Icons.camera_alt),
                 onTap: () async {
                   Navigator.pop(context);
@@ -73,7 +73,7 @@ class _HomePageState extends State<AndroidHomePage> {
               ),
               // Add account manually
               ListTile(
-                title: Text(AppLocalizations.of(context).addManualInput),
+                title: Text(AppLocalizations.of(context)!.addManualInput),
                 leading: const Icon(Icons.keyboard_return),
                 onTap: () {
                   Navigator.pop(context);
@@ -101,17 +101,17 @@ class _HomePageState extends State<AndroidHomePage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context).appName,
+                  Text(AppLocalizations.of(context)!.appName,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize:
-                              Theme.of(context).textTheme.headline6.fontSize)),
+                              Theme.of(context).textTheme.headline6!.fontSize)),
                 ],
               ),
             ),
             // Settings
             ListTile(
-                title: Text(AppLocalizations.of(context).settingsTitle),
+                title: Text(AppLocalizations.of(context)!.settingsTitle),
                 leading: const Icon(Icons.settings),
                 dense: true,
                 onTap: () {
@@ -121,7 +121,7 @@ class _HomePageState extends State<AndroidHomePage> {
             Divider(height: 10),
             // Source code (in-app browser link)
             ListTile(
-                title: Text(AppLocalizations.of(context).source),
+                title: Text(AppLocalizations.of(context)!.source),
                 leading: const Icon(Icons.code),
                 dense: true,
                 onTap: () {
@@ -130,7 +130,7 @@ class _HomePageState extends State<AndroidHomePage> {
                 }),
             // License
             ListTile(
-              title: Text(AppLocalizations.of(context).licenses),
+              title: Text(AppLocalizations.of(context)!.licenses),
               leading: const Icon(Icons.book),
               dense: true,
               onTap: () {
@@ -142,12 +142,12 @@ class _HomePageState extends State<AndroidHomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).appName),
+        title: Text(AppLocalizations.of(context)!.appName),
         actions: <Widget>[
           // Edit
           IconButton(
             icon: const Icon(Icons.edit),
-            tooltip: AppLocalizations.of(context).edit,
+            tooltip: AppLocalizations.of(context)!.edit,
             onPressed: () {
               Navigator.pushNamed(context, '/edit');
             },
@@ -155,7 +155,7 @@ class _HomePageState extends State<AndroidHomePage> {
           // Add
           IconButton(
             icon: const Icon(Icons.add),
-            tooltip: AppLocalizations.of(context).add,
+            tooltip: AppLocalizations.of(context)!.add,
             onPressed: () {
               showAddModal(context);
             },

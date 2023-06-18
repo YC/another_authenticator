@@ -12,18 +12,18 @@ import './adaptive_base.dart' show AdaptiveBase;
 import './adaptive.dart' show getPlatform;
 
 class AdaptiveAndroidDialogActionData {
-  final Key key;
-  final VoidCallback onPressed;
-  final Widget child;
+  final Key? key;
+  final VoidCallback? onPressed;
+  final Widget? child;
 
   AdaptiveAndroidDialogActionData(
       {this.key, @required this.onPressed, @required this.child});
 }
 
 class AdaptiveCupertinoDialogActionData {
-  final VoidCallback onPressed;
-  final TextStyle textStyle;
-  final Widget child;
+  final VoidCallback? onPressed;
+  final TextStyle? textStyle;
+  final Widget? child;
 
   AdaptiveCupertinoDialogActionData(
       {this.onPressed, this.textStyle, @required this.child});
@@ -31,16 +31,16 @@ class AdaptiveCupertinoDialogActionData {
 
 class AdaptiveDialogAction
     extends AdaptiveBase<TextButton, CupertinoDialogAction> {
-  final AdaptiveAndroidDialogActionData androidData;
-  final AdaptiveCupertinoDialogActionData cupertinoData;
+  final AdaptiveAndroidDialogActionData? androidData;
+  final AdaptiveCupertinoDialogActionData? cupertinoData;
   final VoidCallback onPressed;
   final Widget child;
 
   AdaptiveDialogAction(
       {this.androidData,
       this.cupertinoData,
-      @required this.onPressed,
-      @required this.child});
+      required this.onPressed,
+      required this.child});
 
   TextButton createAndroidWidget(BuildContext context) {
     return TextButton(
@@ -60,12 +60,12 @@ class AdaptiveDialogAction
 
 /// Android alert dialog data
 class AdaptiveAndroidAlertDialogData {
-  final Key key;
-  final Widget title;
-  final EdgeInsetsGeometry titlePadding;
-  final Widget content;
-  final EdgeInsetsGeometry contentPadding;
-  final List<Widget> actions;
+  final Key? key;
+  final Widget? title;
+  final EdgeInsetsGeometry? titlePadding;
+  final Widget? content;
+  final EdgeInsetsGeometry? contentPadding;
+  final List<Widget>? actions;
 
   AdaptiveAndroidAlertDialogData(
       {this.key,
@@ -78,22 +78,22 @@ class AdaptiveAndroidAlertDialogData {
 
 /// Cupertino alert dialog data
 class AdaptiveCupertinoAlertDialogData {
-  final Key key;
-  final Widget title;
-  final Widget content;
-  final List<Widget> actions;
+  final Key? key;
+  final Widget? title;
+  final Widget? content;
+  final List<Widget>? actions;
 
   AdaptiveCupertinoAlertDialogData(
       {this.key, this.title, this.content, this.actions});
 }
 
-Future<T> showAdaptiveDialog<T>(BuildContext context,
-    {Key key,
-    Widget title,
-    Widget content,
-    List<Widget> actions,
-    AdaptiveAndroidAlertDialogData androidData,
-    AdaptiveCupertinoAlertDialogData cupertinoData}) {
+Future<dynamic> showAdaptiveDialog<T>(BuildContext context,
+    {Key? key,
+    Widget? title,
+    Widget? content,
+    List<Widget>? actions,
+    AdaptiveAndroidAlertDialogData? androidData,
+    AdaptiveCupertinoAlertDialogData? cupertinoData}) {
   var platform = getPlatform();
   if (platform == TargetPlatform.android) {
     return showDialog(
@@ -117,7 +117,7 @@ Future<T> showAdaptiveDialog<T>(BuildContext context,
             key: key ?? cupertinoData?.key,
             title: title ?? cupertinoData?.title,
             content: content ?? cupertinoData?.content,
-            actions: actions ?? cupertinoData?.actions,
+            actions: actions ?? cupertinoData?.actions ?? [],
           );
         });
   }

@@ -6,16 +6,16 @@ import './edit_list_item.dart' show EditListItem;
 
 /// Android edit page.
 class AndroidEditPage extends StatefulWidget {
-  AndroidEditPage(this.items, this._itemsChanged, this.replaceItems, {Key key})
+  AndroidEditPage(this.items, this._itemsChanged, this.replaceItems, {Key? key})
       : super(key: key);
 
   final Function replaceItems;
   final Function _itemsChanged;
-  final List<TotpItem> items;
+  final List<TotpItem>? items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {
-    items.removeWhere((item) => itemIDs.contains(item.id));
+    items!.removeWhere((item) => itemIDs.contains(item.id));
   }
 
   // Whether items have changed
@@ -34,7 +34,7 @@ class _EditPageState extends State<AndroidEditPage> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      widget.items.insert(newIndex, widget.items.removeAt(oldIndex));
+      widget.items!.insert(newIndex, widget.items!.removeAt(oldIndex));
       _refreshHide();
     });
   }
@@ -71,16 +71,16 @@ class _EditPageState extends State<AndroidEditPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text(AppLocalizations.of(context).removeAccounts),
-              content: Text(AppLocalizations.of(context).removeConfirmation),
+              title: Text(AppLocalizations.of(context)!.removeAccounts),
+              content: Text(AppLocalizations.of(context)!.removeConfirmation),
               actions: [
                 TextButton(
-                    child: Text(AppLocalizations.of(context).no),
+                    child: Text(AppLocalizations.of(context)!.no),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
                 TextButton(
-                  child: Text(AppLocalizations.of(context).yes,
+                  child: Text(AppLocalizations.of(context)!.yes,
                       style: const TextStyle(color: Colors.red)),
                   onPressed: () {
                     setState(() {
@@ -104,17 +104,17 @@ class _EditPageState extends State<AndroidEditPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(AppLocalizations.of(context).exitEditTitle),
-            content: Text(AppLocalizations.of(context).exitEditInfo),
+            title: Text(AppLocalizations.of(context)!.exitEditTitle),
+            content: Text(AppLocalizations.of(context)!.exitEditInfo),
             actions: [
               TextButton(
-                child: Text(AppLocalizations.of(context).no),
+                child: Text(AppLocalizations.of(context)!.no),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: Text(AppLocalizations.of(context).yes,
+                child: Text(AppLocalizations.of(context)!.yes,
                     style: const TextStyle(color: Colors.red)),
                 onPressed: () {
                   Navigator.of(context).popUntil(ModalRoute.withName('/'));
@@ -133,7 +133,7 @@ class _EditPageState extends State<AndroidEditPage> {
       onWillPop: _popCallback,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).editTitle),
+          title: Text(AppLocalizations.of(context)!.editTitle),
           actions: <Widget>[
             // Save
             ValueListenableBuilder<bool>(
@@ -144,7 +144,7 @@ class _EditPageState extends State<AndroidEditPage> {
                   } else {
                     return IconButton(
                         icon: const Icon(Icons.check),
-                        tooltip: AppLocalizations.of(context).save,
+                        tooltip: AppLocalizations.of(context)!.save,
                         onPressed: () {
                           widget.replaceItems(widget.items);
                           Navigator.pop(context);
@@ -154,13 +154,13 @@ class _EditPageState extends State<AndroidEditPage> {
           ],
         ),
         body: widget.items == null
-            ? Center(child: Text(AppLocalizations.of(context).loading))
+            ? Center(child: Text(AppLocalizations.of(context)!.loading))
             : Container(
                 margin: const EdgeInsets.all(10),
                 child: ReorderableListView(
                     padding: const EdgeInsets.all(0),
                     scrollDirection: Axis.vertical,
-                    children: widget.items
+                    children: widget.items!
                         .map((item) => EditListItem(
                             item, addRemovalItem, removeRemovalItem,
                             key: Key(item.id)))
@@ -185,7 +185,7 @@ class _EditPageState extends State<AndroidEditPage> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(AppLocalizations.of(context).removeAccounts,
+                      child: Text(AppLocalizations.of(context)!.removeAccounts,
                           style: const TextStyle(color: Colors.redAccent)),
                     ),
                   ),

@@ -6,7 +6,7 @@ import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Android).
 class HomeListItem extends TOTPListItemBase {
-  HomeListItem(TotpItem item, {Key key}) : super(item, key: key);
+  HomeListItem(TotpItem item, {required Key key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();
@@ -18,11 +18,11 @@ class _TOTPListItemState extends State<HomeListItem>
   static const double _PROGRESS_INDICATOR_DIMENSION = 25;
 
   // Animation for indicator/code
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   // Code that is being displayed
-  String _code;
+  String _code = "";
 
   @override
   void dispose() {
@@ -73,7 +73,7 @@ class _TOTPListItemState extends State<HomeListItem>
                       ClipboardData(text: widget.codeUnformatted));
                   ScaffoldMessenger.of(context).removeCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(AppLocalizations.of(context).clipboard),
+                      content: Text(AppLocalizations.of(context)!.clipboard),
                       duration: const Duration(seconds: 1)));
                 },
                 child: Padding(
@@ -108,7 +108,7 @@ class _TOTPListItemState extends State<HomeListItem>
                                 child: AnimatedBuilder(
                                     animation: _animation,
                                     builder:
-                                        (BuildContext context, Widget child) =>
+                                        (BuildContext context, Widget? child) =>
                                             CircularProgressIndicator(
                                               value: _animation.value,
                                               strokeWidth: 2.5,

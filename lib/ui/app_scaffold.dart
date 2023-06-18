@@ -6,13 +6,14 @@ import './adaptive.dart';
 
 /// Basic scaffold for app.
 class AppScaffold extends StatelessWidget {
-  final Key key;
-  final Widget title;
+  final Key? key;
+  final Widget? title;
   final Widget body;
-  final CupertinoNavigationBar cupertinoNavigationBar;
+  final CupertinoNavigationBar? cupertinoNavigationBar;
 
   /// Creates an adaptive scaffold with given attributes.
-  AppScaffold({this.key, this.title, this.body, this.cupertinoNavigationBar});
+  AppScaffold(
+      {this.key, this.title, required this.body, this.cupertinoNavigationBar});
 
   @override
   Widget build(BuildContext context) {
