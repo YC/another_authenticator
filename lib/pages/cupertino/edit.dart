@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show ReorderableListView, Icons;
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './edit_list_item.dart' show EditListItem;
 
@@ -13,7 +13,7 @@ class CupertinoEditPage extends StatefulWidget {
 
   final Function replaceItems;
   final Function _itemsChanged;
-  final List<TOTPItem> items;
+  final List<TotpItem> items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {

@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter/widgets.dart';
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, showAdaptiveDialog, AdaptiveDialogAction;
@@ -24,7 +24,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
       try {
         final value = await _scan();
         // Parse scanned value into item and pop
-        var item = TOTPItem.fromUri(value);
+        var item = TotpItem.fromUri(value);
         // Pop until scan page
         Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
         // Pop with scanned item

@@ -1,6 +1,6 @@
 import 'dart:async' show Future;
 import 'package:flutter/material.dart';
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './edit_list_item.dart' show EditListItem;
 
@@ -11,7 +11,7 @@ class AndroidEditPage extends StatefulWidget {
 
   final Function replaceItems;
   final Function _itemsChanged;
-  final List<TOTPItem> items;
+  final List<TotpItem> items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {
@@ -129,69 +129,72 @@ class _EditPageState extends State<AndroidEditPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        // Handle back button
-        onWillPop: _popCallback,
-        child: Scaffold(
-            appBar: AppBar(
-                title: Text(AppLocalizations.of(context).editTitle),
-                actions: <Widget>[
-                  // Save
-                  ValueListenableBuilder<bool>(
-                      valueListenable: _hideSave,
-                      builder: (context, value, child) {
-                        if (value) {
-                          return Container();
-                        } else {
-                          return IconButton(
-                              icon: const Icon(Icons.check),
-                              tooltip: AppLocalizations.of(context).save,
-                              onPressed: () {
-                                widget.replaceItems(widget.items);
-                                Navigator.pop(context);
-                              });
-                        }
-                      })
-                ]),
-            body: widget.items == null
-                ? Center(child: Text(AppLocalizations.of(context).loading))
-                : Container(
-                    margin: const EdgeInsets.all(10),
-                    child: ReorderableListView(
-                        padding: const EdgeInsets.all(0),
-                        scrollDirection: Axis.vertical,
-                        children: widget.items
-                            .map((item) => EditListItem(
-                                item, addRemovalItem, removeRemovalItem,
-                                key: Key(item.id)))
-                            .toList(),
-                        onReorder: _handleReorder)),
-            // Delete button
-            bottomSheet: ValueListenableBuilder<bool>(
-              valueListenable: _hideTrash,
-              builder: (context, value, child) {
-                if (value == true) {
-                  return Container(width: 0, height: 0);
-                }
-                return Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: TextButton(
+      // Handle back button
+      onWillPop: _popCallback,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).editTitle),
+          actions: <Widget>[
+            // Save
+            ValueListenableBuilder<bool>(
+                valueListenable: _hideSave,
+                builder: (context, value, child) {
+                  if (value) {
+                    return Container();
+                  } else {
+                    return IconButton(
+                        icon: const Icon(Icons.check),
+                        tooltip: AppLocalizations.of(context).save,
                         onPressed: () {
-                          showRemoveDialog(context);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                              AppLocalizations.of(context).removeAccounts,
-                              style: const TextStyle(color: Colors.redAccent)),
-                        ),
-                      ),
+                          widget.replaceItems(widget.items);
+                          Navigator.pop(context);
+                        });
+                  }
+                })
+          ],
+        ),
+        body: widget.items == null
+            ? Center(child: Text(AppLocalizations.of(context).loading))
+            : Container(
+                margin: const EdgeInsets.all(10),
+                child: ReorderableListView(
+                    padding: const EdgeInsets.all(0),
+                    scrollDirection: Axis.vertical,
+                    children: widget.items
+                        .map((item) => EditListItem(
+                            item, addRemovalItem, removeRemovalItem,
+                            key: Key(item.id)))
+                        .toList(),
+                    onReorder: _handleReorder),
+              ),
+        // Delete button
+        bottomSheet: ValueListenableBuilder<bool>(
+          valueListenable: _hideTrash,
+          builder: (context, value, child) {
+            if (value == true) {
+              return Container(width: 0, height: 0);
+            }
+            return Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      showRemoveDialog(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(AppLocalizations.of(context).removeAccounts,
+                          style: const TextStyle(color: Colors.redAccent)),
                     ),
-                  ],
-                );
-              },
-            )));
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 }

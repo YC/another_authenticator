@@ -5,12 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/material.dart' show CircularProgressIndicator;
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Cupertino).
 class HomeListItem extends TOTPListItemBase {
-  HomeListItem(TOTPItem item, {Key key}) : super(item, key: key);
+  HomeListItem(TotpItem item, {Key key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();

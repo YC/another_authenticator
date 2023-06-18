@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Item for edit page (Android).
 class EditListItem extends StatefulWidget {
@@ -7,7 +7,7 @@ class EditListItem extends StatefulWidget {
       {Key key})
       : super(key: key);
 
-  final TOTPItem item;
+  final TotpItem item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;

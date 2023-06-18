@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../l10n/constants.dart' as Constants;
 import './list_item.dart' show HomeListItem;
@@ -13,7 +13,7 @@ class AndroidHomePage extends StatefulWidget {
   final Function addItem;
 
   /// List of TOTP items
-  final List<TOTPItem> items;
+  final List<TotpItem> items;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -130,13 +130,14 @@ class _HomePageState extends State<AndroidHomePage> {
                 }),
             // License
             ListTile(
-                title: Text(AppLocalizations.of(context).licenses),
-                leading: const Icon(Icons.book),
-                dense: true,
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, "/settings/acknowledgements");
-                }),
+              title: Text(AppLocalizations.of(context).licenses),
+              leading: const Icon(Icons.book),
+              dense: true,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/settings/acknowledgements");
+              },
+            ),
           ],
         ),
       ),
@@ -153,11 +154,12 @@ class _HomePageState extends State<AndroidHomePage> {
           ),
           // Add
           IconButton(
-              icon: const Icon(Icons.add),
-              tooltip: AppLocalizations.of(context).add,
-              onPressed: () {
-                showAddModal(context);
-              })
+            icon: const Icon(Icons.add),
+            tooltip: AppLocalizations.of(context).add,
+            onPressed: () {
+              showAddModal(context);
+            },
+          )
         ],
       ),
       body: _buildList(),

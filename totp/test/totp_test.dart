@@ -62,23 +62,23 @@ void main() {
   });
 
   test('TOTP - 1542791843', () {
-    expect(TOTP.generateCode(1542791843, "JBSWY3DPEHPK3PXP"), "092264");
+    expect(Totp.generateCode(1542791843, "JBSWY3DPEHPK3PXP"), "092264");
   });
 
   test('TOTP - 59', () {
-    expect(TOTP.generateCode(59, "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 8),
+    expect(Totp.generateCode(59, "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 8),
         "94287082");
   });
 
   test('TOTP - 20000000000', () {
     expect(
-        TOTP.generateCode(20000000000, "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 8),
+        Totp.generateCode(20000000000, "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 8),
         "65353130");
   });
 
   test('TOTP - Multiple', () {
     expect(
-        TOTP.generateCodes(
+        Totp.generateCodes(
             [59, 20000000000], "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", 8),
         ["94287082", "65353130"]);
   });
@@ -92,7 +92,7 @@ void main() {
     var issuer = "bar";
     var accountName = "foo@bar";
     var item =
-        TOTPItem(id, secret, digits, period, algorithm, issuer, accountName);
+        TotpItem(id, secret, digits, period, algorithm, issuer, accountName);
     expect(item.id, id);
     expect(item.secret, secret);
     expect(item.digits, digits);
@@ -103,9 +103,9 @@ void main() {
   });
 
   test('TOTP Item equality', () {
-    var item1 = TOTPItem("foo", "A");
-    var item2 = TOTPItem("foobar", "A");
-    var item3 = TOTPItem("foo", "B");
+    var item1 = TotpItem("foo", "A");
+    var item2 = TotpItem("foobar", "A");
+    var item3 = TotpItem("foo", "B");
     // Same object
     expect(item1 == item1, true);
     // Same secret (and other fields apart from id), so still equal

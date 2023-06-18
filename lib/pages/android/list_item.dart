@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Android).
 class HomeListItem extends TOTPListItemBase {
-  HomeListItem(TOTPItem item, {Key key}) : super(item, key: key);
+  HomeListItem(TotpItem item, {Key key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();

@@ -40,7 +40,7 @@ extension _StringOperations on OtpHashAlgorithm {
 /// * RFC 4226, 6238
 /// * https://github.com/LanceGin/dotp/blob/master/lib/src/otp.dart
 /// * https://stackoverflow.com/questions/49398437
-class TOTP {
+class Totp {
   /// Formats a generated [code] to make it look nice
   static String prettyValue(String code) {
     // Length at which to split at

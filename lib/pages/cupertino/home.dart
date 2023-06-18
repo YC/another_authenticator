@@ -11,7 +11,7 @@ class CupertinoHomePage extends StatefulWidget {
   final Function addItem;
 
   /// List of TOTP items
-  final List<TOTPItem> items;
+  final List<TotpItem> items;
 
   @override
   _HomePageState createState() => _HomePageState();

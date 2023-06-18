@@ -1,5 +1,5 @@
 import 'totp_algorithm.dart';
-import 'totp_item.dart' show TOTPItem;
+import 'totp_item.dart' show TotpItem;
 
 /// Parses TOTP key URI into TOTPItems.
 ///
@@ -7,7 +7,7 @@ import 'totp_item.dart' show TOTPItem;
 /// * https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 class OtpUri {
   /// Parses a TOTP key URI and returns a TOTP object
-  static TOTPItem fromUri(String uri) {
+  static TotpItem fromUri(String uri) {
     // Use dart-core/Uri to parse
     var parsed = Uri.parse(uri);
 
@@ -56,7 +56,7 @@ class OtpUri {
     }
 
     try {
-      return TOTPItem.newTOTPItem(secret, digits, period,
+      return TotpItem.newTOTPItem(secret, digits, period,
           OtpHashAlgorithm.fromString(algorithm), issuer, accountName);
     } catch (error) {
       throw FormatException("Incorrect parameters");

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Material, CheckboxListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoColors;
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Item for edit page (Cupertino).
 class EditListItem extends StatefulWidget {
@@ -9,7 +9,7 @@ class EditListItem extends StatefulWidget {
       {Key key})
       : super(key: key);
 
-  final TOTPItem item;
+  final TotpItem item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;

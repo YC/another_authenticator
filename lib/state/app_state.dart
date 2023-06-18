@@ -1,4 +1,4 @@
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Represents app state.
 ///
@@ -11,13 +11,13 @@ class AppState {
   AppState(this._items);
 
   /// List of TOTP items (internal implementation).
-  final List<TOTPItem> _items;
+  final List<TotpItem> _items;
 
   /// TOTP items as list.
-  List<TOTPItem> get items => this._items;
+  List<TotpItem> get items => this._items;
 
   /// Adds a TOTP item to the list.
-  void addItem(TOTPItem item) {
+  void addItem(TotpItem item) {
     // Prevent duplicates
     if (_items.contains(item)) {
       throw new Exception(_DUPLICATE_ACCOUNT);
@@ -30,18 +30,18 @@ class AppState {
   }
 
   /// Replace list of TOTP items.
-  void replaceItems(List<TOTPItem> items) {
+  void replaceItems(List<TotpItem> items) {
     _items.clear();
     _items.addAll(items);
   }
 
   /// Removes a TOTP item from the list.
-  void removeItem(TOTPItem item) {
+  void removeItem(TotpItem item) {
     _items.remove(item);
   }
 
   /// Replaces an old TOTP item with a new one.
-  void replaceItem(TOTPItem oldItem, TOTPItem newItem) {
+  void replaceItem(TotpItem oldItem, TotpItem newItem) {
     var index = _items.indexOf(oldItem);
     _items.removeAt(index);
     _items.insert(index, newItem);

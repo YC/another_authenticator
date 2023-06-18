@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:another_authenticator_totp/totp.dart' show TOTPItem;
+import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Abstract base class for TOTP list item.
 ///
@@ -8,7 +8,7 @@ abstract class TOTPListItemBase extends StatefulWidget {
   TOTPListItemBase(this.item, {Key key});
 
   /// The item/account that is displayed.
-  final TOTPItem item;
+  final TotpItem item;
 
   /// Seconds since epoch.
   static int get _secondsSinceEpoch {
