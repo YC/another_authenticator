@@ -101,7 +101,7 @@ class TOTPItem {
         issuer = json['issuer'],
         period = json['period'],
         digits = json['digits'],
-        algorithm = json['algorithm'],
+        algorithm = OtpHashAlgorithm.values.byName(json['algorithm']),
         secret = json['secret'];
 
   /// Encode item to JSON.
@@ -112,6 +112,6 @@ class TOTPItem {
         'secret': secret,
         'digits': digits,
         'period': period,
-        'algorithm': algorithm
+        'algorithm': algorithm.name
       };
 }
