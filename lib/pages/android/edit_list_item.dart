@@ -56,15 +56,15 @@ class _EditListItem extends State<EditListItem> {
                     children: <Widget>[
                       // Issuer
                       Text(widget.item.issuer,
-                          style: Theme.of(context).textTheme.subtitle1),
+                          style: Theme.of(context).textTheme.titleMedium),
                       // Generated code
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(widget.item.placeholder,
-                              style: Theme.of(context).textTheme.headline3)),
+                              style: Theme.of(context).textTheme.displaySmall)),
                       // Account name
                       Text(widget.item.accountName,
-                          style: Theme.of(context).textTheme.bodyText2)
+                          style: Theme.of(context).textTheme.bodyMedium)
                     ]),
               ))),
     );

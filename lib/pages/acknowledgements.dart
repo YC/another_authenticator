@@ -54,7 +54,7 @@ class AcknowledgementsPage extends StatelessWidget {
                             _libs[index]['title']!, text.trim()),
                       ),
                     );
-                  }).catchError((_) => {});
+                  }).catchError((_) => null);
                 }
               },
             );

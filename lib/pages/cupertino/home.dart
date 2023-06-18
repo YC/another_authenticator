@@ -79,7 +79,7 @@ class _HomePageState extends State<CupertinoHomePage> {
               onPressed: () {
                 Navigator.pop(context);
                 final item = Navigator.pushNamed(context, "/add/scan");
-                if (item != null) widget.addItem(item);
+                widget.addItem(item);
               },
             ),
             CupertinoActionSheetAction(

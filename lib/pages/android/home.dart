@@ -105,7 +105,7 @@ class _HomePageState extends State<AndroidHomePage> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize:
-                              Theme.of(context).textTheme.headline6!.fontSize)),
+                              Theme.of(context).textTheme.titleLarge!.fontSize)),
                 ],
               ),
             ),
