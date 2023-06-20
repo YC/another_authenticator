@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.steventang.another_authenticator">
    <application
-        android:label="another_authenticator"
+        android:label="Another Authenticator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
