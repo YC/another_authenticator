@@ -51,75 +51,74 @@ class _TOTPListItemState extends State<HomeListItem>
     );
     _controller.forward(from: widget.indicatorValue);
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller)
-      ..addStatusListener((AnimationStatus status) {
-        if (status == AnimationStatus.completed) {
-          // Set code
-          setState(() {
-            _code = widget.code;
-          });
-          // Reset animation
-          _controller.forward(from: widget.indicatorValue);
-        }
-      });
+      ..addStatusListener(
+        (AnimationStatus status) {
+          if (status == AnimationStatus.completed) {
+            // Set code
+            setState(() {
+              _code = widget.code;
+            });
+            // Reset animation
+            _controller.forward(from: widget.indicatorValue);
+          }
+        },
+      );
   }
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-        tag: widget.item.id,
-        child: Card(
-            child: InkWell(
-                onTap: () {
-                  Clipboard.setData(
-                      ClipboardData(text: widget.codeUnformatted));
-                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(AppLocalizations.of(context)!.clipboard),
-                      duration: const Duration(seconds: 1)));
-                },
-                child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Column(
-                                // Align to start (left)
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  // Issuer
-                                  Text(widget.item.totp.issuer,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium),
-                                  // Generated code
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      child: Text(_code,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall)),
-                                  // Account name
-                                  Text(widget.item.totp.accountName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium)
-                                ]),
-                            Positioned(
-                                child: AnimatedBuilder(
-                                    animation: _animation,
-                                    builder:
-                                        (BuildContext context, Widget? child) =>
-                                            CircularProgressIndicator(
-                                              value: _animation.value,
-                                              strokeWidth: 2.5,
-                                            )),
-                                right: 0,
-                                bottom: 0,
-                                height: _PROGRESS_INDICATOR_DIMENSION,
-                                width: _PROGRESS_INDICATOR_DIMENSION)
-                          ],
-                        ))))));
+      tag: widget.item.id,
+      child: Card(
+        child: InkWell(
+          onTap: () {
+            Clipboard.setData(ClipboardData(text: widget.codeUnformatted));
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(AppLocalizations.of(context)!.clipboard),
+                duration: const Duration(seconds: 1)));
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(5),
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    // Align to start (left)
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // Issuer
+                      Text(widget.item.totp.issuer,
+                          style: Theme.of(context).textTheme.titleMedium),
+                      // Generated code
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text(_code,
+                              style: Theme.of(context).textTheme.displaySmall)),
+                      // Account name
+                      Text(widget.item.totp.accountName,
+                          style: Theme.of(context).textTheme.bodyMedium)
+                    ],
+                  ),
+                  Positioned(
+                      child: AnimatedBuilder(
+                          animation: _animation,
+                          builder: (BuildContext context, Widget? child) =>
+                              CircularProgressIndicator(
+                                value: _animation.value,
+                                strokeWidth: 2.5,
+                              )),
+                      right: 0,
+                      bottom: 0,
+                      height: _PROGRESS_INDICATOR_DIMENSION,
+                      width: _PROGRESS_INDICATOR_DIMENSION)
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

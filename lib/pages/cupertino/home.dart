@@ -28,27 +28,29 @@ class _HomePageState extends State<CupertinoHomePage> {
     if (widget.items == null) {
       // Items loading
       return Container(
-          color: backgroundColour,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context)!.loading),
-            ),
-          ));
+        color: backgroundColour,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(AppLocalizations.of(context)!.loading),
+          ),
+        ),
+      );
     } else if (widget.items!.length == 0) {
       // No Items
       return Container(
-          color: backgroundColour,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                AppLocalizations.of(context)!.noAccounts,
-                textAlign: TextAlign.center,
-                style: const TextStyle(height: 1.2),
-              ),
+        color: backgroundColour,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              AppLocalizations.of(context)!.noAccounts,
+              textAlign: TextAlign.center,
+              style: const TextStyle(height: 1.2),
             ),
-          ));
+          ),
+        ),
+      );
     }
 
     return Container(
@@ -107,27 +109,30 @@ class _HomePageState extends State<CupertinoHomePage> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
           padding: const EdgeInsetsDirectional.only(start: 5, end: 10),
-          leading: Row(mainAxisSize: MainAxisSize.min, children: [
-            // Settings
-            CupertinoButton(
-              padding: EdgeInsets.zero,
-              child: const Icon(
-                CupertinoIcons.settings,
-                semanticLabel: 'Settings',
+          leading: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Settings
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(
+                  CupertinoIcons.settings,
+                  semanticLabel: 'Settings',
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/settings');
+                },
               ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/settings');
-              },
-            ),
-            // Edit
-            CupertinoButton(
-              child: Text("Edit"),
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                Navigator.of(context).pushNamed('/edit');
-              },
-            )
-          ]),
+              // Edit
+              CupertinoButton(
+                child: Text("Edit"),
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/edit');
+                },
+              )
+            ],
+          ),
           // Add
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,

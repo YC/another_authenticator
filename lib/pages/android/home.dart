@@ -101,13 +101,13 @@ class _HomePageState extends State<AndroidHomePage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context)!.appName,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .fontSize)),
+                  Text(
+                    AppLocalizations.of(context)!.appName,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge!.fontSize),
+                  ),
                 ],
               ),
             ),

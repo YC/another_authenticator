@@ -69,52 +69,55 @@ class _TOTPListItemState extends State<HomeListItem>
   @override
   Widget build(BuildContext context) {
     return Hero(
-        tag: widget.item.id,
-        child: GestureDetector(
-            onTap: () {
-              Clipboard.setData(ClipboardData(text: widget.codeUnformatted));
-            },
-            child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.all(25),
-                decoration: BoxDecoration(color: CupertinoColors.white),
-                child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(5),
-                    child: Stack(
-                      children: <Widget>[
-                        Column(
-                            // Align to start (left)
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              // Issuer
-                              Text(widget.item.totp.issuer),
-                              // Generated code
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(_code,
-                                      style: const TextStyle(
-                                          fontSize: 40,
-                                          color: Color.fromARGB(
-                                              255, 125, 125, 125)))),
-                              // Account name
-                              Text(widget.item.totp.accountName,
-                                  style: const TextStyle(fontSize: 13))
-                            ]),
-                        Positioned(
-                            child: AnimatedBuilder(
-                              animation: _animation,
-                              builder: (BuildContext context, Widget? child) =>
-                                  CircularProgressIndicator(
-                                value: _animation.value,
-                                strokeWidth: 2.5,
-                              ),
-                            ),
-                            right: 0,
-                            bottom: 0,
-                            height: _PROGRESS_INDICATOR_DIMENSION,
-                            width: _PROGRESS_INDICATOR_DIMENSION)
-                      ],
-                    )))));
+      tag: widget.item.id,
+      child: GestureDetector(
+        onTap: () {
+          Clipboard.setData(ClipboardData(text: widget.codeUnformatted));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.all(25),
+          decoration: BoxDecoration(color: CupertinoColors.white),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  // Align to start (left)
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // Issuer
+                    Text(widget.item.totp.issuer),
+                    // Generated code
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(_code,
+                            style: const TextStyle(
+                                fontSize: 40,
+                                color: Color.fromARGB(255, 125, 125, 125)))),
+                    // Account name
+                    Text(widget.item.totp.accountName,
+                        style: const TextStyle(fontSize: 13))
+                  ],
+                ),
+                Positioned(
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      builder: (BuildContext context, Widget? child) =>
+                          CircularProgressIndicator(
+                        value: _animation.value,
+                        strokeWidth: 2.5,
+                      ),
+                    ),
+                    right: 0,
+                    bottom: 0,
+                    height: _PROGRESS_INDICATOR_DIMENSION,
+                    width: _PROGRESS_INDICATOR_DIMENSION)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

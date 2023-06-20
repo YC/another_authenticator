@@ -71,13 +71,14 @@ class SettingsPage extends StatelessWidget {
               children: [
                 // Source
                 ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.code),
-                    title: Text(AppLocalizations.of(context)!.source,
-                        style: const TextStyle(fontSize: 15)),
-                    onTap: () {
-                      launchURL(Constants.REPO);
-                    }),
+                  dense: true,
+                  leading: const Icon(Icons.code),
+                  title: Text(AppLocalizations.of(context)!.source,
+                      style: const TextStyle(fontSize: 15)),
+                  onTap: () {
+                    launchURL(Constants.REPO);
+                  },
+                ),
                 // Acknowledgements
                 ListTile(
                   dense: true,

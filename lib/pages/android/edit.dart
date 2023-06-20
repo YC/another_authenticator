@@ -68,31 +68,33 @@ class _EditPageState extends State<AndroidEditPage> {
   // Remove dialog
   void showRemoveDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.removeAccounts),
-              content: Text(AppLocalizations.of(context)!.removeConfirmation),
-              actions: [
-                TextButton(
-                    child: Text(AppLocalizations.of(context)!.no),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                TextButton(
-                  child: Text(AppLocalizations.of(context)!.yes,
-                      style: const TextStyle(color: Colors.red)),
-                  onPressed: () {
-                    setState(() {
-                      widget.removeItems(_pendingRemovalList);
-                      _pendingRemovalList.clear();
-                      _refreshHide();
-                    });
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]);
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.removeAccounts),
+          content: Text(AppLocalizations.of(context)!.removeConfirmation),
+          actions: [
+            TextButton(
+                child: Text(AppLocalizations.of(context)!.no),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.yes,
+                  style: const TextStyle(color: Colors.red)),
+              onPressed: () {
+                setState(() {
+                  widget.removeItems(_pendingRemovalList);
+                  _pendingRemovalList.clear();
+                  _refreshHide();
+                });
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   // Handle history pop
@@ -101,28 +103,29 @@ class _EditPageState extends State<AndroidEditPage> {
       return true;
     }
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(AppLocalizations.of(context)!.exitEditTitle),
-            content: Text(AppLocalizations.of(context)!.exitEditInfo),
-            actions: [
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.no),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.yes,
-                    style: const TextStyle(color: Colors.red)),
-                onPressed: () {
-                  Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                },
-              )
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.exitEditTitle),
+          content: Text(AppLocalizations.of(context)!.exitEditInfo),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.no),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.yes,
+                  style: const TextStyle(color: Colors.red)),
+              onPressed: () {
+                Navigator.of(context).popUntil(ModalRoute.withName('/'));
+              },
+            )
+          ],
+        );
+      },
+    );
     return false;
   }
 
@@ -137,20 +140,21 @@ class _EditPageState extends State<AndroidEditPage> {
           actions: <Widget>[
             // Save
             ValueListenableBuilder<bool>(
-                valueListenable: _hideSave,
-                builder: (context, value, child) {
-                  if (value) {
-                    return Container();
-                  } else {
-                    return IconButton(
-                        icon: const Icon(Icons.check),
-                        tooltip: AppLocalizations.of(context)!.save,
-                        onPressed: () {
-                          widget.replaceItems(widget.items);
-                          Navigator.pop(context);
-                        });
-                  }
-                })
+              valueListenable: _hideSave,
+              builder: (context, value, child) {
+                if (value) {
+                  return Container();
+                } else {
+                  return IconButton(
+                      icon: const Icon(Icons.check),
+                      tooltip: AppLocalizations.of(context)!.save,
+                      onPressed: () {
+                        widget.replaceItems(widget.items);
+                        Navigator.pop(context);
+                      });
+                }
+              },
+            )
           ],
         ),
         body: widget.items == null
@@ -185,8 +189,10 @@ class _EditPageState extends State<AndroidEditPage> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(AppLocalizations.of(context)!.removeAccounts,
-                          style: const TextStyle(color: Colors.redAccent)),
+                      child: Text(
+                        AppLocalizations.of(context)!.removeAccounts,
+                        style: const TextStyle(color: Colors.redAccent),
+                      ),
                     ),
                   ),
                 ),

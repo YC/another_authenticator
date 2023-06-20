@@ -70,30 +70,32 @@ class _EditPageState extends State<CupertinoEditPage> {
   // Item remove dialog
   void showRemoveDialog(BuildContext context) {
     showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context)!.removeAccounts),
-              content: Text(AppLocalizations.of(context)!.removeConfirmation),
-              actions: [
-                CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: () {
-                    setState(() {
-                      widget.removeItems(_pendingRemovalList);
-                      _pendingRemovalList.clear();
-                      _refreshHide();
-                    });
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]);
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(AppLocalizations.of(context)!.removeAccounts),
+          content: Text(AppLocalizations.of(context)!.removeConfirmation),
+          actions: [
+            CupertinoDialogAction(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+            CupertinoDialogAction(
+              child: Text(AppLocalizations.of(context)!.ok),
+              onPressed: () {
+                setState(() {
+                  widget.removeItems(_pendingRemovalList);
+                  _pendingRemovalList.clear();
+                  _refreshHide();
+                });
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   // Handle history pop (back button)
@@ -102,83 +104,94 @@ class _EditPageState extends State<CupertinoEditPage> {
       return true;
     }
     showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context)!.exitEditTitle),
-              content: Text(AppLocalizations.of(context)!.exitEditInfo),
-              actions: [
-                CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: () {
-                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                  },
-                )
-              ]);
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(AppLocalizations.of(context)!.exitEditTitle),
+          content: Text(AppLocalizations.of(context)!.exitEditInfo),
+          actions: [
+            CupertinoDialogAction(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+            CupertinoDialogAction(
+              child: Text(AppLocalizations.of(context)!.ok),
+              onPressed: () {
+                Navigator.of(context).popUntil(ModalRoute.withName('/'));
+              },
+            )
+          ],
+        );
+      },
+    );
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        // Handle back button
-        onWillPop: _popCallback,
-        child: CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-                middle: Text(AppLocalizations.of(context)!.editTitle),
-                trailing:
-                    Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  // Trash Icon
-                  ValueListenableBuilder<bool>(
-                      valueListenable: _hideTrash,
-                      builder: (context, value, child) {
-                        if (value) {
-                          return Container();
-                        } else {
-                          return CupertinoButton(
-                              padding: const EdgeInsets.all(0),
-                              child: const Icon(CupertinoIcons.delete),
-                              onPressed: () => showRemoveDialog(context));
-                        }
-                      }),
-                  ValueListenableBuilder<bool>(
-                      valueListenable: _hideSave,
-                      builder: (context, value, child) {
-                        if (value) {
-                          return Container();
-                        } else {
-                          return CupertinoButton(
-                              padding: const EdgeInsets.all(0),
-                              child: const Icon(Icons.check),
-                              onPressed: () {
-                                widget.replaceItems(widget.items);
-                                Navigator.pop(context);
-                              });
-                        }
-                      })
-                ])),
-            child: widget.items == null
-                ? Center(child: Text(AppLocalizations.of(context)!.loading))
-                : SafeArea(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        color: CupertinoTheme.of(context).brightness ==
-                                Brightness.light
-                            ? CupertinoColors.extraLightBackgroundGray
-                            : CupertinoColors.darkBackgroundGray,
-                        child: ReorderableListView(
-                            scrollDirection: Axis.vertical,
-                            children: widget.items!
-                                .map((item) => EditListItem(
-                                    item, addRemovalItem, removeRemovalItem,
-                                    key: Key(item.id)))
-                                .toList(),
-                            onReorder: _handleReorder)))));
+      // Handle back button
+      onWillPop: _popCallback,
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(AppLocalizations.of(context)!.editTitle),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // Trash Icon
+              ValueListenableBuilder<bool>(
+                valueListenable: _hideTrash,
+                builder: (context, value, child) {
+                  if (value) {
+                    return Container();
+                  } else {
+                    return CupertinoButton(
+                        padding: const EdgeInsets.all(0),
+                        child: const Icon(CupertinoIcons.delete),
+                        onPressed: () => showRemoveDialog(context));
+                  }
+                },
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: _hideSave,
+                builder: (context, value, child) {
+                  if (value) {
+                    return Container();
+                  } else {
+                    return CupertinoButton(
+                        padding: const EdgeInsets.all(0),
+                        child: const Icon(Icons.check),
+                        onPressed: () {
+                          widget.replaceItems(widget.items);
+                          Navigator.pop(context);
+                        });
+                  }
+                },
+              )
+            ],
+          ),
+        ),
+        child: widget.items == null
+            ? Center(child: Text(AppLocalizations.of(context)!.loading))
+            : SafeArea(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  color:
+                      CupertinoTheme.of(context).brightness == Brightness.light
+                          ? CupertinoColors.extraLightBackgroundGray
+                          : CupertinoColors.darkBackgroundGray,
+                  child: ReorderableListView(
+                      scrollDirection: Axis.vertical,
+                      children: widget.items!
+                          .map((item) => EditListItem(
+                              item, addRemovalItem, removeRemovalItem,
+                              key: Key(item.id)))
+                          .toList(),
+                      onReorder: _handleReorder),
+                ),
+              ),
+      ),
+    );
   }
 }

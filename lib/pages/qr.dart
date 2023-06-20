@@ -20,34 +20,36 @@ class _ScanQRPageState extends State<ScanQRPage> {
     super.initState();
 
     // Trigger scan
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        final value = await _scan();
-        // Parse scanned value into item and pop
-        var item = AuthenticatorItem.newAuthenticatorItemFromUri(value);
-        // Pop until scan page
-        Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
-        // Pop with scanned item
-        Navigator.of(context).pop(item);
-      } catch (e) {
-        await showAdaptiveDialog(
-          context,
-          title: Text(AppLocalizations.of(context)!.error),
-          content: Text(e.toString()),
-          actions: [
-            AdaptiveDialogAction(
-              child: Text(AppLocalizations.of(context)!.ok),
-              onPressed: () {
-                // Pop dialog
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-        Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
-        Navigator.of(context).pop();
-      }
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        try {
+          final value = await _scan();
+          // Parse scanned value into item and pop
+          var item = AuthenticatorItem.newAuthenticatorItemFromUri(value);
+          // Pop until scan page
+          Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+          // Pop with scanned item
+          Navigator.of(context).pop(item);
+        } catch (e) {
+          await showAdaptiveDialog(
+            context,
+            title: Text(AppLocalizations.of(context)!.error),
+            content: Text(e.toString()),
+            actions: [
+              AdaptiveDialogAction(
+                child: Text(AppLocalizations.of(context)!.ok),
+                onPressed: () {
+                  // Pop dialog
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+          Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+          Navigator.of(context).pop();
+        }
+      },
+    );
   }
 
   @override
