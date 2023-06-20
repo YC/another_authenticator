@@ -95,16 +95,23 @@ class _AddPageState extends State<AddPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     // No iOS validator, so may need to recheck and fail
     if (!secretFieldValid()) {
-      showAdaptiveDialog(context,
-          title: Text(AppLocalizations.of(context)!.error),
-          content: Text(AppLocalizations.of(context)!.secretInvalidMessage),
-          actions: [
-            AdaptiveDialogAction(
-                child: Text(AppLocalizations.of(context)!.ok),
-                onPressed: Navigator.of(context).pop)
-          ]);
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text(AppLocalizations.of(context)!.error),
+            content: Text(AppLocalizations.of(context)!.secretInvalidMessage),
+            actions: [
+              CupertinoDialogAction(
+                  child: Text(AppLocalizations.of(context)!.ok),
+                  onPressed: Navigator.of(context).pop)
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -148,10 +155,10 @@ class _AddPageState extends State<AddPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
           child: ListView(
-            children: <Widget>[
-              // Key
-              isPlatformAndroid()
-                  ? TextFormField(
+            children: isPlatformAndroid()
+                ? <Widget>[
+                    // Key
+                    TextFormField(
                       controller: _secretController,
                       textCapitalization: TextCapitalization.characters,
                       autocorrect: false,
@@ -163,139 +170,161 @@ class _AddPageState extends State<AddPage> {
                           : AppLocalizations.of(context)!.secretInvalidMessage,
                       decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.secret),
-                    )
-                  : CupertinoTextField(
-                      controller: _secretController,
-                      textCapitalization: TextCapitalization.characters,
-                      autocorrect: false,
-                      decoration: _boxDecoration,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context)!.secret),
-                      textAlign: TextAlign.right),
-              // Provider
-              isPlatformAndroid()
-                  ? TextFormField(
+                    ),
+                    // Provider
+                    TextFormField(
                       controller: _issuerController,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.issuer,
                           hintText: 'Example Service'),
-                    )
-                  : CupertinoTextField(
-                      controller: _issuerController,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: _boxDecoration,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context)!.issuer),
-                      textAlign: TextAlign.right),
-              // Account name
-              isPlatformAndroid()
-                  ? TextFormField(
+                    ),
+
+                    // Account name
+                    TextFormField(
                       controller: _accountNameController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.accountName,
                           hintText: 'user@example.com'),
-                    )
-                  : CupertinoTextField(
-                      controller: _accountNameController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: _boxDecoration,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      prefix: Text(AppLocalizations.of(context)!.accountName),
-                      textAlign: TextAlign.right),
-              // # of digits
-              isPlatformAndroid()
-                  ? InputDecorator(
+                    ),
+
+                    // # of digits
+                    InputDecorator(
                       decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(top: 15),
-                          labelText: AppLocalizations.of(context)!.digits,
-                          border: InputBorder.none,
-                          labelStyle: const TextStyle(fontSize: 20)),
+                        contentPadding: const EdgeInsets.only(top: 15),
+                        labelText: AppLocalizations.of(context)!.digits,
+                        border: InputBorder.none,
+                        labelStyle: const TextStyle(fontSize: 20),
+                      ),
                       child: DropdownButton(
-                          value: _digits,
-                          onChanged: (value) {
-                            setState(() {
-                              _digits = value;
-                            });
-                          },
-                          isExpanded: true,
-                          items: const <DropdownMenuItem>[
-                            DropdownMenuItem(child: const Text("6"), value: 6),
-                            DropdownMenuItem(child: const Text("8"), value: 8),
-                          ]))
-                  : Container(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      decoration: _boxDecoration,
-                      child: ListBody(children: [
-                        Padding(
-                            child: Text(AppLocalizations.of(context)!.digits),
-                            padding: const EdgeInsets.only(bottom: 8)),
-                        CupertinoSegmentedControl(
-                          groupValue: _digits.toString(),
-                          children: {
-                            '6': const Text('6'),
-                            '8': const Text('8')
-                          },
-                          onValueChanged: (v) {
-                            setState(() {
-                              _digits = int.parse(v);
-                            });
-                          },
-                        )
-                      ])),
-              // Time step
-              isPlatformAndroid()
-                  ? InputDecorator(
+                        value: _digits,
+                        onChanged: (value) {
+                          setState(() {
+                            _digits = value;
+                          });
+                        },
+                        isExpanded: true,
+                        items: const <DropdownMenuItem>[
+                          DropdownMenuItem(child: const Text("6"), value: 6),
+                          DropdownMenuItem(child: const Text("8"), value: 8),
+                        ],
+                      ),
+                    ),
+
+                    // Time step
+                    InputDecorator(
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 10),
                           labelText: AppLocalizations.of(context)!.period,
                           border: InputBorder.none,
                           labelStyle: const TextStyle(fontSize: 20)),
                       child: DropdownButton(
-                          value: _period,
-                          onChanged: (value) {
-                            setState(() {
-                              _period = value;
-                            });
-                          },
-                          isExpanded: true,
-                          items: const <DropdownMenuItem>[
-                            DropdownMenuItem(
-                                child: const Text("30"), value: 30),
-                            DropdownMenuItem(
-                                child: const Text("60"), value: 60),
-                          ]))
-                  : Container(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      decoration: _boxDecoration,
-                      child: ListBody(children: [
-                        Padding(
-                            child: Text(AppLocalizations.of(context)!.period),
-                            padding: const EdgeInsets.only(bottom: 8)),
-                        CupertinoSegmentedControl(
-                          groupValue: _period.toString(),
-                          children: {
-                            '30': const Text('30'),
-                            '60': const Text('60')
-                          },
-                          onValueChanged: (v) {
-                            setState(() {
-                              _period = int.parse(v);
-                            });
-                          },
-                        )
-                      ])),
-              // Add button
-              isPlatformAndroid()
-                  ? Padding(
+                        value: _period,
+                        onChanged: (value) {
+                          setState(() {
+                            _period = value;
+                          });
+                        },
+                        isExpanded: true,
+                        items: const <DropdownMenuItem>[
+                          DropdownMenuItem(child: const Text("30"), value: 30),
+                          DropdownMenuItem(child: const Text("60"), value: 60),
+                        ],
+                      ),
+                    ),
+
+                    // Add button
+                    Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: ElevatedButton(
                         child: Text(AppLocalizations.of(context)!.add),
                         onPressed: handleAdd,
-                      ))
-                  : Container()
-            ],
+                      ),
+                    )
+                  ]
+                : <Widget>[
+                    // Key
+                    CupertinoTextField(
+                        controller: _secretController,
+                        textCapitalization: TextCapitalization.characters,
+                        autocorrect: false,
+                        decoration: _boxDecoration,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        prefix: Text(AppLocalizations.of(context)!.secret),
+                        textAlign: TextAlign.right),
+
+                    // Provider
+                    CupertinoTextField(
+                        controller: _issuerController,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: _boxDecoration,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        prefix: Text(AppLocalizations.of(context)!.issuer),
+                        textAlign: TextAlign.right),
+
+                    // Account name
+                    CupertinoTextField(
+                        controller: _accountNameController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: _boxDecoration,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        prefix: Text(AppLocalizations.of(context)!.accountName),
+                        textAlign: TextAlign.right),
+
+                    // # of digits
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      decoration: _boxDecoration,
+                      child: ListBody(
+                        children: [
+                          Padding(
+                              child: Text(AppLocalizations.of(context)!.digits),
+                              padding: const EdgeInsets.only(bottom: 8)),
+                          CupertinoSegmentedControl(
+                            groupValue: _digits.toString(),
+                            children: {
+                              '6': const Text('6'),
+                              '8': const Text('8')
+                            },
+                            onValueChanged: (v) {
+                              setState(() {
+                                _digits = int.parse(v);
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // Time step
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      decoration: _boxDecoration,
+                      child: ListBody(
+                        children: [
+                          Padding(
+                              child: Text(AppLocalizations.of(context)!.period),
+                              padding: const EdgeInsets.only(bottom: 8)),
+                          CupertinoSegmentedControl(
+                            groupValue: _period.toString(),
+                            children: {
+                              '30': const Text('30'),
+                              '60': const Text('60')
+                            },
+                            onValueChanged: (v) {
+                              setState(() {
+                                _period = int.parse(v);
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // Add button
+                    Container()
+                  ],
           ),
         ),
       ),
