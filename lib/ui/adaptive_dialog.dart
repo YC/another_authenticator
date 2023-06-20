@@ -21,12 +21,12 @@ class AdaptiveAndroidDialogActionData {
 }
 
 class AdaptiveCupertinoDialogActionData {
+  final Key? key;
   final VoidCallback? onPressed;
-  final TextStyle? textStyle;
   final Widget? child;
 
   AdaptiveCupertinoDialogActionData(
-      {this.onPressed, this.textStyle, @required this.child});
+      {this.key, this.onPressed, @required this.child});
 }
 
 class AdaptiveDialogAction
@@ -52,6 +52,7 @@ class AdaptiveDialogAction
 
   CupertinoDialogAction createCupertinoWidget(BuildContext context) {
     return CupertinoDialogAction(
+      key: androidData?.key,
       onPressed: cupertinoData?.onPressed ?? onPressed,
       child: cupertinoData?.child ?? child,
     );
@@ -62,18 +63,11 @@ class AdaptiveDialogAction
 class AdaptiveAndroidAlertDialogData {
   final Key? key;
   final Widget? title;
-  final EdgeInsetsGeometry? titlePadding;
   final Widget? content;
-  final EdgeInsetsGeometry? contentPadding;
   final List<Widget>? actions;
 
   AdaptiveAndroidAlertDialogData(
-      {this.key,
-      this.title,
-      this.titlePadding,
-      this.content,
-      this.contentPadding,
-      this.actions});
+      {this.key, this.title, this.content, this.actions});
 }
 
 /// Cupertino alert dialog data
@@ -97,28 +91,27 @@ Future<dynamic> showAdaptiveDialog<T>(BuildContext context,
   var platform = getPlatform();
   if (platform == TargetPlatform.android) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            key: key ?? androidData?.key,
-            title: title ?? androidData?.title,
-            titlePadding: androidData?.titlePadding,
-            content: content ?? androidData?.content,
-            contentPadding: androidData?.contentPadding ??
-                const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
-            actions: actions ?? androidData?.actions,
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          key: key ?? androidData?.key,
+          title: title ?? androidData?.title,
+          content: content ?? androidData?.content,
+          actions: actions ?? androidData?.actions ?? [],
+        );
+      },
+    );
   } else {
     return showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            key: key ?? cupertinoData?.key,
-            title: title ?? cupertinoData?.title,
-            content: content ?? cupertinoData?.content,
-            actions: actions ?? cupertinoData?.actions ?? [],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          key: key ?? cupertinoData?.key,
+          title: title ?? cupertinoData?.title,
+          content: content ?? cupertinoData?.content,
+          actions: actions ?? cupertinoData?.actions ?? [],
+        );
+      },
+    );
   }
 }

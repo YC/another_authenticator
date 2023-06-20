@@ -1,11 +1,11 @@
+import 'package:another_authenticator/ui/adaptive_base.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show AppBar, Scaffold;
 import 'package:flutter/cupertino.dart'
     show CupertinoNavigationBar, CupertinoPageScaffold;
-import './adaptive.dart';
 
 /// Basic scaffold for app.
-class AppScaffold extends StatelessWidget {
+class AppScaffold extends AdaptiveBase<Scaffold, CupertinoPageScaffold> {
   final Key? key;
   final Widget? title;
   final Widget body;
@@ -16,14 +16,16 @@ class AppScaffold extends StatelessWidget {
       {this.key, this.title, required this.body, this.cupertinoNavigationBar});
 
   @override
-  Widget build(BuildContext context) {
-    if (getPlatform() == TargetPlatform.android) {
-      return Scaffold(appBar: AppBar(title: title), body: body);
-    } else {
-      return CupertinoPageScaffold(
-          navigationBar:
-              cupertinoNavigationBar ?? CupertinoNavigationBar(middle: title),
-          child: SafeArea(child: body));
-    }
+  Scaffold createAndroidWidget(BuildContext context) {
+    return Scaffold(appBar: AppBar(title: title), body: body);
+  }
+
+  @override
+  CupertinoPageScaffold createCupertinoWidget(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar:
+          cupertinoNavigationBar ?? CupertinoNavigationBar(middle: title),
+      child: SafeArea(child: body),
+    );
   }
 }
