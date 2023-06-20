@@ -1,12 +1,13 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../shared/list_item_base.dart' show TOTPListItemBase;
 
 /// Home page list item (Android).
 class HomeListItem extends TOTPListItemBase {
-  HomeListItem(TotpItem item, {required Key key}) : super(item, key: key);
+  HomeListItem(AuthenticatorItem item, {required Key key})
+      : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();
@@ -42,7 +43,7 @@ class _TOTPListItemState extends State<HomeListItem>
     // Define animation
     // Adapted from progress_indicator_demo.dart from flutter examples
     _controller = AnimationController(
-      duration: Duration(seconds: widget.item.period),
+      duration: Duration(seconds: widget.item.totp.period),
       lowerBound: 0.0,
       upperBound: 1.0,
       vsync: this,
@@ -87,7 +88,7 @@ class _TOTPListItemState extends State<HomeListItem>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   // Issuer
-                                  Text(widget.item.issuer,
+                                  Text(widget.item.totp.issuer,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium),
@@ -100,9 +101,10 @@ class _TOTPListItemState extends State<HomeListItem>
                                               .textTheme
                                               .displaySmall)),
                                   // Account name
-                                  Text(widget.item.accountName,
-                                      style:
-                                          Theme.of(context).textTheme.bodyMedium)
+                                  Text(widget.item.totp.accountName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium)
                                 ]),
                             Positioned(
                                 child: AnimatedBuilder(

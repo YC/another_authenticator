@@ -1,6 +1,6 @@
 import 'dart:async' show Future;
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/material.dart';
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './edit_list_item.dart' show EditListItem;
 
@@ -11,7 +11,7 @@ class AndroidEditPage extends StatefulWidget {
 
   final Function replaceItems;
   final Function _itemsChanged;
-  final List<TotpItem>? items;
+  final List<AuthenticatorItem>? items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {

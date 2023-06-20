@@ -1,6 +1,6 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../l10n/constants.dart' as Constants;
 import './list_item.dart' show HomeListItem;
@@ -13,7 +13,7 @@ class AndroidHomePage extends StatefulWidget {
   final Function addItem;
 
   /// List of TOTP items
-  final List<TotpItem>? items;
+  final List<AuthenticatorItem>? items;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -104,8 +104,10 @@ class _HomePageState extends State<AndroidHomePage> {
                   Text(AppLocalizations.of(context)!.appName,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize:
-                              Theme.of(context).textTheme.titleLarge!.fontSize)),
+                          fontSize: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .fontSize)),
                 ],
               ),
             ),

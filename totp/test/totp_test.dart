@@ -84,16 +84,13 @@ void main() {
   });
 
   test('TOTP Item attributes', () {
-    var id = "foo";
     var secret = "A";
     var digits = 8;
     var period = 60;
     var algorithm = OtpHashAlgorithm.sha256;
     var issuer = "bar";
     var accountName = "foo@bar";
-    var item =
-        TotpItem(id, secret, digits, period, algorithm, issuer, accountName);
-    expect(item.id, id);
+    var item = TotpItem(secret, digits, period, algorithm, issuer, accountName);
     expect(item.secret, secret);
     expect(item.digits, digits);
     expect(item.period, period);
@@ -103,9 +100,9 @@ void main() {
   });
 
   test('TOTP Item equality', () {
-    var item1 = TotpItem("foo", "A");
-    var item2 = TotpItem("foobar", "A");
-    var item3 = TotpItem("foo", "B");
+    var item1 = TotpItem("A");
+    var item2 = TotpItem("A");
+    var item3 = TotpItem("B");
     // Same object
     expect(item1 == item1, true);
     // Same secret (and other fields apart from id), so still equal

@@ -1,5 +1,5 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:another_authenticator_totp/totp.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './list_item.dart';
 
@@ -11,7 +11,7 @@ class CupertinoHomePage extends StatefulWidget {
   final Function addItem;
 
   /// List of TOTP items
-  final List<TotpItem>? items;
+  final List<AuthenticatorItem>? items;
 
   @override
   _HomePageState createState() => _HomePageState();

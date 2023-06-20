@@ -1,5 +1,5 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/material.dart';
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Item for edit page (Android).
 class EditListItem extends StatefulWidget {
@@ -7,7 +7,7 @@ class EditListItem extends StatefulWidget {
       {Key? key})
       : super(key: key);
 
-  final TotpItem item;
+  final AuthenticatorItem item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;
@@ -55,15 +55,15 @@ class _EditListItem extends State<EditListItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       // Issuer
-                      Text(widget.item.issuer,
+                      Text(widget.item.totp.issuer,
                           style: Theme.of(context).textTheme.titleMedium),
                       // Generated code
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(widget.item.placeholder,
+                          child: Text(widget.item.totp.placeholder,
                               style: Theme.of(context).textTheme.displaySmall)),
                       // Account name
-                      Text(widget.item.accountName,
+                      Text(widget.item.totp.accountName,
                           style: Theme.of(context).textTheme.bodyMedium)
                     ]),
               ))),

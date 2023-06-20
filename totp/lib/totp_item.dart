@@ -1,4 +1,3 @@
-import 'package:uuid/uuid.dart' show Uuid;
 import 'base32.dart' show Base32;
 import 'totp_algorithm.dart' show OtpHashAlgorithm, Totp;
 import 'otp_uri.dart' show OtpUri;
@@ -8,7 +7,7 @@ import 'otp_uri.dart' show OtpUri;
 /// Has properties of accountName, issuer, secret, digits, period and algorithm,
 /// as well as an id which is randomly assigned on generation.
 class TotpItem {
-  TotpItem(this.id, this.secret,
+  TotpItem(this.secret,
       [this.digits = 6,
       this.period = 30,
       this.algorithm = OtpHashAlgorithm.sha1,
@@ -17,9 +16,6 @@ class TotpItem {
       : assert(Base32.isBase32(secret) && secret != ''),
         assert(digits == 6 || digits == 8),
         assert(period > 0);
-
-  /// ID of item
-  final String id;
 
   /// Account name
   final String accountName;
@@ -40,14 +36,13 @@ class TotpItem {
   final OtpHashAlgorithm algorithm;
 
   /// Creates a new TOTP item.
-  static TotpItem newTOTPItem(String secret,
+  static TotpItem newTotpItem(String secret,
       [int digits = 6,
       int period = 60,
       OtpHashAlgorithm algorithm = OtpHashAlgorithm.sha1,
       String issuer = "",
       String accountName = ""]) {
-    String id = Uuid().v4();
-    return TotpItem(id, secret, digits, period, algorithm, issuer, accountName);
+    return TotpItem(secret, digits, period, algorithm, issuer, accountName);
   }
 
   /// Parses a TOTP key URI and returns a TOTPItem.
@@ -96,8 +91,7 @@ class TotpItem {
 
   /// Decode item from JSON.
   TotpItem.fromJSON(Map<String, dynamic> json)
-      : id = json['id'],
-        accountName = json['accountName'],
+      : accountName = json['accountName'],
         issuer = json['issuer'],
         period = json['period'],
         digits = json['digits'],
@@ -106,7 +100,6 @@ class TotpItem {
 
   /// Encode item to JSON.
   Map<String, dynamic> toJSON() => {
-        'id': id,
         'accountName': accountName,
         'issuer': issuer,
         'secret': secret,

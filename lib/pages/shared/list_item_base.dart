@@ -1,5 +1,5 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/widgets.dart';
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Abstract base class for TOTP list item.
 ///
@@ -8,7 +8,7 @@ abstract class TOTPListItemBase extends StatefulWidget {
   TOTPListItemBase(this.item, {Key? key});
 
   /// The item/account that is displayed.
-  final TotpItem item;
+  final AuthenticatorItem item;
 
   /// Seconds since epoch.
   static int get _secondsSinceEpoch {
@@ -17,17 +17,17 @@ abstract class TOTPListItemBase extends StatefulWidget {
 
   /// Progress indicator value.
   double get indicatorValue {
-    return (_secondsSinceEpoch % item.period) / item.period;
+    return (_secondsSinceEpoch % item.totp.period) / item.totp.period;
   }
 
   /// Returns the code of the item for the current time.
   String get codeUnformatted {
-    return item.getCode(_secondsSinceEpoch);
+    return item.totp.getCode(_secondsSinceEpoch);
   }
 
   /// Returns the code of the item for the current time in formatted form.
   String get code {
-    return item.getPrettyCode(_secondsSinceEpoch);
+    return item.totp.getPrettyCode(_secondsSinceEpoch);
   }
 
   @override

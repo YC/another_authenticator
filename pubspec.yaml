@@ -28,6 +28,7 @@ dependencies:
 
   # External
   barcode_scan2: 4.2.3
+  uuid: 3.0.7
 
 dev_dependencies:
   flutter_test:

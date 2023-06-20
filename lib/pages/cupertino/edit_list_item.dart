@@ -1,7 +1,7 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Material, CheckboxListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoColors;
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 
 /// Item for edit page (Cupertino).
 class EditListItem extends StatefulWidget {
@@ -9,7 +9,7 @@ class EditListItem extends StatefulWidget {
       {Key? key})
       : super(key: key);
 
-  final TotpItem item;
+  final AuthenticatorItem item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;
@@ -60,17 +60,17 @@ class _EditListItem extends State<EditListItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           // Issuer
-                          Text(widget.item.issuer),
+                          Text(widget.item.totp.issuer),
                           // Generated code
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Text(widget.item.placeholder,
+                              child: Text(widget.item.totp.placeholder,
                                   style: const TextStyle(
                                       fontSize: 40,
                                       color:
                                           Color.fromARGB(255, 125, 125, 125)))),
                           // Account name
-                          Text(widget.item.accountName,
+                          Text(widget.item.totp.accountName,
                               style: const TextStyle(fontSize: 13))
                         ]),
                   ))),

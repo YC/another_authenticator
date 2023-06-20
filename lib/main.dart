@@ -1,3 +1,4 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart'
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/state/state.dart'
     show RepositoryBase, Repository, FileStorage, AppState;
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
 import 'package:another_authenticator/ui/adaptive.dart' show getPlatform;
 import 'package:another_authenticator/pages/pages.dart';
 
@@ -63,7 +63,9 @@ class _AppState extends State<App> {
         routes: {
           '/': (context) => AndroidHomePage(appState?.items, addItem),
           '/edit': (context) => AndroidEditPage(
-              appState == null ? null : List<TotpItem>.from(appState!.items),
+              appState == null
+                  ? null
+                  : List<AuthenticatorItem>.from(appState!.items),
               itemsChanged,
               replaceItems),
           '/add': (context) => AddPage(addItem),
@@ -83,7 +85,9 @@ class _AppState extends State<App> {
         routes: {
           '/': (context) => CupertinoHomePage(appState?.items, addItem),
           '/edit': (context) => CupertinoEditPage(
-              appState == null ? null : List<TotpItem>.from(appState!.items),
+              appState == null
+                  ? null
+                  : List<AuthenticatorItem>.from(appState!.items),
               itemsChanged,
               replaceItems),
           '/add': (context) => AddPage(addItem),
@@ -100,7 +104,7 @@ class _AppState extends State<App> {
   }
 
   // Adds a TOTP item to the list
-  void addItem(TotpItem item) {
+  void addItem(AuthenticatorItem item) {
     setState(() {
       appState!.addItem(item);
     });
@@ -108,7 +112,7 @@ class _AppState extends State<App> {
   }
 
   // Replace items in state and save
-  void replaceItems(List<TotpItem> items) {
+  void replaceItems(List<AuthenticatorItem> items) {
     setState(() {
       appState!.replaceItems(items);
     });
@@ -116,7 +120,7 @@ class _AppState extends State<App> {
   }
 
   // Whether items have changed
-  bool itemsChanged(List<TotpItem> items) {
+  bool itemsChanged(List<AuthenticatorItem> items) {
     return !const ListEquality().equals(appState!.items, items);
   }
 }

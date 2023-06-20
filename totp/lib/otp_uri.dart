@@ -56,7 +56,7 @@ class OtpUri {
     }
 
     try {
-      return TotpItem.newTOTPItem(secret, digits, period,
+      return TotpItem.newTotpItem(secret, digits, period,
           OtpHashAlgorithm.fromString(algorithm), issuer, accountName);
     } catch (error) {
       throw FormatException("Incorrect parameters");

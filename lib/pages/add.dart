@@ -1,8 +1,9 @@
+import 'package:another_authenticator/state/authenticator_item.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
+import 'package:another_authenticator/ui/adaptive.dart';
+import 'package:another_authenticator_totp/totp.dart' show Base32;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:another_authenticator/ui/adaptive.dart';
-import 'package:another_authenticator_totp/totp.dart' show TotpItem, Base32;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Page for adding accounts.
@@ -56,7 +57,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   // Adds item or display errors
-  void addItem(TotpItem item) {
+  void addItem(AuthenticatorItem item) {
     try {
       widget.addItem(item);
       Navigator.pop(context);
@@ -108,7 +109,7 @@ class _AddPageState extends State<AddPage> {
     }
 
     // Initialise and add TOTP item
-    var item = TotpItem.newTOTPItem(
+    var item = AuthenticatorItem.newAuthenticatorItem(
         _secretController.text,
         _digits,
         _period,
