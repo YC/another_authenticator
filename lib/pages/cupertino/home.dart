@@ -1,4 +1,4 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import './list_item.dart';

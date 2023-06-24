@@ -1,12 +1,13 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator/state/file_storage.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'
     show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:another_authenticator/state/state.dart'
-    show RepositoryBase, Repository, FileStorage, AppState;
+import 'package:another_authenticator_state/state.dart'
+    show RepositoryBase, Repository, AppState;
 import 'package:another_authenticator/ui/adaptive.dart' show getPlatform;
 import 'package:another_authenticator/pages/pages.dart';
 
@@ -15,8 +16,7 @@ void main() => runApp(App());
 class App extends StatefulWidget {
   // Used to read/save state to disk
   static const STATE_FILENAME = "items.json";
-  final RepositoryBase repository =
-      new Repository(new FileStorage(STATE_FILENAME));
+  final RepositoryBase repository = new Repository(FileStorage(STATE_FILENAME));
 
   @override
   State<StatefulWidget> createState() => _AppState();

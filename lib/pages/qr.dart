@@ -1,5 +1,5 @@
 import 'dart:async' show Future;
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

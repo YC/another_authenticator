@@ -1,4 +1,4 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:another_authenticator/ui/adaptive.dart';
 import 'package:another_authenticator_totp/totp.dart' show Base32;

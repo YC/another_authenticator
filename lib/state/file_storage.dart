@@ -1,5 +1,6 @@
 import 'dart:async' show Future;
 import 'dart:io' show File;
+import 'package:another_authenticator_state/file_storage_base.dart';
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 
@@ -7,8 +8,8 @@ import 'package:path_provider/path_provider.dart'
 ///
 /// From:
 /// * https://flutter.io/docs/cookbook/persistence/reading-writing-files
-class FileStorage {
-  /// Instantiates instance of FileStorage with given file name.
+class FileStorage extends FileStorageBase {
+  /// Instantiates instance of FileStora`ge with given file name.
   FileStorage(this._filename);
 
   /// Name of file to store.

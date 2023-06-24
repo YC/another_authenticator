@@ -1,7 +1,7 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_totp/totp.dart' show TotpItem;
+import 'package:another_authenticator_state/app_state.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator_totp/totp_item.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Init/get empty state', () {

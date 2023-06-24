@@ -25,10 +25,11 @@ dependencies:
   # Internal
   another_authenticator_totp:
     path: ./totp
+  another_authenticator_state:
+    path: ./state
 
   # External
   barcode_scan2: 4.2.3
-  uuid: 3.0.7
 
 dev_dependencies:
   flutter_test:

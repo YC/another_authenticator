@@ -1,4 +1,4 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:flutter/widgets.dart';
 
 /// Abstract base class for TOTP list item.

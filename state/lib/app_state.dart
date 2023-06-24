@@ -1,11 +1,11 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import './authenticator_item.dart';
 
 /// Represents app state.
 ///
 /// Currently: holds list of TOTP items and associated manipulation functions.
 class AppState {
-  static const _DUPLICATE_ACCOUNT = "DUPLICATE_ACCOUNT";
-  static const _ID_COLLISION = "ID_COLLISION";
+  static const duplicateAccount = "DUPLICATE_ACCOUNT";
+  static const idCollision = "ID_COLLISION";
 
   /// Initialise state on load.
   AppState(this._items);
@@ -14,17 +14,17 @@ class AppState {
   final List<AuthenticatorItem> _items;
 
   /// TOTP items as list.
-  List<AuthenticatorItem> get items => this._items;
+  List<AuthenticatorItem> get items => _items;
 
   /// Adds a TOTP item to the list.
   void addItem(AuthenticatorItem item) {
     // Prevent duplicates
     if (_items.contains(item)) {
-      throw new Exception(_DUPLICATE_ACCOUNT);
+      throw Exception(duplicateAccount);
     }
     // Prevent id collisions
-    if (_items.any((_item) => _item.id == item.id)) {
-      throw new Exception(_ID_COLLISION);
+    if (_items.any((i) => i.id == item.id)) {
+      throw Exception(idCollision);
     }
     items.add(item);
   }

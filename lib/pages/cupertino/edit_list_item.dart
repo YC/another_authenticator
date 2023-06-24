@@ -1,4 +1,4 @@
-import 'package:another_authenticator/state/authenticator_item.dart';
+import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Material, CheckboxListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoColors;
