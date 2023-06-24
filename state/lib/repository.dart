@@ -51,6 +51,6 @@ class Repository implements RepositoryBase {
     var str = json.encode({'items': items, 'version': version});
 
     // Save to file
-    return _fileStorage.writeFile(str).then((f) => {});
+    return _fileStorage.writeFile(str).then((_) => {});
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 abstract class FileStorageBase {
   /// Returns boolean value indicating whether file exists.
   Future<bool> fileExists();
@@ -8,5 +6,5 @@ abstract class FileStorageBase {
   Future<String> readFile();
 
   /// Writes to file.
-  Future<File> writeFile(String contents);
+  Future writeFile(String contents);
 }

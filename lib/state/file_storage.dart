@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart'
 /// From:
 /// * https://flutter.io/docs/cookbook/persistence/reading-writing-files
 class FileStorage extends FileStorageBase {
-  /// Instantiates instance of FileStora`ge with given file name.
+  /// Instantiates instance of FileStorage with given file name.
   FileStorage(this._filename);
 
   /// Name of file to store.
@@ -40,8 +40,8 @@ class FileStorage extends FileStorageBase {
   }
 
   /// Writes to file.
-  Future<File> writeFile(String contents) async {
+  Future writeFile(String contents) async {
     final file = await _file;
-    return file.writeAsString(contents);
+    await file.writeAsString(contents, flush: true);
   }
 }
