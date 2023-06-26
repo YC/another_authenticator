@@ -21,6 +21,9 @@ jobs:
     - run: dart test
       working-directory: ./totp
 
+    - run: dart test
+      working-directory: ./state
+
     - run: flutter pub get
     - run: flutter test
     - run: flutter build apk
