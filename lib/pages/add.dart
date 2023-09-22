@@ -1,6 +1,7 @@
+import 'package:another_authenticator/ui/adaptive.dart'
+    show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
 import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
-import 'package:another_authenticator/ui/adaptive.dart';
 import 'package:another_authenticator_totp/totp.dart' show Base32;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,15 +72,17 @@ class _AddPageState extends State<AddPage> {
       }
 
       showAdaptiveDialog(
-        context,
-        title: Text(AppLocalizations.of(context)!.error),
-        content: Text(errMessage),
-        actions: [
-          AdaptiveDialogAction(
-              child: Text(AppLocalizations.of(context)!.ok),
-              onPressed: Navigator.of(context).pop)
-        ],
-      );
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog.adaptive(
+                title: Text(AppLocalizations.of(context)!.error),
+                content: Text(errMessage),
+                actions: [
+                  AdaptiveDialogAction(
+                      child: Text(AppLocalizations.of(context)!.ok),
+                      onPressed: Navigator.of(context).pop)
+                ]);
+          });
     }
   }
 

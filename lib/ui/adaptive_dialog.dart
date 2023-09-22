@@ -5,11 +5,9 @@
 /// Licensed under:
 /// https://raw.githubusercontent.com/flutter/flutter/master/LICENSE
 
-import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './adaptive_base.dart' show AdaptiveBase;
-import './adaptive.dart' show getPlatform;
 
 class AdaptiveAndroidDialogActionData {
   final Key? key;
@@ -55,63 +53,6 @@ class AdaptiveDialogAction
       key: androidData?.key,
       onPressed: cupertinoData?.onPressed ?? onPressed,
       child: cupertinoData?.child ?? child,
-    );
-  }
-}
-
-/// Android alert dialog data
-class AdaptiveAndroidAlertDialogData {
-  final Key? key;
-  final Widget? title;
-  final Widget? content;
-  final List<Widget>? actions;
-
-  AdaptiveAndroidAlertDialogData(
-      {this.key, this.title, this.content, this.actions});
-}
-
-/// Cupertino alert dialog data
-class AdaptiveCupertinoAlertDialogData {
-  final Key? key;
-  final Widget? title;
-  final Widget? content;
-  final List<Widget>? actions;
-
-  AdaptiveCupertinoAlertDialogData(
-      {this.key, this.title, this.content, this.actions});
-}
-
-Future<dynamic> showAdaptiveDialog<T>(BuildContext context,
-    {Key? key,
-    Widget? title,
-    Widget? content,
-    List<Widget>? actions,
-    AdaptiveAndroidAlertDialogData? androidData,
-    AdaptiveCupertinoAlertDialogData? cupertinoData}) {
-  var platform = getPlatform();
-  if (platform == TargetPlatform.android) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          key: key ?? androidData?.key,
-          title: title ?? androidData?.title,
-          content: content ?? androidData?.content,
-          actions: actions ?? androidData?.actions ?? [],
-        );
-      },
-    );
-  } else {
-    return showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          key: key ?? cupertinoData?.key,
-          title: title ?? cupertinoData?.title,
-          content: content ?? cupertinoData?.content,
-          actions: actions ?? cupertinoData?.actions ?? [],
-        );
-      },
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:async' show Future;
 import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
-    show AppScaffold, showAdaptiveDialog, AdaptiveDialogAction;
+    show AppScaffold, AdaptiveDialogAction;
 import 'package:barcode_scan2/barcode_scan2.dart' show BarcodeScanner;
 
 /// Page for adding accounts by scanning QR.
@@ -32,19 +32,22 @@ class _ScanQRPageState extends State<ScanQRPage> {
           Navigator.of(context).pop(item);
         } catch (e) {
           await showAdaptiveDialog(
-            context,
-            title: Text(AppLocalizations.of(context)!.error),
-            content: Text(e.toString()),
-            actions: [
-              AdaptiveDialogAction(
-                child: Text(AppLocalizations.of(context)!.ok),
-                onPressed: () {
-                  // Pop dialog
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog.adaptive(
+                  title: Text(AppLocalizations.of(context)!.error),
+                  content: Text(e.toString()),
+                  actions: [
+                    AdaptiveDialogAction(
+                      child: Text(AppLocalizations.of(context)!.ok),
+                      onPressed: () {
+                        // Pop dialog
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              });
           Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
           Navigator.of(context).pop();
         }
