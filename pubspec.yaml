@@ -15,7 +15,7 @@ dependencies:
 
   # Flutter team dependencies
   cupertino_icons: ^1.0.3
-  intl: ^0.18.0
+  intl: ^0.18.1
 
   # Flutter plugins
   path_provider: ^2.0.2
@@ -29,7 +29,7 @@ dependencies:
     path: ./state
 
   # External
-  barcode_scan2: 4.2.4
+  barcode_scan2: 4.3.0
 
 dev_dependencies:
   flutter_test:
