@@ -59,10 +59,9 @@ class _AppState extends State<App> {
       // Android (Material Design)
       return MaterialApp(
         onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-        theme: ThemeData(
-          useMaterial3: true,
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
         initialRoute: '/',
         routes: {
           '/': (context) => AndroidHomePage(appState?.items, addItem),
