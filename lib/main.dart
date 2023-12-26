@@ -3,6 +3,7 @@ import 'package:another_authenticator_state/authenticator_item.dart';
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'
     show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,6 +48,9 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
+
     // Platform
     TargetPlatform platform = getPlatform();
 

@@ -11,11 +11,10 @@ A two-factor authentication app built with Flutter.
 ## Proposed
 - View secrets
 - Backup secrets to cloud storage
-- Synchronisation with nearby devices
 - UI tests
 
 ## Licenses
-MIT unless otherwise specified.  
+MIT unless otherwise specified.\
 Further details about used libraries and references are available in
 [`lib/pages/acknowledgements.dart`](lib/pages/acknowledgements.dart).
 
