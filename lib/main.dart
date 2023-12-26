@@ -16,8 +16,7 @@ void main() => runApp(App());
 
 class App extends StatefulWidget {
   // Used to read/save state to disk
-  static const STATE_FILENAME = "items.json";
-  final RepositoryBase repository = new Repository(FileStorage(STATE_FILENAME));
+  final RepositoryBase repository = new Repository(FileStorage());
 
   @override
   State<StatefulWidget> createState() => _AppState();
@@ -30,7 +29,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     // Load initial state
-    widget.repository.loadState().then((items) {
+    widget.repository.loadItems().then((items) {
       super.setState(() {
         appState = AppState(items);
       });
@@ -107,11 +106,11 @@ class _AppState extends State<App> {
   }
 
   // Adds a TOTP item to the list
-  void addItem(AuthenticatorItem item) {
+  void addItem(AuthenticatorItem item) async {
+    await widget.repository.addItem(item);
     setState(() {
       appState!.addItem(item);
     });
-    widget.repository.saveState(appState!.items);
   }
 
   // Replace items in state and save
@@ -119,7 +118,7 @@ class _AppState extends State<App> {
     setState(() {
       appState!.replaceItems(items);
     });
-    widget.repository.saveState(appState!.items);
+    widget.repository.saveItems(appState!.items);
   }
 
   // Whether items have changed

@@ -9,39 +9,41 @@ import 'package:path_provider/path_provider.dart'
 /// From:
 /// * https://flutter.io/docs/cookbook/persistence/reading-writing-files
 class FileStorage extends FileStorageBase {
-  /// Instantiates instance of FileStorage with given file name.
-  FileStorage(this._filename);
+  /// Instantiates instance of FileStorage
+  FileStorage();
 
-  /// Name of file to store.
-  final String _filename;
-
-  /// Gets path of application storage directory.
-  static Future<String> get _path async {
+  /// Gets path of Application Documents Directory.
+  Future<String> getDataPath() async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
-  /// Gets stored file.
-  Future<File> get _file async {
-    var path = await _path;
-    return File('$path/$_filename');
+  Future<File> _filePath(String filename) async {
+    var path = await getDataPath();
+    return File('$path/$filename');
   }
 
-  /// Returns boolean value indicating whether file exists.
-  Future<bool> fileExists() async {
-    final file = await _file;
+  /// Whether file is present.
+  @override
+  Future<bool> hasFile(String filename) async {
+    final file = await _filePath(filename);
     return file.exists();
   }
 
   /// Reads from file into String.
-  Future<String> readFile() async {
-    final file = await _file;
+  @override
+  Future<String?> readFile(String filename) async {
+    final file = await _filePath(filename);
+    if (!await file.exists()) {
+      return null;
+    }
     return file.readAsString();
   }
 
   /// Writes to file.
-  Future writeFile(String contents) async {
-    final file = await _file;
+  @override
+  Future writeFile(String filename, String contents) async {
+    final file = await _filePath(filename);
     await file.writeAsString(contents, flush: true);
   }
 }

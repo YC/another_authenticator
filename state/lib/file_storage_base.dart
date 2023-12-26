@@ -1,10 +1,13 @@
 abstract class FileStorageBase {
-  /// Returns boolean value indicating whether file exists.
-  Future<bool> fileExists();
+  /// Get path to store persistent data.
+  Future<String> getDataPath();
+
+  /// Does file exist?
+  Future<bool> hasFile(String filename);
 
   /// Reads from file into String.
-  Future<String> readFile();
+  Future<String?> readFile(String filename);
 
   /// Writes to file.
-  Future writeFile(String contents);
+  Future writeFile(String filename, String contents);
 }
