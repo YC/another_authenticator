@@ -1,42 +1,44 @@
-import 'dart:async' show Future;
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator/state/app_state.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show ReorderableListView, Icons;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import './edit_list_item.dart' show EditListItem;
 
 /// Cupertino edit page.
 class CupertinoEditPage extends StatefulWidget {
-  CupertinoEditPage(this.items, this._itemsChanged, this.replaceItems,
-      {Key? key})
-      : super(key: key);
-
-  final Function replaceItems;
-  final Function _itemsChanged;
-  final List<AuthenticatorItem>? items;
-
-  // Remove items with given ids
-  void removeItems(List<String> itemIDs) {
-    items!.removeWhere((item) => itemIDs.contains(item.id));
-  }
-
-  // Whether items have changed
-  bool get itemsChanged {
-    return _itemsChanged(items);
-  }
+  CupertinoEditPage({Key? key}) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
 }
 
 class _EditPageState extends State<CupertinoEditPage> {
+  List<LegacyAuthenticatorItem>? items;
+
+  // Remove items with given ids
+  void removeItems(List<String> itemIDs) {
+    items!.removeWhere((item) => itemIDs.contains(item.id));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() => items =
+          List<LegacyAuthenticatorItem>.from(context.read<AppState>().items!));
+    });
+  }
+
   // Handles reorder of elements
   void _handleReorder(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      widget.items!.insert(newIndex, widget.items!.removeAt(oldIndex));
+      items!.insert(newIndex, items!.removeAt(oldIndex));
       _refreshHide();
     });
   }
@@ -64,7 +66,8 @@ class _EditPageState extends State<CupertinoEditPage> {
   // Refreshes value of _hide
   void _refreshHide() {
     _hideTrash.value = _pendingRemovalList.length == 0;
-    _hideSave.value = !widget.itemsChanged;
+    _hideSave.value =
+        !Provider.of<AppState>(context, listen: false).itemsChanged(items);
   }
 
   // Item remove dialog
@@ -85,7 +88,7 @@ class _EditPageState extends State<CupertinoEditPage> {
               child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () {
                 setState(() {
-                  widget.removeItems(_pendingRemovalList);
+                  removeItems(_pendingRemovalList);
                   _pendingRemovalList.clear();
                   _refreshHide();
                 });
@@ -99,10 +102,15 @@ class _EditPageState extends State<CupertinoEditPage> {
   }
 
   // Handle history pop (back button)
-  Future<bool> _popCallback() async {
-    if (!widget.itemsChanged) {
-      return true;
+  void _popCallback(bool didPop) {
+    if (didPop) return;
+
+    // No change to items
+    if (!Provider.of<AppState>(context, listen: false).itemsChanged(items)) {
+      Navigator.of(context).pop();
+      return;
     }
+
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
@@ -125,14 +133,13 @@ class _EditPageState extends State<CupertinoEditPage> {
         );
       },
     );
-    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      // Handle back button
-      onWillPop: _popCallback,
+    return PopScope(
+      onPopInvoked: _popCallback,
+      canPop: false,
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text(AppLocalizations.of(context)!.editTitle),
@@ -143,14 +150,12 @@ class _EditPageState extends State<CupertinoEditPage> {
               ValueListenableBuilder<bool>(
                 valueListenable: _hideTrash,
                 builder: (context, value, child) {
-                  if (value) {
-                    return Container();
-                  } else {
-                    return CupertinoButton(
-                        padding: const EdgeInsets.all(0),
-                        child: const Icon(CupertinoIcons.delete),
-                        onPressed: () => showRemoveDialog(context));
-                  }
+                  return value
+                      ? Container()
+                      : CupertinoButton(
+                          padding: const EdgeInsets.all(0),
+                          child: const Icon(CupertinoIcons.delete),
+                          onPressed: () => showRemoveDialog(context));
                 },
               ),
               ValueListenableBuilder<bool>(
@@ -160,19 +165,23 @@ class _EditPageState extends State<CupertinoEditPage> {
                     return Container();
                   } else {
                     return CupertinoButton(
-                        padding: const EdgeInsets.all(0),
-                        child: const Icon(Icons.check),
-                        onPressed: () {
-                          widget.replaceItems(widget.items);
-                          Navigator.pop(context);
-                        });
+                      padding: const EdgeInsets.all(0),
+                      child: const Icon(Icons.check),
+                      onPressed: () {
+                        if (items != null) {
+                          Provider.of<AppState>(context, listen: false)
+                              .replaceItems(items!);
+                        }
+                        Navigator.pop(context);
+                      },
+                    );
                   }
                 },
               )
             ],
           ),
         ),
-        child: widget.items == null
+        child: items == null
             ? Center(child: Text(AppLocalizations.of(context)!.loading))
             : SafeArea(
                 child: Container(
@@ -183,7 +192,7 @@ class _EditPageState extends State<CupertinoEditPage> {
                           : CupertinoColors.darkBackgroundGray,
                   child: ReorderableListView(
                       scrollDirection: Axis.vertical,
-                      children: widget.items!
+                      children: items!
                           .map((item) => EditListItem(
                               item, addRemovalItem, removeRemovalItem,
                               key: Key(item.id)))

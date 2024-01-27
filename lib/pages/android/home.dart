@@ -1,52 +1,45 @@
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator/state/app_state.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../l10n/constants.dart' as Constants;
 import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
-class AndroidHomePage extends StatefulWidget {
-  AndroidHomePage(this.items, this.addItem, {Key? key}) : super(key: key);
-
-  /// Adds an item
-  final Function addItem;
-
-  /// List of TOTP items
-  final List<AuthenticatorItem>? items;
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<AndroidHomePage> {
+class AndroidHomePage extends StatelessWidget {
   /// Builds list of items.
   Widget _buildList() {
-    if (widget.items == null) {
-      // Items loading
-      return Center(
-          child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context)!.loading)));
-    } else if (widget.items!.length == 0) {
-      // No Items
-      return Center(
-          child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(AppLocalizations.of(context)!.noAccounts,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(height: 1.2))));
-    }
+    return Consumer<AppState>(
+      builder: (context, state, child) {
+        if (state.items == null) {
+          // Items loading
+          return Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(AppLocalizations.of(context)!.loading)));
+        } else if (state.items!.length == 0) {
+          // No Items
+          return Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(AppLocalizations.of(context)!.noAccounts,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(height: 1.2))));
+        }
 
-    return Container(
-      margin: const EdgeInsets.all(10),
-      child: ListView.builder(
-        itemCount: widget.items!.length,
-        itemBuilder: (BuildContext context, int index) {
-          var item = widget.items![index];
-          return HomeListItem(item, key: Key(item.id));
-        },
-      ),
+        return Container(
+          margin: const EdgeInsets.all(10),
+          child: ListView.builder(
+            itemCount: state.items!.length,
+            itemBuilder: (BuildContext context, int index) {
+              var item = state.items![index];
+              return HomeListItem(item, key: Key(item.id));
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -67,8 +60,13 @@ class _HomePageState extends State<AndroidHomePage> {
                 leading: const Icon(Icons.camera_alt),
                 onTap: () async {
                   Navigator.pop(context);
-                  final item = await Navigator.pushNamed(context, "/add/scan");
-                  if (item != null) widget.addItem(item);
+                  final item =
+                      await Navigator.pushNamed<LegacyAuthenticatorItem>(
+                          context, "/add/scan");
+                  if (item != null) {
+                    await Provider.of<AppState>(context, listen: false)
+                        .addItem(item);
+                  }
                 },
               ),
               // Add account manually

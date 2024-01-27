@@ -1,18 +1,17 @@
+import 'package:another_authenticator/state/app_state.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:another_authenticator_totp/totp.dart' show Base32;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 /// Page for adding accounts.
 class AddPage extends StatefulWidget {
-  AddPage(this.addItem, {Key? key}) : super(key: key);
-
-  // Adds an item
-  final Function addItem;
+  AddPage({Key? key}) : super(key: key);
 
   @override
   _AddPageState createState() => _AddPageState();
@@ -58,10 +57,11 @@ class _AddPageState extends State<AddPage> {
   }
 
   // Adds item or display errors
-  void addItem(AuthenticatorItem item) {
+  void addItem(LegacyAuthenticatorItem item) {
     try {
-      widget.addItem(item);
-      Navigator.pop(context);
+      Provider.of<AppState>(context, listen: false).addItem(item).then((_) {
+        Navigator.pop(context);
+      });
     } catch (e) {
       // TODO: Fix exception handling
       var errMessage = e.toString();
@@ -119,7 +119,7 @@ class _AddPageState extends State<AddPage> {
     }
 
     // Initialise and add TOTP item
-    var item = AuthenticatorItem.newAuthenticatorItem(
+    var item = LegacyAuthenticatorItem.newAuthenticatorItem(
         _secretController.text,
         _digits,
         _period,

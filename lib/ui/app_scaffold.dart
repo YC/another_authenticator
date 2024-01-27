@@ -1,6 +1,6 @@
 import 'package:another_authenticator/ui/adaptive_base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' show AppBar, Scaffold;
+import 'package:flutter/material.dart' show AppBar, Scaffold, Material;
 import 'package:flutter/cupertino.dart'
     show CupertinoNavigationBar, CupertinoPageScaffold;
 
@@ -25,7 +25,9 @@ class AppScaffold extends AdaptiveBase<Scaffold, CupertinoPageScaffold> {
     return CupertinoPageScaffold(
       navigationBar:
           cupertinoNavigationBar ?? CupertinoNavigationBar(middle: title),
-      child: SafeArea(child: body),
+      child: SafeArea(
+        child: Material(child: body),
+      ),
     );
   }
 }

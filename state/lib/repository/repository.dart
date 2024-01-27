@@ -1,34 +1,36 @@
 import 'dart:async' show Future;
 
-import '../authenticator_item.dart';
+import '../file_storage_base.dart';
+import '../legacy/legacy_authenticator_item.dart';
 import './repository_base.dart' show RepositoryBase;
-import './legacy_repository.dart' show LegacyRepository;
+import '../legacy/legacy_repository.dart' show LegacyRepository;
 
 /// Wrapper for repository.
 class Repository implements RepositoryBase {
-  late RepositoryBase repository;
+  late RepositoryBase _legacyRepository;
+  late FileStorageBase _fileStorage;
 
   Repository(fileStorage) {
-    repository = LegacyRepository(fileStorage);
+    _legacyRepository = LegacyRepository(fileStorage);
+    _fileStorage = fileStorage;
   }
 
   @override
-  Future<bool> hasState() {
-    return repository.hasState();
+  Future<List<LegacyAuthenticatorItem>> loadItems() async {
+    // Open the database and store the reference.
+    // join(await _fileStorage.getDataPath(), 'main.db')
+    _fileStorage.getDataPath();
+
+    return _legacyRepository.loadItems();
   }
 
   @override
-  Future<List<AuthenticatorItem>> loadItems() async {
-    return repository.loadItems();
+  Future replaceItems(List<LegacyAuthenticatorItem> items) async {
+    return _legacyRepository.replaceItems(items);
   }
 
   @override
-  Future saveItems(List<AuthenticatorItem> items) async {
-    return repository.saveItems(items);
-  }
-
-  @override
-  Future<AuthenticatorItem> addItem(AuthenticatorItem item) async {
-    return repository.addItem(item);
+  Future<LegacyAuthenticatorItem> addItem(LegacyAuthenticatorItem item) async {
+    return _legacyRepository.addItem(item);
   }
 }

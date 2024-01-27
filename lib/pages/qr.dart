@@ -1,5 +1,5 @@
 import 'dart:async' show Future;
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,7 +25,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
         try {
           final value = await _scan();
           // Parse scanned value into item and pop
-          var item = AuthenticatorItem.newAuthenticatorItemFromUri(value);
+          var item = LegacyAuthenticatorItem.newAuthenticatorItemFromUri(value);
           // Pop until scan page
           Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
           // Pop with scanned item

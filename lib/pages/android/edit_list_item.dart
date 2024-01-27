@@ -1,4 +1,4 @@
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
 
 /// Item for edit page (Android).
@@ -7,7 +7,7 @@ class EditListItem extends StatefulWidget {
       {Key? key})
       : super(key: key);
 
-  final AuthenticatorItem item;
+  final LegacyAuthenticatorItem item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;
@@ -21,7 +21,7 @@ class EditListItem extends StatefulWidget {
 
 class _EditListItem extends State<EditListItem> {
   // Whether item is currently selected
-  bool _value = false;
+  bool? _value = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,12 @@ class _EditListItem extends State<EditListItem> {
 
             // Set checkbox state
             setState(() {
-              _value = e!;
+              _value = e;
             });
           },
           value: _value,
           title: Padding(
-            // Note that vertical padding here is 26 instead of 25
-            padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 25),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               // Align to start (left)

@@ -1,68 +1,61 @@
-import 'package:another_authenticator_state/authenticator_item.dart';
+import 'package:another_authenticator/state/app_state.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import './list_item.dart';
 
 /// Cupertino version of home page.
-class CupertinoHomePage extends StatefulWidget {
-  CupertinoHomePage(this.items, this.addItem, {Key? key}) : super(key: key);
-
-  /// Adds an item
-  final Function addItem;
-
-  /// List of TOTP items
-  final List<AuthenticatorItem>? items;
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<CupertinoHomePage> {
+class CupertinoHomePage extends StatelessWidget {
   /// Builds list of items.
-  Widget _buildList() {
-    Color backgroundColour =
+  Widget _buildList(BuildContext context) {
+    var backgroundColour =
         CupertinoTheme.of(context).brightness == Brightness.light
             ? CupertinoColors.extraLightBackgroundGray
             : CupertinoColors.darkBackgroundGray;
 
-    if (widget.items == null) {
-      // Items loading
-      return Container(
-        color: backgroundColour,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(AppLocalizations.of(context)!.loading),
-          ),
-        ),
-      );
-    } else if (widget.items!.length == 0) {
-      // No Items
-      return Container(
-        color: backgroundColour,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              AppLocalizations.of(context)!.noAccounts,
-              textAlign: TextAlign.center,
-              style: const TextStyle(height: 1.2),
+    return Consumer<AppState>(
+      builder: (context, state, child) {
+        if (state.items == null) {
+          // Items loading
+          return Container(
+            color: backgroundColour,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(AppLocalizations.of(context)!.loading),
+              ),
             ),
-          ),
-        ),
-      );
-    }
+          );
+        } else if (state.items!.length == 0) {
+          // No Items
+          return Container(
+            color: backgroundColour,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  AppLocalizations.of(context)!.noAccounts,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(height: 1.2),
+                ),
+              ),
+            ),
+          );
+        }
 
-    return Container(
-      color: backgroundColour,
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: ListView.builder(
-        itemCount: widget.items!.length,
-        itemBuilder: (BuildContext context, int index) {
-          var item = widget.items![index];
-          return HomeListItem(item, key: Key(item.id));
-        },
-      ),
+        return Container(
+          color: backgroundColour,
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          child: ListView.builder(
+            itemCount: state.items!.length,
+            itemBuilder: (BuildContext context, int index) {
+              var item = state.items![index];
+              return HomeListItem(item, key: Key(item.id));
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -78,10 +71,14 @@ class _HomePageState extends State<CupertinoHomePage> {
           actions: <Widget>[
             CupertinoActionSheetAction(
               child: Text(AppLocalizations.of(context)!.addScanQR),
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pop(context);
-                final item = Navigator.pushNamed(context, "/add/scan");
-                widget.addItem(item);
+                final item = await Navigator.pushNamed<LegacyAuthenticatorItem>(
+                    context, "/add/scan");
+                if (item != null) {
+                  await Provider.of<AppState>(context, listen: false)
+                      .addItem(item);
+                }
               },
             ),
             CupertinoActionSheetAction(
@@ -108,44 +105,45 @@ class _HomePageState extends State<CupertinoHomePage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-          padding: const EdgeInsetsDirectional.only(start: 5, end: 10),
-          leading: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Settings
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: const Icon(
-                  CupertinoIcons.settings,
-                  semanticLabel: 'Settings',
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/settings');
-                },
+        padding: const EdgeInsetsDirectional.only(start: 5, end: 10),
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Settings
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: const Icon(
+                CupertinoIcons.settings,
+                semanticLabel: 'Settings',
               ),
-              // Edit
-              CupertinoButton(
-                child: Text("Edit"),
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/edit');
-                },
-              )
-            ],
-          ),
-          // Add
-          trailing: CupertinoButton(
-            padding: EdgeInsets.zero,
-            child: const Icon(
-              CupertinoIcons.add_circled,
-              semanticLabel: 'Add',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/settings');
+              },
             ),
-            onPressed: () {
-              _showAddModal(context);
-            },
+            // Edit
+            CupertinoButton(
+              child: Text("Edit"),
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/edit');
+              },
+            )
+          ],
+        ),
+        // Add
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: const Icon(
+            CupertinoIcons.add_circled,
+            semanticLabel: 'Add',
           ),
-          middle: Text(AppLocalizations.of(context)!.appName)),
-      child: _buildList(),
+          onPressed: () {
+            _showAddModal(context);
+          },
+        ),
+        middle: Text(AppLocalizations.of(context)!.appName),
+      ),
+      child: _buildList(context),
     );
   }
 }

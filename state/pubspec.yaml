@@ -13,6 +13,9 @@ dependencies:
   another_authenticator_totp:
     path: ../totp
 
+  sqflite: ^2.3.0
+  path: ^1.8.3
+
 dev_dependencies:
   lints: ^3.0.0
   test: ^1.25.0
