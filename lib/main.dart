@@ -30,6 +30,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Add transitive licenses
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]);
 

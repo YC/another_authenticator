@@ -22,10 +22,6 @@ const _libs = [
   {
     'title': 'Daegalus/dart-uuid',
     'path': '$_license_dir/daegalus-dart-uuid.txt'
-  },
-  {
-    'title': 'brianegan/flutter_architecture_samples',
-    'path': '$_license_dir/brianegan-flutter_architecture_samples.txt'
   }
 ];
 
