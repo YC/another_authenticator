@@ -19,7 +19,7 @@ class AppState extends ChangeNotifier {
     return _items;
   }
 
-  void loadItems() async {
+  Future loadItems() async {
     _items = await _repository.loadItems();
     notifyListeners();
   }
@@ -27,13 +27,13 @@ class AppState extends ChangeNotifier {
   /// Adds a TOTP item to the list.
   Future addItem(LegacyAuthenticatorItem item) async {
     await _repository.addItem(item);
-    loadItems();
+    await loadItems();
   }
 
   /// Replace list of TOTP items.
   Future replaceItems(List<LegacyAuthenticatorItem> items) async {
     await _repository.replaceItems(items);
-    loadItems();
+    await loadItems();
   }
 
   bool itemsChanged(List<LegacyAuthenticatorItem>? newItems) {
