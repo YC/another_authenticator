@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' show ListTile, Icons;
+import 'package:flutter/material.dart'
+    show Icons, ListTile, Material, showLicensePage;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
@@ -66,33 +67,35 @@ class SettingsPage extends StatelessWidget {
 
           // List of options
           Expanded(
-            child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                // Source
-                ListTile(
-                  dense: true,
-                  leading: const Icon(Icons.code),
-                  title: Text(AppLocalizations.of(context)!.source,
-                      style: const TextStyle(fontSize: 15)),
-                  onTap: () {
-                    launchURL(Constants.REPO);
-                  },
-                ),
-                // Acknowledgements
-                ListTile(
-                  dense: true,
-                  leading: isPlatformAndroid()
-                      ? const Icon(Icons.book)
-                      : const Icon(CupertinoIcons.book),
-                  title: Text(AppLocalizations.of(context)!.licenses,
-                      style: const TextStyle(fontSize: 15)),
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed('/settings/acknowledgements');
-                  },
-                ),
-              ],
+            child: Material(
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  // Source
+                  ListTile(
+                    dense: true,
+                    leading: const Icon(Icons.code),
+                    title: Text(AppLocalizations.of(context)!.source,
+                        style: const TextStyle(fontSize: 15)),
+                    onTap: () {
+                      launchURL(Constants.REPO);
+                    },
+                  ),
+                  // Acknowledgements
+                  ListTile(
+                    dense: true,
+                    leading: isPlatformAndroid()
+                        ? const Icon(Icons.book)
+                        : const Icon(CupertinoIcons.book),
+                    title: Text(AppLocalizations.of(context)!.licenses,
+                        style: const TextStyle(fontSize: 15)),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed('/settings/acknowledgements');
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],
