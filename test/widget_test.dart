@@ -33,7 +33,7 @@ void main() {
     );
   });
 
-  testWidgets('Acknowledgments page', (WidgetTester tester) async {
+  testWidgets('Acknowledgements page', (WidgetTester tester) async {
     for (var i = 0; i < 100; i++) {
       LicenseRegistry.addLicense(
         () => Stream<LicenseEntry>.value(
@@ -59,7 +59,7 @@ TestLicense $i
 
     await tester.pumpAndSettle();
 
-    final titleFinder = find.text("Acknowledgments");
+    final titleFinder = find.text("Acknowledgements");
     expect(titleFinder, findsOneWidget);
 
     final scrollFinder = find.byType(Scrollable);

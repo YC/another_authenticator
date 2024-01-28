@@ -1,3 +1,8 @@
+/// Acknowledgements page
+///
+/// Various code from:
+/// https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart'
@@ -22,6 +27,7 @@ class AcknowledgementsPage extends StatefulWidget {
 
 /// Acknowledgements page for used libraries.
 class _AcknowledgementsPageState extends State<AcknowledgementsPage> {
+  // Adapted from flutter/flutter
   final Future<_LicenseData> licenses = LicenseRegistry.licenses
       .fold<_LicenseData>(
         _LicenseData(),
@@ -101,7 +107,7 @@ class FullScreenLicense extends StatelessWidget {
         licenses.add(Divider());
       }
       licenses.addAll(licenseEntry.paragraphs.map((p) {
-        // Copied from flutter/flutter
+        // Adapted from flutter/flutter
         if (p.indent == LicenseParagraph.centeredIndent) {
           return Padding(
             padding: const EdgeInsets.only(top: 16.0),
@@ -135,8 +141,8 @@ class FullScreenLicense extends StatelessWidget {
   }
 }
 
-/// From https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart#L696-L749
-/// With addition of helper methods.
+/// Adapted from flutter/flutter
+/// With renames and addition of helper methods.
 ///
 /// This is a collection of licenses and the packages to which they apply.
 /// [_packageLicenseBindings] records the m+:n+ relationship between the license
