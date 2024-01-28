@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart'
-    show Icons, ListTile, Material, showLicensePage;
+import 'package:flutter/material.dart' show Icons, ListTile, Material;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
