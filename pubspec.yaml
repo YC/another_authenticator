@@ -1,5 +1,5 @@
 name: another_authenticator
-description: A two-factor authentication app implemented with Flutter.
+description: Another two-factor authentication app.
 publish_to: none
 
 version: 1.0.0+1
@@ -42,4 +42,3 @@ flutter:
 
   assets:
     - graphics/icon.png
-    - assets/licenses/

@@ -64,6 +64,8 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
 
+          SizedBox(height: 5),
+
           // List of options
           Expanded(
             child: Material(
