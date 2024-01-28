@@ -1,7 +1,6 @@
 import 'package:another_authenticator/state/app_state.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
-import 'package:another_authenticator_state/state.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:another_authenticator_totp/totp.dart' show Base32;
 import 'package:flutter/material.dart';
@@ -57,7 +56,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   // Adds item or display errors
-  void addItem(LegacyAuthenticatorItem item) {
+  void addItem(BaseItemType item) {
     try {
       Provider.of<AppState>(context, listen: false).addItem(item).then((_) {
         Navigator.pop(context);
@@ -119,7 +118,7 @@ class _AddPageState extends State<AddPage> {
     }
 
     // Initialise and add TOTP item
-    var item = LegacyAuthenticatorItem.newAuthenticatorItem(
+    var item = BaseItemType.newAuthenticatorItem(
         _secretController.text,
         _digits,
         _period,

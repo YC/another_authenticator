@@ -1,13 +1,12 @@
-import 'package:another_authenticator_state/state.dart';
+import 'package:another_authenticator/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../shared/list_item_base.dart' show TOTPListItemBase;
+import '../shared/list_item_base.dart' show TotpListItemBase;
 
 /// Home page list item (Android).
-class HomeListItem extends TOTPListItemBase {
-  HomeListItem(LegacyAuthenticatorItem item, {required Key key})
-      : super(item, key: key);
+class HomeListItem extends TotpListItemBase {
+  HomeListItem(BaseItemType item, {required Key key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();

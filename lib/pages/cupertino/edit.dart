@@ -1,5 +1,4 @@
 import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show ReorderableListView, Icons;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,7 +14,7 @@ class CupertinoEditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<CupertinoEditPage> {
-  List<LegacyAuthenticatorItem>? items;
+  List<BaseItemType>? items;
 
   // Remove items with given ids
   void removeItems(List<String> itemIDs) {
@@ -27,8 +26,8 @@ class _EditPageState extends State<CupertinoEditPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() => items =
-          List<LegacyAuthenticatorItem>.from(context.read<AppState>().items!));
+      setState(() =>
+          items = List<BaseItemType>.from(context.read<AppState>().items!));
     });
   }
 

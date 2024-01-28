@@ -8,7 +8,7 @@ import '../repository/repository_base.dart' show RepositoryBase;
 /// Is used to load/save state to JSON file.
 ///
 /// Currently uses FileStorage to do so.
-class LegacyRepository implements RepositoryBase {
+class LegacyRepository implements RepositoryBase<LegacyAuthenticatorItem> {
   LegacyRepository(this._fileStorage);
 
   // Current file version

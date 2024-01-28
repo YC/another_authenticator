@@ -2,17 +2,19 @@ import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' show ListEquality;
 
+typedef BaseItemType = LegacyAuthenticatorItem;
+
 /// Represents app state.
 class AppState extends ChangeNotifier {
-  final RepositoryBase _repository;
+  final RepositoryBase<BaseItemType> _repository;
 
   AppState(this._repository);
 
   /// List of TOTP items (internal implementation).
-  List<LegacyAuthenticatorItem>? _items;
+  List<BaseItemType>? _items;
 
   /// TOTP items as list.
-  List<LegacyAuthenticatorItem>? get items {
+  List<BaseItemType>? get items {
     if (_items == null) {
       loadItems();
     }
@@ -25,18 +27,18 @@ class AppState extends ChangeNotifier {
   }
 
   /// Adds a TOTP item to the list.
-  Future addItem(LegacyAuthenticatorItem item) async {
+  Future addItem(BaseItemType item) async {
     await _repository.addItem(item);
     await loadItems();
   }
 
   /// Replace list of TOTP items.
-  Future replaceItems(List<LegacyAuthenticatorItem> items) async {
+  Future replaceItems(List<BaseItemType> items) async {
     await _repository.replaceItems(items);
     await loadItems();
   }
 
-  bool itemsChanged(List<LegacyAuthenticatorItem>? newItems) {
+  bool itemsChanged(List<BaseItemType>? newItems) {
     return !const ListEquality().equals(items, newItems);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:another_authenticator_state/state.dart';
+import 'package:another_authenticator/state/app_state.dart';
 import 'package:flutter/material.dart';
 
 /// Item for edit page (Android).
@@ -7,7 +7,7 @@ class EditListItem extends StatefulWidget {
       {Key? key})
       : super(key: key);
 
-  final LegacyAuthenticatorItem item;
+  final BaseItemType item;
 
   // Adds/removes the item from the removal list
   final Function addRemovalItem;

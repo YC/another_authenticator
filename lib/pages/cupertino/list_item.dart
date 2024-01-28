@@ -1,17 +1,16 @@
 // Overlay adapted from:
 // https://www.didierboelens.com/2018/06/how-to-create-a-toast-or-notifications-notion-of-overlay/
 
-import 'package:another_authenticator_state/state.dart';
+import 'package:another_authenticator/state/app_state.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/material.dart' show CircularProgressIndicator;
-import '../shared/list_item_base.dart' show TOTPListItemBase;
+import '../shared/list_item_base.dart' show TotpListItemBase;
 
 /// Home page list item (Cupertino).
-class HomeListItem extends TOTPListItemBase {
-  HomeListItem(LegacyAuthenticatorItem item, {Key? key})
-      : super(item, key: key);
+class HomeListItem extends TotpListItemBase {
+  HomeListItem(BaseItemType item, {Key? key}) : super(item, key: key);
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();

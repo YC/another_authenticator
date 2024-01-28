@@ -1,14 +1,13 @@
 import 'dart:async' show Future;
-import '../legacy/legacy_authenticator_item.dart';
 
 /// Abstract class for loading/saving state from storage.
-abstract class RepositoryBase {
+abstract class RepositoryBase<T> {
   /// Load list of items from repository.
-  Future<List<LegacyAuthenticatorItem>> loadItems();
+  Future<List<T>> loadItems();
 
   /// Replace list of items.
-  Future replaceItems(List<LegacyAuthenticatorItem> state);
+  Future replaceItems(List<T> state);
 
   /// Add an item to the list.
-  Future<LegacyAuthenticatorItem> addItem(LegacyAuthenticatorItem item);
+  Future<T> addItem(T item);
 }

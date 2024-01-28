@@ -6,8 +6,8 @@ import './repository_base.dart' show RepositoryBase;
 import '../legacy/legacy_repository.dart' show LegacyRepository;
 
 /// Wrapper for repository.
-class Repository implements RepositoryBase {
-  late RepositoryBase _legacyRepository;
+class Repository implements RepositoryBase<LegacyAuthenticatorItem> {
+  late RepositoryBase<LegacyAuthenticatorItem> _legacyRepository;
   late FileStorageBase _fileStorage;
 
   Repository(fileStorage) {

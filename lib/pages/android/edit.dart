@@ -1,5 +1,4 @@
 import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -14,15 +13,15 @@ class AndroidEditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<AndroidEditPage> {
-  List<LegacyAuthenticatorItem>? items;
+  List<BaseItemType>? items;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() => items =
-          List<LegacyAuthenticatorItem>.from(context.read<AppState>().items!));
+      setState(() =>
+          items = List<BaseItemType>.from(context.read<AppState>().items!));
     });
   }
 
