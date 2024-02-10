@@ -1,5 +1,4 @@
 import 'package:another_authenticator_totp/totp.dart';
-import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:uuid/uuid.dart';
 
 class LegacyAuthenticatorItem {
@@ -15,16 +14,21 @@ class LegacyAuthenticatorItem {
     return LegacyAuthenticatorItem(id, TotpItem.fromUri(uri));
   }
 
-  static LegacyAuthenticatorItem newAuthenticatorItem(String secret,
-      [int digits = 6,
-      int period = 60,
-      OtpHashAlgorithm algorithm = OtpHashAlgorithm.sha1,
-      String issuer = "",
-      String accountName = ""]) {
-    var item = TotpItem(secret, digits, period, algorithm, issuer, accountName);
+  static LegacyAuthenticatorItem newAuthenticatorItem(TotpItem item) {
     var id = Uuid().v4();
     return LegacyAuthenticatorItem(id, item);
   }
+
+  // static LegacyAuthenticatorItem newAuthenticatorItem(String secret,
+  //     [int digits = 6,
+  //     int period = 60,
+  //     OtpHashAlgorithm algorithm = OtpHashAlgorithm.sha1,
+  //     String issuer = "",
+  //     String accountName = ""]) {
+  //   var item = TotpItem(secret, digits, period, algorithm, issuer, accountName);
+  //   var id = Uuid().v4();
+  //   return LegacyAuthenticatorItem(id, item);
+  // }
 
   /// Legacy decode.
   LegacyAuthenticatorItem.fromMap(Map<String, dynamic> json)

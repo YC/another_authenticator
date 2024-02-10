@@ -1,6 +1,7 @@
 import 'dart:async' show Future;
 import 'dart:convert' show json;
 import 'package:another_authenticator_state/file_storage_base.dart';
+import 'package:another_authenticator_totp/totp.dart';
 
 import './legacy_authenticator_item.dart';
 import '../repository/repository_base.dart' show RepositoryBase;
@@ -63,10 +64,12 @@ class LegacyRepository implements RepositoryBase<LegacyAuthenticatorItem> {
   }
 
   @override
-  Future<LegacyAuthenticatorItem> addItem(LegacyAuthenticatorItem item) async {
-    _items.add(item);
+  Future<LegacyAuthenticatorItem> addItem(TotpItem item) async {
+    var legacyAuthenticatorItem =
+        LegacyAuthenticatorItem.newAuthenticatorItem(item);
+    _items.add(legacyAuthenticatorItem);
     await _saveItems(_items);
-    return item;
+    return legacyAuthenticatorItem;
   }
 
   Future _saveItems(List<LegacyAuthenticatorItem> items) async {

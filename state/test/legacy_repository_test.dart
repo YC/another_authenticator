@@ -19,7 +19,7 @@ void main() {
 
   test('Add Item', () async {
     var repository = LegacyRepository(TestFileStorage());
-    var item = LegacyAuthenticatorItem("a", TotpItem("ABCDEF"));
+    var item = TotpItem("ABCDEF");
     await repository.addItem(item);
 
     var items = await repository.loadItems();
@@ -29,7 +29,7 @@ void main() {
 
   test('Replace items', () async {
     var repository = LegacyRepository(TestFileStorage());
-    var item = LegacyAuthenticatorItem("id", TotpItem("A"));
+    var item = TotpItem("A");
     await repository.addItem(item);
 
     var item2 = LegacyAuthenticatorItem("id", TotpItem("A"));

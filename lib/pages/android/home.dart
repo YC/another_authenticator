@@ -1,4 +1,5 @@
 import 'package:another_authenticator/state/app_state.dart';
+import 'package:another_authenticator_totp/totp.dart';
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -59,8 +60,8 @@ class AndroidHomePage extends StatelessWidget {
                 leading: const Icon(Icons.camera_alt),
                 onTap: () async {
                   Navigator.pop(context);
-                  final item = await Navigator.pushNamed<BaseItemType>(
-                      context, "/add/scan");
+                  final item =
+                      await Navigator.pushNamed<TotpItem>(context, "/add/scan");
                   if (item != null) {
                     await Provider.of<AppState>(context, listen: false)
                         .addItem(item);

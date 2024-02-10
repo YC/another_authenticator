@@ -1,4 +1,5 @@
 import 'package:another_authenticator_state/state.dart';
+import 'package:another_authenticator_totp/totp.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' show ListEquality;
 
@@ -27,7 +28,7 @@ class AppState extends ChangeNotifier {
   }
 
   /// Adds a TOTP item to the list.
-  Future addItem(BaseItemType item) async {
+  Future addItem(TotpItem item) async {
     await _repository.addItem(item);
     await loadItems();
   }
