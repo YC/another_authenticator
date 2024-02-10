@@ -24,7 +24,7 @@ void main() {
 
     var items = await repository.loadItems();
     expect(items.length, 1);
-    expect(items[0], item);
+    expect(items[0].totp, item);
   });
 
   test('Replace items', () async {
