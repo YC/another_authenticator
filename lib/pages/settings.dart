@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AppScaffold, isPlatformAndroid;
 import 'package:another_authenticator/helper/url.dart' show launchURL;
-import 'package:package_info/package_info.dart' show PackageInfo;
+import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
 import '../l10n/constants.dart' as Constants;
 
 /// Settings page.
