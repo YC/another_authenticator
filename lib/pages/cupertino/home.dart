@@ -1,5 +1,5 @@
 import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_state/legacy/legacy_authenticator_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -73,12 +73,15 @@ class CupertinoHomePage extends StatelessWidget {
               child: Text(AppLocalizations.of(context)!.addScanQR),
               onPressed: () async {
                 Navigator.pop(context);
-                final item =
-                    await Navigator.pushNamed<TotpItem>(context, "/add/scan");
-                if (item != null) {
-                  await Provider.of<AppState>(context, listen: false)
-                      .addItem(item);
+
+                var result = await Navigator.pushNamed(context, "/add/scan");
+                if (result == null) {
+                  return;
                 }
+                // TODO: Transition to new type
+                var item = result as LegacyAuthenticatorItem;
+                await Provider.of<AppState>(context, listen: false)
+                    .addItem(item.totp);
               },
             ),
             CupertinoActionSheetAction(

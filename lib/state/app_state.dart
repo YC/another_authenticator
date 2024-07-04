@@ -3,6 +3,7 @@ import 'package:another_authenticator_totp/totp.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' show ListEquality;
 
+// TODO: Transition to new type
 typedef BaseItemType = LegacyAuthenticatorItem;
 
 /// Represents app state.

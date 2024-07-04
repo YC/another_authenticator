@@ -1,5 +1,5 @@
 import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:another_authenticator/helper/url.dart' show launchURL;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,10 +44,10 @@ class AndroidHomePage extends StatelessWidget {
   }
 
   /// Shows add modal
-  void showAddModal(BuildContext context) {
+  void showAddModal(BuildContext parentContext) {
     // Show bottom sheet
     showModalBottomSheet<void>(
-      context: context,
+      context: parentContext,
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.all(8.0),
@@ -60,12 +60,15 @@ class AndroidHomePage extends StatelessWidget {
                 leading: const Icon(Icons.camera_alt),
                 onTap: () async {
                   Navigator.pop(context);
-                  final item =
-                      await Navigator.pushNamed<TotpItem>(context, "/add/scan");
-                  if (item != null) {
-                    await Provider.of<AppState>(context, listen: false)
-                        .addItem(item);
+
+                  var result = await Navigator.pushNamed(context, "/add/scan");
+                  if (result == null) {
+                    return;
                   }
+                  // TODO: Transition to new type
+                  var item = result as LegacyAuthenticatorItem;
+                  await Provider.of<AppState>(parentContext, listen: false)
+                      .addItem(item.totp);
                 },
               ),
               // Add account manually
