@@ -10,17 +10,12 @@ There will likely be bugs and upgrade issues.
 
 ## Features
 - Scan QR or manually input account details
-- Supports both Material (Android) and Cupertino (iOS) themes
+- Material Theme
 
 ## Proposed
 - View secrets
 - Backup secrets to cloud storage
 - UI tests
-
-## Licenses
-MIT unless otherwise specified.\
-Further details about used libraries and references are available in
-[`lib/pages/acknowledgements.dart`](lib/pages/acknowledgements.dart).
 
 Some outdated screenshots:
 
