@@ -64,7 +64,7 @@ class LegacyRepository implements RepositoryBase<LegacyAuthenticatorItem> {
   }
 
   @override
-  Future<LegacyAuthenticatorItem> addItem(TotpItem item) async {
+  Future<LegacyAuthenticatorItem> addItem(OtpItem item) async {
     var legacyAuthenticatorItem =
         LegacyAuthenticatorItem.newAuthenticatorItem(item);
     _items.add(legacyAuthenticatorItem);

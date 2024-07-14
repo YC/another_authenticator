@@ -1,7 +1,8 @@
+import 'package:another_authenticator_totp/models/otp_algorithm.dart';
 import 'package:test/test.dart';
 import 'package:another_authenticator_totp/totp.dart';
 import 'package:another_authenticator_totp/totp_algorithm.dart';
-import 'package:another_authenticator_totp/otp_uri.dart';
+import 'package:another_authenticator_totp/parser/otp_uri_parser.dart';
 
 void main() {
   // https://datatracker.ietf.org/doc/html/rfc4648#section-10
@@ -19,7 +20,7 @@ void main() {
   });
 
   test('TOTP - Key URI 1', () {
-    var parsed = OtpUri.fromUri(
+    var parsed = OtpAuthUriParser.parse(
         "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example");
     expect(parsed.accountName, "alice@example.com");
     expect(parsed.algorithm, OtpHashAlgorithm.sha1);
@@ -30,7 +31,7 @@ void main() {
   });
 
   test('TOTP - Key URI Complete', () {
-    var parsed = OtpUri.fromUri(
+    var parsed = OtpAuthUriParser.parse(
         "otpauth://totp/ACME%20Co:john.doe@email.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA1&digits=6&period=30");
     expect(parsed.accountName, "john.doe@email.com");
     expect(parsed.algorithm, OtpHashAlgorithm.sha1);
@@ -42,7 +43,7 @@ void main() {
 
   test('TOTP - Bad Key URI', () {
     expect(
-        () => OtpUri.fromUri(
+        () => OtpAuthUriParser.parse(
             "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12"),
         throwsA(allOf(
             isFormatException,
@@ -52,7 +53,7 @@ void main() {
 
   test('TOTP - Bad Algorithm', () {
     expect(
-        () => OtpUri.fromUri(
+        () => OtpAuthUriParser.parse(
             "otpauth://totp/Example:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&digits=12&algorithm=sha??"),
         throwsA(allOf(
             isFormatException,
@@ -90,7 +91,7 @@ void main() {
     var algorithm = OtpHashAlgorithm.sha256;
     var issuer = "bar";
     var accountName = "foo@bar";
-    var item = TotpItem(secret, digits, period, algorithm, issuer, accountName);
+    var item = OtpItem(secret, digits, period, algorithm, issuer, accountName);
     expect(item.secret, secret);
     expect(item.digits, digits);
     expect(item.period, period);
@@ -100,9 +101,9 @@ void main() {
   });
 
   test('TOTP Item equality', () {
-    var item1 = TotpItem("A");
-    var item2 = TotpItem("A");
-    var item3 = TotpItem("B");
+    var item1 = OtpItem("A");
+    var item2 = OtpItem("A");
+    var item3 = OtpItem("B");
     // Same object
     expect(item1 == item1, true);
     // Same secret (and other fields apart from id), so still equal

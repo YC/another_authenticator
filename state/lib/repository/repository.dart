@@ -32,7 +32,7 @@ class Repository implements RepositoryBase<LegacyAuthenticatorItem> {
   }
 
   @override
-  Future<LegacyAuthenticatorItem> addItem(TotpItem item) async {
+  Future<LegacyAuthenticatorItem> addItem(OtpItem item) async {
     return _legacyRepository.addItem(item);
   }
 }
