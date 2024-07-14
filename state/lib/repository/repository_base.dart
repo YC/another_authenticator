@@ -11,5 +11,5 @@ abstract class RepositoryBase<T> {
   Future replaceItems(List<T> state);
 
   /// Add an item to the list.
-  Future<T> addItem(TotpItem item);
+  Future<T> addItem(OtpItem item);
 }

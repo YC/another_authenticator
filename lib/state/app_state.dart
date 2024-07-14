@@ -29,7 +29,7 @@ class AppState extends ChangeNotifier {
   }
 
   /// Adds a TOTP item to the list.
-  Future addItem(TotpItem item) async {
+  Future addItem(OtpItem item) async {
     await _repository.addItem(item);
     await loadItems();
   }
