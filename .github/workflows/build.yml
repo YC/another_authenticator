@@ -1,6 +1,7 @@
 name: Another Authenticator
 
 on:
+  pull_request:
   push:
     branches:
       - '*'
