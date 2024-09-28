@@ -1,4 +1,4 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../state/app_state.dart';
 import 'package:another_authenticator_state/legacy/legacy_authenticator_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,6 +7,8 @@ import './list_item.dart';
 
 /// Cupertino version of home page.
 class CupertinoHomePage extends StatelessWidget {
+  const CupertinoHomePage({super.key});
+
   /// Builds list of items.
   Widget _buildList(BuildContext context) {
     var backgroundColour =
@@ -27,7 +29,7 @@ class CupertinoHomePage extends StatelessWidget {
               ),
             ),
           );
-        } else if (state.items!.length == 0) {
+        } else if (state.items!.isEmpty) {
           // No Items
           return Container(
             color: backgroundColour,
@@ -78,7 +80,6 @@ class CupertinoHomePage extends StatelessWidget {
                 if (result == null) {
                   return;
                 }
-                // TODO: Transition to new type
                 var item = result as LegacyAuthenticatorItem;
                 await Provider.of<AppState>(context, listen: false)
                     .addItem(item.totp);
@@ -93,11 +94,11 @@ class CupertinoHomePage extends StatelessWidget {
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context)!.cancel),
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context, 'Cancel');
             },
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
         );
       },
@@ -125,11 +126,11 @@ class CupertinoHomePage extends StatelessWidget {
             ),
             // Edit
             CupertinoButton(
-              child: Text("Edit"),
               padding: EdgeInsets.zero,
               onPressed: () {
                 Navigator.of(context).pushNamed('/edit');
               },
+              child: const Text("Edit"),
             )
           ],
         ),

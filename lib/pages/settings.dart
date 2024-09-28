@@ -2,14 +2,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Icons, ListTile, Material;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:another_authenticator/ui/adaptive.dart'
-    show AppScaffold, isPlatformAndroid;
-import 'package:another_authenticator/helper/url.dart' show launchURL;
+import '../ui/adaptive.dart' show AppScaffold, isPlatformAndroid;
+import '../helper/url.dart' show launchURL;
 import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
-import '../l10n/constants.dart' as Constants;
+import '../config/routes.dart';
+import '../l10n/constants.dart' as constants;
 
 /// Settings page.
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -28,14 +30,14 @@ class SettingsPage extends StatelessWidget {
                   width: 150,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: const DecoratedBox(
-                    decoration: const BoxDecoration(
-                      image: const DecorationImage(
-                        image: const AssetImage('graphics/icon.png'),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('graphics/icon.png'),
                       ),
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 160,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +66,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
 
           // List of options
           Expanded(
@@ -79,7 +81,7 @@ class SettingsPage extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.source,
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
-                      launchURL(Constants.REPO);
+                      launchURL(constants.REPO);
                     },
                   ),
                   // Acknowledgements
@@ -92,7 +94,7 @@ class SettingsPage extends StatelessWidget {
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
                       Navigator.of(context)
-                          .pushNamed('/settings/acknowledgements');
+                          .pushNamed(AppRoutes.settingAcknowledgements);
                     },
                   ),
                 ],
