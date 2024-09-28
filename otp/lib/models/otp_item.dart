@@ -42,16 +42,6 @@ class OtpItem {
   /// URI in original form (if scanned/imported)
   final String? originalUri;
 
-  // /// Creates a new TOTP item.
-  // static OtpItem newTotpItem(String secret,
-  //     [int digits = 6,
-  //     int period = 60,
-  //     OtpHashAlgorithm algorithm = OtpHashAlgorithm.sha1,
-  //     String issuer = "",
-  //     String accountName = ""]) {
-  //   return OtpItem(secret, digits, period, algorithm, issuer, accountName);
-  // }
-
   /// Parses a TOTP key URI and returns a TOTPItem.
   static final List<UriParserBase> _parsers = [OtpAuthUriParser()];
   static OtpItem fromUri(String uri) {
@@ -144,15 +134,6 @@ class OtpItem {
         issuer = json['issuer'],
         counter = json.containsKey('counter') ? json['counter'] : null,
         originalUri = json.containsKey('uri') ? json['uri'] : null;
-
-  // The original version
-  // OtpItem.fromJSON(Map<String, dynamic> json)
-  //     : accountName = json['accountName'],
-  //       issuer = json['issuer'],
-  //       period = json['period'],
-  //       digits = json['digits'],
-  //       algorithm = OtpHashAlgorithm.values.byName(json['algorithm']),
-  //       secret = json['secret'];
 
   /// Encode item to JSON.
   Map<String, dynamic> toJson() => {
