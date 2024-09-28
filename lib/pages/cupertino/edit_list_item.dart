@@ -1,13 +1,12 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../state/app_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Material, CheckboxListTile, Icons;
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 
 /// Item for edit page (Cupertino).
 class EditListItem extends StatefulWidget {
-  EditListItem(this.item, this.addRemovalItem, this.removeRemovalItem,
-      {Key? key})
-      : super(key: key);
+  const EditListItem(this.item, this.addRemovalItem, this.removeRemovalItem,
+      {super.key});
 
   final BaseItemType item;
 

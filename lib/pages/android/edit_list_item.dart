@@ -1,11 +1,10 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../state/app_state.dart';
 import 'package:flutter/material.dart';
 
 /// Item for edit page (Android).
 class EditListItem extends StatefulWidget {
-  EditListItem(this.item, this.addRemovalItem, this.removeRemovalItem,
-      {Key? key})
-      : super(key: key);
+  const EditListItem(this.item, this.addRemovalItem, this.removeRemovalItem,
+      {super.key});
 
   final BaseItemType item;
 

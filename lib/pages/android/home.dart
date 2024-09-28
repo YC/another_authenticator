@@ -1,14 +1,17 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../state/app_state.dart';
 import 'package:another_authenticator_state/state.dart';
 import 'package:flutter/material.dart';
-import 'package:another_authenticator/helper/url.dart' show launchURL;
+import '../../helper/url.dart' show launchURL;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/constants.dart' as Constants;
+import '../../config/routes.dart';
+import '../../l10n/constants.dart' as constants;
 import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
 class AndroidHomePage extends StatelessWidget {
+  const AndroidHomePage({super.key});
+
   /// Builds list of items.
   Widget _buildList() {
     return Consumer<AppState>(
@@ -19,7 +22,7 @@ class AndroidHomePage extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(AppLocalizations.of(context)!.loading)));
-        } else if (state.items!.length == 0) {
+        } else if (state.items!.isEmpty) {
           // No Items
           return Center(
               child: Padding(
@@ -61,11 +64,11 @@ class AndroidHomePage extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
 
-                  var result = await Navigator.pushNamed(context, "/add/scan");
+                  var result =
+                      await Navigator.pushNamed(context, AppRoutes.addScan);
                   if (result == null) {
                     return;
                   }
-                  // TODO: Transition to new type
                   var item = result as LegacyAuthenticatorItem;
                   await Provider.of<AppState>(parentContext, listen: false)
                       .addItem(item.totp);
@@ -77,7 +80,7 @@ class AndroidHomePage extends StatelessWidget {
                 leading: const Icon(Icons.keyboard_return),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, "/add");
+                  Navigator.pushNamed(context, AppRoutes.add);
                 },
               ),
             ],
@@ -118,9 +121,9 @@ class AndroidHomePage extends StatelessWidget {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, "/settings");
+                  Navigator.pushNamed(context, AppRoutes.settings);
                 }),
-            Divider(height: 10),
+            const Divider(height: 10),
             // Source code (in-app browser link)
             ListTile(
                 title: Text(AppLocalizations.of(context)!.source),
@@ -128,7 +131,7 @@ class AndroidHomePage extends StatelessWidget {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  launchURL(Constants.REPO);
+                  launchURL(constants.REPO);
                 }),
             // License
             ListTile(
@@ -137,7 +140,7 @@ class AndroidHomePage extends StatelessWidget {
               dense: true,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, "/settings/acknowledgements");
+                Navigator.pushNamed(context, AppRoutes.settingAcknowledgements);
               },
             ),
           ],
@@ -151,7 +154,7 @@ class AndroidHomePage extends StatelessWidget {
             icon: const Icon(Icons.edit),
             tooltip: AppLocalizations.of(context)!.edit,
             onPressed: () {
-              Navigator.pushNamed(context, '/edit');
+              Navigator.pushNamed(context, AppRoutes.edit);
             },
           ),
           // Add
