@@ -46,7 +46,7 @@ class _TOTPListItemState extends State<HomeListItem>
     // Define animation
     // Adapted from progress_indicator_demo.dart from flutter examples
     _controller = AnimationController(
-      duration: Duration(seconds: widget.item.totp.period),
+      duration: Duration(seconds: widget.item.totp.getPeriod()),
       lowerBound: 0.0,
       upperBound: 1.0,
       vsync: this,
