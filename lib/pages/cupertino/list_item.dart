@@ -87,7 +87,7 @@ class _TOTPListItemState extends State<HomeListItem>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     // Issuer
-                    Text(widget.item.totp.issuer),
+                    Text(widget.item.totp.getIssuer() ?? ""),
                     // Generated code
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -96,7 +96,7 @@ class _TOTPListItemState extends State<HomeListItem>
                                 fontSize: 40,
                                 color: Color.fromARGB(255, 125, 125, 125)))),
                     // Account name
-                    Text(widget.item.totp.accountName,
+                    Text(widget.item.totp.getAccountName(),
                         style: const TextStyle(fontSize: 13))
                   ],
                 ),

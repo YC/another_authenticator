@@ -89,6 +89,6 @@ class OtpAuthUriParser implements UriParserBase {
     }
 
     return OtpItem(
-        type, secret, label, digits, period, algorithm, issuer, counter);
+        type, secret, label, digits, period, algorithm, issuer, counter, uri);
   }
 }

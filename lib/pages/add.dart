@@ -2,6 +2,7 @@ import 'package:another_authenticator/state/app_state.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
 import 'package:another_authenticator_otp/models/otp_algorithm.dart';
+import 'package:another_authenticator_otp/models/otp_type.dart';
 import 'package:another_authenticator_otp/otp.dart' show Base32, OtpItem;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,12 +120,13 @@ class _AddPageState extends State<AddPage> {
 
     // Initialise and add TOTP item
     var item = OtpItem(
+        OtpType.totp,
         _secretController.text,
+        "${_issuerController.text}:${_accountNameController.text}",
         _digits,
         _period,
         OtpHashAlgorithm.sha1,
-        _issuerController.text,
-        _accountNameController.text);
+        _issuerController.text);
 
     addItem(item);
   }

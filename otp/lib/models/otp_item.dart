@@ -8,13 +8,18 @@ import '../parser/otp_uri_parser.dart' show OtpAuthUriParser;
 /// Represents an OTP item and associated information.
 class OtpItem {
   OtpItem(this.type, this.secret, this.label,
-      [this.digits, this.period, this.algorithm, this.issuer, this.counter]);
+      [this.digits,
+      this.period,
+      this.algorithm,
+      this.issuer,
+      this.counter,
+      this.originalUri]);
 
   /// Type of item (Currently only supports TOTP)
   final OtpType type;
 
   /// Label
-  final String? label;
+  final String label;
 
   /// Secret key (in base32)
   final String secret;
@@ -33,6 +38,9 @@ class OtpItem {
 
   /// Counter (HOTP only)
   final int? counter;
+
+  /// URI in original form (if scanned/imported)
+  final String? originalUri;
 
   // /// Creates a new TOTP item.
   // static OtpItem newTotpItem(String secret,
@@ -75,6 +83,30 @@ class OtpItem {
     return gen.getPeriod();
   }
 
+  /// Get Issuer.
+  String? getIssuer() {
+    // Use the issuer parameter
+    if (issuer != null) {
+      return issuer!;
+    }
+
+    // Extract it out of the label
+    // label = accountname / issuer (“:” / “%3A”) *”%20” accountname
+    if (label.contains(':')) {
+      return label.split(':')[0];
+    }
+
+    return null;
+  }
+
+  /// Get account name
+  String getAccountName() {
+    if (!label.contains(':')) {
+      return label;
+    }
+    return label.split(':')[1];
+  }
+
   /// Returns a placeholder representation of the generated code.
   String get placeholder {
     if (digits == 8) {
@@ -97,16 +129,23 @@ class OtpItem {
             ? OtpType.fromString(json['type'])
             : OtpType.totp,
         secret = json['secret'],
-        label = json.containsKey('label') ? json['label'] : null,
+        label = json.containsKey('label')
+            ? json['label']
+            : json.containsKey('accountName') && json['accountName'] != ''
+                ? json.containsKey('issuer') && json['issuer'] != ''
+                    ? "${json['issuer']}:${json['accountName']}"
+                    : json['accountName']
+                : "",
         digits = json['digits'],
         period = json['period'],
         algorithm = json['algorithm'] == null
             ? null
             : OtpHashAlgorithm.fromString(json['algorithm']),
         issuer = json['issuer'],
-        counter = json.containsKey('counter') ? json['counter'] : null;
+        counter = json.containsKey('counter') ? json['counter'] : null,
+        originalUri = json.containsKey('uri') ? json['uri'] : null;
 
-  // TODO: Handle accountName
+  // The original version
   // OtpItem.fromJSON(Map<String, dynamic> json)
   //     : accountName = json['accountName'],
   //       issuer = json['issuer'],
@@ -124,7 +163,8 @@ class OtpItem {
         'period': period,
         'algorithm': algorithm?.name,
         'issuer': issuer,
-        'counter': counter
+        'counter': counter,
+        'uri': originalUri
       };
 
   @override

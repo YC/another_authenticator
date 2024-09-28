@@ -53,7 +53,7 @@ class _EditListItem extends State<EditListItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 // Issuer
-                Text(widget.item.totp.issuer,
+                Text(widget.item.totp.getIssuer() ?? "",
                     style: Theme.of(context).textTheme.titleMedium),
                 // Generated code
                 Padding(
@@ -61,7 +61,7 @@ class _EditListItem extends State<EditListItem> {
                     child: Text(widget.item.totp.placeholder,
                         style: Theme.of(context).textTheme.displaySmall)),
                 // Account name
-                Text(widget.item.totp.accountName,
+                Text(widget.item.totp.getAccountName(),
                     style: Theme.of(context).textTheme.bodyMedium)
               ],
             ),
