@@ -28,7 +28,7 @@ dependencies:
     path: ./state
 
   # External
-  barcode_scan2: ^4.3.3
+  barcode_scan2: 4.3.3
   provider: ^6.1.2
 
 dev_dependencies:
