@@ -5,14 +5,10 @@ import '../otp/totp_code_generator.dart';
 import '../parser/uri_parser_base.dart';
 import '../parser/otp_uri_parser.dart' show OtpAuthUriParser;
 
-/// Represents a TOTP item and associated information.
-///
-/// Has properties of accountName, issuer, secret, digits, period and algorithm,
-/// as well as an id which is randomly assigned on generation.
+/// Represents an OTP item and associated information.
 class OtpItem {
   OtpItem(this.type, this.secret, this.label,
       [this.digits, this.period, this.algorithm, this.issuer, this.counter]);
-  // TODO: Checks on construction?
 
   /// Type of item (Currently only supports TOTP)
   final OtpType type;
@@ -35,7 +31,7 @@ class OtpItem {
   /// Time period
   final int? period;
 
-  /// Counter
+  /// Counter (HOTP only)
   final int? counter;
 
   // /// Creates a new TOTP item.
@@ -71,6 +67,12 @@ class OtpItem {
     return gen.generateCode(time);
   }
 
+  int getPeriod() {
+    OtpCodeGeneratorBase gen =
+        TotpCodeGenerator(secret, digits, period, algorithm);
+    return gen.getPeriod();
+  }
+
   /// Returns a placeholder representation of the generated code.
   String get placeholder {
     if (digits == 8) {
@@ -96,7 +98,9 @@ class OtpItem {
         label = json.containsKey('label') ? json['label'] : null,
         digits = json['digits'],
         period = json['period'],
-        algorithm = OtpHashAlgorithm.fromString(json['algorithm']),
+        algorithm = json['algorithm'] == null
+            ? null
+            : OtpHashAlgorithm.fromString(json['algorithm']),
         issuer = json['issuer'],
         counter = json.containsKey('counter') ? json['counter'] : null;
 

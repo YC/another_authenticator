@@ -15,4 +15,9 @@ class TotpCodeGenerator implements OtpCodeGeneratorBase {
     return Totp.generateCode(time, secret, digits ?? 6, period ?? 30,
         algorithm ?? OtpHashAlgorithm.sha1);
   }
+
+  @override
+  int getPeriod() {
+    return period ?? 30;
+  }
 }

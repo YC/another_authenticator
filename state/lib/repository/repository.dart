@@ -1,6 +1,6 @@
 import 'dart:async' show Future;
 
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 
 import '../file_storage_base.dart';
 import '../legacy/legacy_authenticator_item.dart';

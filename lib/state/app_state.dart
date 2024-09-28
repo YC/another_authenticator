@@ -1,5 +1,5 @@
 import 'package:another_authenticator_state/state.dart';
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' show ListEquality;
 

@@ -1,8 +1,8 @@
 import 'package:another_authenticator/state/app_state.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
-import 'package:another_authenticator_totp/models/otp_algorithm.dart';
-import 'package:another_authenticator_totp/totp.dart' show Base32, OtpItem;
+import 'package:another_authenticator_otp/models/otp_algorithm.dart';
+import 'package:another_authenticator_otp/otp.dart' show Base32, OtpItem;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
