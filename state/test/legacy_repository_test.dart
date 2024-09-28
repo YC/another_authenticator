@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 
-import 'package:another_authenticator_otp/models/otp_type.dart';
 import 'package:another_authenticator_otp/otp.dart';
 import 'package:another_authenticator_state/legacy/legacy_repository.dart';
 import 'package:another_authenticator_state/state.dart';
