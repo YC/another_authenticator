@@ -67,6 +67,8 @@ class OtpItem {
     return gen.generateCode(time);
   }
 
+  /// Get period that code is valid for.
+  /// Currently, HOTP is not supported, so type is yet optional.
   int getPeriod() {
     OtpCodeGeneratorBase gen =
         TotpCodeGenerator(secret, digits, period, algorithm);
@@ -90,7 +92,7 @@ class OtpItem {
   }
 
   /// Decode item from JSON.
-  OtpItem.fromJSON(Map<String, dynamic> json)
+  OtpItem.fromJson(Map<String, dynamic> json)
       : type = json.containsKey('type')
             ? OtpType.fromString(json['type'])
             : OtpType.totp,
@@ -114,7 +116,7 @@ class OtpItem {
   //       secret = json['secret'];
 
   /// Encode item to JSON.
-  Map<String, dynamic> toJSON() => {
+  Map<String, dynamic> toJson() => {
         'type': type.name,
         'secret': secret,
         'label': label,

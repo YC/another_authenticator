@@ -33,11 +33,11 @@ class LegacyAuthenticatorItem {
   /// Legacy decode.
   LegacyAuthenticatorItem.fromMap(Map<String, dynamic> json)
       : id = json['id'],
-        totp = OtpItem.fromJSON(json);
+        totp = OtpItem.fromJson(json);
 
   /// Legacy encode.
   Map<String, dynamic> toMap() {
-    return {'id': id, ...totp.toJSON()};
+    return {'id': id, ...totp.toJson()};
   }
 
   @override
