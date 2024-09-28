@@ -1,4 +1,4 @@
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 import 'package:uuid/uuid.dart';
 
 class LegacyAuthenticatorItem {

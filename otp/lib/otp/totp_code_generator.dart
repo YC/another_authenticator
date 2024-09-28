@@ -1,6 +1,6 @@
-import 'package:another_authenticator_totp/models/otp_algorithm.dart';
-import 'package:another_authenticator_totp/otp/code_generator_base.dart';
-import 'package:another_authenticator_totp/otp/totp_algorithm.dart';
+import '../models/otp_algorithm.dart';
+import '../otp/code_generator_base.dart';
+import '../otp/totp_algorithm.dart';
 
 class TotpCodeGenerator implements OtpCodeGeneratorBase {
   final String secret;

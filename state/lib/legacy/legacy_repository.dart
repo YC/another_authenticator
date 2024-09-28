@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'dart:convert' show json;
 import 'package:another_authenticator_state/file_storage_base.dart';
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 
 import './legacy_authenticator_item.dart';
 import '../repository/repository_base.dart' show RepositoryBase;

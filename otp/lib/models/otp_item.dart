@@ -1,9 +1,8 @@
-import 'package:another_authenticator_totp/models/otp_type.dart';
-import 'package:another_authenticator_totp/otp/code_generator_base.dart';
-import 'package:another_authenticator_totp/otp/totp_code_generator.dart';
-import 'package:another_authenticator_totp/parser/uri_parser_base.dart';
-
-import './otp_algorithm.dart';
+import 'otp_type.dart';
+import 'otp_algorithm.dart';
+import '../otp/code_generator_base.dart';
+import '../otp/totp_code_generator.dart';
+import '../parser/uri_parser_base.dart';
 import '../parser/otp_uri_parser.dart' show OtpAuthUriParser;
 
 /// Represents a TOTP item and associated information.

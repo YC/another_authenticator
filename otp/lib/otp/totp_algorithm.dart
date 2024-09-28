@@ -2,8 +2,8 @@ import 'dart:math' show pow;
 import 'dart:typed_data' show Uint8List, Endian;
 import 'package:crypto/crypto.dart';
 
-import '../models/otp_algorithm.dart';
 import 'base32.dart' show Base32;
+import '../models/otp_algorithm.dart';
 
 /// Static class for generating TOTP codes.
 ///

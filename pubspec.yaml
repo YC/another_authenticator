@@ -22,8 +22,8 @@ dependencies:
   package_info_plus: ^8.0.2
 
   # Internal
-  another_authenticator_totp:
-    path: ./totp
+  another_authenticator_otp:
+    path: ./otp
   another_authenticator_state:
     path: ./state
 

@@ -1,4 +1,4 @@
-import 'package:another_authenticator_totp/totp.dart';
+import '../otp.dart';
 
 abstract interface class UriParserBase {
   bool canParse(String uri);
