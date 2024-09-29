@@ -12,10 +12,10 @@ class AppState extends ChangeNotifier {
 
   AppState(this._repository);
 
-  /// List of TOTP items (internal implementation).
+  /// List of items (internal implementation).
   List<BaseItemType>? _items;
 
-  /// TOTP items as list.
+  /// Items as list.
   List<BaseItemType>? get items {
     if (_items == null) {
       loadItems();
@@ -28,13 +28,13 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Adds a TOTP item to the list.
+  /// Adds an item to the list.
   Future addItem(OtpItem item) async {
     await _repository.addItem(item);
     await loadItems();
   }
 
-  /// Replace list of TOTP items.
+  /// Replace list of items.
   Future replaceItems(List<BaseItemType> items) async {
     await _repository.replaceItems(items);
     await loadItems();

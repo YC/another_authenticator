@@ -1,4 +1,4 @@
-import '../otp.dart';
+import '../models/otp_item.dart';
 
 abstract interface class UriParserBase {
   bool canParse(String uri);

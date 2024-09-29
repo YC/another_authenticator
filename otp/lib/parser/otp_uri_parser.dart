@@ -1,9 +1,9 @@
-import "./uri_parser_base.dart";
+import "uri_parser_base.dart";
 import '../models/otp_type.dart';
 import '../models/otp_algorithm.dart';
 import '../models/otp_item.dart';
 
-/// Parses TOTP key URI into TOTPItems.
+/// Parses OTP URI into OtpItem.
 ///
 /// Reference:
 /// * https://github.com/google/google-authenticator/wiki/Key-Uri-Format

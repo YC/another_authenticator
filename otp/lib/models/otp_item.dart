@@ -1,9 +1,9 @@
 import 'otp_type.dart';
 import 'otp_algorithm.dart';
-import '../otp/code_generator_base.dart';
-import '../otp/totp_code_generator.dart';
+import '../generator/code_generator_base.dart';
+import '../generator/totp_code_generator.dart';
 import '../parser/uri_parser_base.dart';
-import '../parser/otp_uri_parser.dart' show OtpAuthUriParser;
+import '../parser/otp_uri_parser.dart';
 
 /// Represents an OTP item and associated information.
 class OtpItem {

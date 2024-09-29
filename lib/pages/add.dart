@@ -117,7 +117,6 @@ class _AddPageState extends State<AddPage> {
       return;
     }
 
-    // Initialise and add TOTP item
     var item = OtpItem(
         OtpType.totp,
         _secretController.text,
