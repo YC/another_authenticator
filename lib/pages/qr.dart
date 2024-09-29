@@ -1,5 +1,6 @@
 import 'dart:async' show Future;
 import 'package:another_authenticator/state/app_state.dart';
+import 'package:another_authenticator_otp/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,8 +25,11 @@ class _ScanQRPageState extends State<ScanQRPage> {
       (_) async {
         try {
           final value = await _scan();
-          // Parse scanned value into item and pop
+          // Parse scanned value into item
           var item = BaseItemType.newAuthenticatorItemFromUri(value);
+          if (item.totp.type == OtpType.hotp) {
+            throw Exception('HOTP not supported by UI');
+          }
           // Pop until scan page
           Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
           // Pop with scanned item
