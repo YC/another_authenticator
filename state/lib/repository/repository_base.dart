@@ -1,6 +1,6 @@
 import 'dart:async' show Future;
 
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 
 /// Abstract class for loading/saving state from storage.
 abstract class RepositoryBase<T> {
@@ -11,5 +11,5 @@ abstract class RepositoryBase<T> {
   Future replaceItems(List<T> state);
 
   /// Add an item to the list.
-  Future<T> addItem(TotpItem item);
+  Future<T> addItem(OtpItem item);
 }

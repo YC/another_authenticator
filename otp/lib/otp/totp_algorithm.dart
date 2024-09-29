@@ -1,38 +1,9 @@
 import 'dart:math' show pow;
 import 'dart:typed_data' show Uint8List, Endian;
-import 'package:crypto/crypto.dart' show Hash, Hmac, sha1, sha256, sha512;
+import 'package:crypto/crypto.dart';
+
 import 'base32.dart' show Base32;
-
-/// Hash algorithm to OTP
-enum OtpHashAlgorithm {
-  sha1,
-  sha256,
-  sha512;
-
-  static OtpHashAlgorithm fromString(String str) {
-    if (str == "sha1") {
-      return OtpHashAlgorithm.sha1;
-    } else if (str == "sha256") {
-      return OtpHashAlgorithm.sha256;
-    } else if (str == "sha512") {
-      return OtpHashAlgorithm.sha512;
-    }
-    throw Exception("Unknown algorithm");
-  }
-}
-
-extension _StringOperations on OtpHashAlgorithm {
-  Hash toHashFunction() {
-    if (this == OtpHashAlgorithm.sha1) {
-      return sha1;
-    } else if (this == OtpHashAlgorithm.sha256) {
-      return sha256;
-    } else if (this == OtpHashAlgorithm.sha512) {
-      return sha512;
-    }
-    throw Exception("Unknown algorithm");
-  }
-}
+import '../models/otp_algorithm.dart';
 
 /// Static class for generating TOTP codes.
 ///
@@ -41,14 +12,6 @@ extension _StringOperations on OtpHashAlgorithm {
 /// * https://github.com/LanceGin/dotp/blob/master/lib/src/otp.dart
 /// * https://stackoverflow.com/questions/49398437
 class Totp {
-  /// Formats a generated [code] to make it look nice
-  static String prettyValue(String code) {
-    // Length at which to split at
-    int splitLength = code.length == 8 ? 4 : 3;
-    // Combine 2 halves
-    return '${code.substring(0, splitLength)} ${code.substring(splitLength)}';
-  }
-
   /// Generates a TOTP value for the given attributes.
   ///
   /// Note:

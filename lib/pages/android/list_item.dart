@@ -42,7 +42,7 @@ class _TOTPListItemState extends State<HomeListItem>
     // Define animation
     // Adapted from progress_indicator_demo.dart from flutter examples
     _controller = AnimationController(
-      duration: Duration(seconds: widget.item.totp.period),
+      duration: Duration(seconds: widget.item.totp.getPeriod()),
       lowerBound: 0.0,
       upperBound: 1.0,
       vsync: this,
@@ -88,7 +88,7 @@ class _TOTPListItemState extends State<HomeListItem>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       // Issuer
-                      Text(widget.item.totp.issuer,
+                      Text(widget.item.totp.getIssuer() ?? "",
                           style: Theme.of(context).textTheme.titleMedium),
                       // Generated code
                       Padding(
@@ -96,7 +96,7 @@ class _TOTPListItemState extends State<HomeListItem>
                           child: Text(_code,
                               style: Theme.of(context).textTheme.displaySmall)),
                       // Account name
-                      Text(widget.item.totp.accountName,
+                      Text(widget.item.totp.getAccountName(),
                           style: Theme.of(context).textTheme.bodyMedium)
                     ],
                   ),

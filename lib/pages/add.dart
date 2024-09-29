@@ -1,8 +1,8 @@
 import 'package:another_authenticator/state/app_state.dart';
 import 'package:another_authenticator/ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
-import 'package:another_authenticator_totp/totp_algorithm.dart';
-import 'package:another_authenticator_totp/totp.dart' show Base32, TotpItem;
+import 'package:another_authenticator_otp/otp.dart'
+    show Base32, OtpHashAlgorithm, OtpItem, OtpType;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -56,7 +56,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   // Adds item or display errors
-  void addItem(TotpItem item) {
+  void addItem(OtpItem item) {
     try {
       Provider.of<AppState>(context, listen: false).addItem(item).then((_) {
         Navigator.pop(context);
@@ -117,14 +117,14 @@ class _AddPageState extends State<AddPage> {
       return;
     }
 
-    // Initialise and add TOTP item
-    var item = TotpItem(
+    var item = OtpItem(
+        OtpType.totp,
         _secretController.text,
+        "${_issuerController.text}:${_accountNameController.text}",
         _digits,
         _period,
         OtpHashAlgorithm.sha1,
-        _issuerController.text,
-        _accountNameController.text);
+        _issuerController.text);
 
     addItem(item);
   }
