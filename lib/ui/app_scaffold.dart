@@ -1,4 +1,4 @@
-import 'package:another_authenticator/ui/adaptive_base.dart';
+import '../ui/adaptive_base.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show AppBar, Scaffold;
 import 'package:flutter/cupertino.dart'

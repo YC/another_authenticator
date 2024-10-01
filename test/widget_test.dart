@@ -28,7 +28,7 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (_) => AppState(repository))
         ],
-        child: App(),
+        child: MainApp(),
       ),
     );
   });

@@ -1,4 +1,3 @@
-import 'package:another_authenticator/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,7 +5,7 @@ import '../shared/list_item_base.dart' show TotpListItemBase;
 
 /// Home page list item (Android).
 class HomeListItem extends TotpListItemBase {
-  HomeListItem(BaseItemType item, {required Key key}) : super(item, key: key);
+  const HomeListItem(super.item, {required Key super.key});
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();
@@ -15,7 +14,7 @@ class HomeListItem extends TotpListItemBase {
 class _TOTPListItemState extends State<HomeListItem>
     with SingleTickerProviderStateMixin {
   // Dimension of progress indicator
-  static const double _PROGRESS_INDICATOR_DIMENSION = 25;
+  static const double _progressIndicatorDimension = 25;
 
   // Animation for indicator/code
   late AnimationController _controller;
@@ -101,17 +100,17 @@ class _TOTPListItemState extends State<HomeListItem>
                     ],
                   ),
                   Positioned(
+                      right: 0,
+                      bottom: 0,
+                      height: _progressIndicatorDimension,
+                      width: _progressIndicatorDimension,
                       child: AnimatedBuilder(
                           animation: _animation,
                           builder: (BuildContext context, Widget? child) =>
                               CircularProgressIndicator(
                                 value: _animation.value,
                                 strokeWidth: 2.5,
-                              )),
-                      right: 0,
-                      bottom: 0,
-                      height: _PROGRESS_INDICATOR_DIMENSION,
-                      width: _PROGRESS_INDICATOR_DIMENSION)
+                              )))
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../config/routes.dart';
+import '../../state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -6,10 +7,10 @@ import './edit_list_item.dart' show EditListItem;
 
 /// Android edit page.
 class AndroidEditPage extends StatefulWidget {
-  AndroidEditPage({Key? key}) : super(key: key);
+  const AndroidEditPage({super.key});
 
   @override
-  _EditPageState createState() => _EditPageState();
+  State<AndroidEditPage> createState() => _EditPageState();
 }
 
 class _EditPageState extends State<AndroidEditPage> {
@@ -37,9 +38,9 @@ class _EditPageState extends State<AndroidEditPage> {
   }
 
   // Hide bottom bar
-  ValueNotifier<bool> _hideTrash = ValueNotifier(true);
+  final ValueNotifier<bool> _hideTrash = ValueNotifier(true);
   // Whether to hide save icon
-  ValueNotifier<bool> _hideSave = ValueNotifier(true);
+  final ValueNotifier<bool> _hideSave = ValueNotifier(true);
 
   // List of selected items (to be removed)
   final List<String> _pendingRemovalList = [];
@@ -63,7 +64,7 @@ class _EditPageState extends State<AndroidEditPage> {
 
   // Refreshes value of _hide
   void _refreshHide() {
-    _hideTrash.value = _pendingRemovalList.length == 0;
+    _hideTrash.value = _pendingRemovalList.isEmpty;
     _hideSave.value =
         !Provider.of<AppState>(context, listen: false).itemsChanged(items);
   }
@@ -127,7 +128,8 @@ class _EditPageState extends State<AndroidEditPage> {
               child: Text(AppLocalizations.of(context)!.yes,
                   style: const TextStyle(color: Colors.red)),
               onPressed: () {
-                Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                Navigator.of(context)
+                    .popUntil(ModalRoute.withName(AppRoutes.home));
               },
             )
           ],
@@ -143,7 +145,7 @@ class _EditPageState extends State<AndroidEditPage> {
       onPopInvoked: _popCallback,
       child: Theme(
         data: Theme.of(context).copyWith(
-          bottomSheetTheme: BottomSheetThemeData(
+          bottomSheetTheme: const BottomSheetThemeData(
             surfaceTintColor: Colors.transparent,
           ),
         ),
@@ -180,19 +182,19 @@ class _EditPageState extends State<AndroidEditPage> {
                   child: ReorderableListView(
                       padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.vertical,
+                      onReorder: _handleReorder,
                       children: items!
                           .map((item) => EditListItem(
                               item, addRemovalItem, removeRemovalItem,
                               key: Key(item.id)))
-                          .toList(),
-                      onReorder: _handleReorder)),
+                          .toList())),
 
           // Delete button
           bottomSheet: ValueListenableBuilder<bool>(
             valueListenable: _hideTrash,
             builder: (context, value, child) {
               return value
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
