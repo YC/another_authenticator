@@ -80,6 +80,7 @@ class CupertinoHomePage extends StatelessWidget {
                 if (result == null) {
                   return;
                 }
+                // TODO: Transition to new type
                 var item = result as LegacyAuthenticatorItem;
                 await Provider.of<AppState>(context, listen: false)
                     .addItem(item.totp);

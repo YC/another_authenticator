@@ -5,7 +5,7 @@ import '../../helper/url.dart' show launchURL;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../config/routes.dart';
-import '../../l10n/constants.dart' as constants;
+import '../../l10n/constants.dart';
 import './list_item.dart' show HomeListItem;
 
 /// Android version of home page.
@@ -69,6 +69,7 @@ class AndroidHomePage extends StatelessWidget {
                   if (result == null) {
                     return;
                   }
+                  // TODO: Transition to new type
                   var item = result as LegacyAuthenticatorItem;
                   await Provider.of<AppState>(parentContext, listen: false)
                       .addItem(item.totp);
@@ -131,7 +132,7 @@ class AndroidHomePage extends StatelessWidget {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  launchURL(constants.REPO);
+                  launchURL(Constants.repoUrl);
                 }),
             // License
             ListTile(

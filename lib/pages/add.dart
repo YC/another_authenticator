@@ -62,6 +62,7 @@ class _AddPageState extends State<AddPage> {
         Navigator.pop(context);
       });
     } catch (e) {
+      // TODO: Fix exception handling
       var errMessage = e.toString();
       if (e.toString().contains('DUPLICATE_ACCOUNT')) {
         errMessage = AppLocalizations.of(context)!.errDuplicateAccount;

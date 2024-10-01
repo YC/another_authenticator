@@ -1,7 +1,6 @@
 // Overlay adapted from:
 // https://www.didierboelens.com/2018/06/how-to-create-a-toast-or-notifications-notion-of-overlay/
 
-import '../../state/app_state.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors;
@@ -19,7 +18,7 @@ class HomeListItem extends TotpListItemBase {
 class _TOTPListItemState extends State<HomeListItem>
     with SingleTickerProviderStateMixin {
   // Dimension of progress indicator
-  static const double progressIndicatorDimension = 25;
+  static const double _progressIndicatorDimension = 25;
 
   // Animation for indicator/code
   late AnimationController _controller;
@@ -103,8 +102,8 @@ class _TOTPListItemState extends State<HomeListItem>
                 Positioned(
                     right: 0,
                     bottom: 0,
-                    height: progressIndicatorDimension,
-                    width: progressIndicatorDimension,
+                    height: _progressIndicatorDimension,
+                    width: _progressIndicatorDimension,
                     child: AnimatedBuilder(
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) =>

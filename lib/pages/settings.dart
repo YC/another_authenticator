@@ -6,7 +6,7 @@ import '../ui/adaptive.dart' show AppScaffold, isPlatformAndroid;
 import '../helper/url.dart' show launchURL;
 import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
 import '../config/routes.dart';
-import '../l10n/constants.dart' as constants;
+import '../l10n/constants.dart';
 
 /// Settings page.
 class SettingsPage extends StatelessWidget {
@@ -81,7 +81,7 @@ class SettingsPage extends StatelessWidget {
                     title: Text(AppLocalizations.of(context)!.source,
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
-                      launchURL(constants.REPO);
+                      launchURL(Constants.repoUrl);
                     },
                   ),
                   // Acknowledgements

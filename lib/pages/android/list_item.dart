@@ -1,4 +1,3 @@
-import '../../state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,7 +14,7 @@ class HomeListItem extends TotpListItemBase {
 class _TOTPListItemState extends State<HomeListItem>
     with SingleTickerProviderStateMixin {
   // Dimension of progress indicator
-  static const double progressIndicatorDimension = 25;
+  static const double _progressIndicatorDimension = 25;
 
   // Animation for indicator/code
   late AnimationController _controller;
@@ -103,8 +102,8 @@ class _TOTPListItemState extends State<HomeListItem>
                   Positioned(
                       right: 0,
                       bottom: 0,
-                      height: progressIndicatorDimension,
-                      width: progressIndicatorDimension,
+                      height: _progressIndicatorDimension,
+                      width: _progressIndicatorDimension,
                       child: AnimatedBuilder(
                           animation: _animation,
                           builder: (BuildContext context, Widget? child) =>
