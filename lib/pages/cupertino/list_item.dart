@@ -1,7 +1,6 @@
 // Overlay adapted from:
 // https://www.didierboelens.com/2018/06/how-to-create-a-toast-or-notifications-notion-of-overlay/
 
-import 'package:another_authenticator/state/app_state.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart' show CupertinoColors;
@@ -10,7 +9,7 @@ import '../shared/list_item_base.dart' show TotpListItemBase;
 
 /// Home page list item (Cupertino).
 class HomeListItem extends TotpListItemBase {
-  HomeListItem(BaseItemType item, {Key? key}) : super(item, key: key);
+  const HomeListItem(super.item, {super.key});
 
   @override
   State<StatefulWidget> createState() => _TOTPListItemState();
@@ -19,7 +18,7 @@ class HomeListItem extends TotpListItemBase {
 class _TOTPListItemState extends State<HomeListItem>
     with SingleTickerProviderStateMixin {
   // Dimension of progress indicator
-  static const double _PROGRESS_INDICATOR_DIMENSION = 25;
+  static const double _progressIndicatorDimension = 25;
 
   // Animation for indicator/code
   late AnimationController _controller;
@@ -77,7 +76,7 @@ class _TOTPListItemState extends State<HomeListItem>
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 5),
           padding: const EdgeInsets.all(25),
-          decoration: BoxDecoration(color: CupertinoColors.white),
+          decoration: const BoxDecoration(color: CupertinoColors.white),
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(5),
             child: Stack(
@@ -101,6 +100,10 @@ class _TOTPListItemState extends State<HomeListItem>
                   ],
                 ),
                 Positioned(
+                    right: 0,
+                    bottom: 0,
+                    height: _progressIndicatorDimension,
+                    width: _progressIndicatorDimension,
                     child: AnimatedBuilder(
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) =>
@@ -108,11 +111,7 @@ class _TOTPListItemState extends State<HomeListItem>
                         value: _animation.value,
                         strokeWidth: 2.5,
                       ),
-                    ),
-                    right: 0,
-                    bottom: 0,
-                    height: _PROGRESS_INDICATOR_DIMENSION,
-                    width: _PROGRESS_INDICATOR_DIMENSION)
+                    ))
               ],
             ),
           ),

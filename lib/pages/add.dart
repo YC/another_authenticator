@@ -1,5 +1,5 @@
-import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator/ui/adaptive.dart'
+import '../state/app_state.dart';
+import '../ui/adaptive.dart'
     show AdaptiveDialogAction, AppScaffold, isPlatformAndroid;
 import 'package:another_authenticator_totp/totp_algorithm.dart';
 import 'package:another_authenticator_totp/totp.dart' show Base32, TotpItem;
@@ -10,10 +10,10 @@ import 'package:provider/provider.dart';
 
 /// Page for adding accounts.
 class AddPage extends StatefulWidget {
-  AddPage({Key? key}) : super(key: key);
+  const AddPage({super.key});
 
   @override
-  _AddPageState createState() => _AddPageState();
+  State<AddPage> createState() => _AddPageState();
 }
 
 class _AddPageState extends State<AddPage> {
@@ -78,8 +78,8 @@ class _AddPageState extends State<AddPage> {
                 content: Text(errMessage),
                 actions: [
                   AdaptiveDialogAction(
-                      child: Text(AppLocalizations.of(context)!.ok),
-                      onPressed: Navigator.of(context).pop)
+                      onPressed: Navigator.of(context).pop,
+                      child: Text(AppLocalizations.of(context)!.ok))
                 ]);
           });
     }
@@ -108,8 +108,8 @@ class _AddPageState extends State<AddPage> {
             content: Text(AppLocalizations.of(context)!.secretInvalidMessage),
             actions: [
               CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: Navigator.of(context).pop)
+                  onPressed: Navigator.of(context).pop,
+                  child: Text(AppLocalizations.of(context)!.ok))
             ],
           );
         },
@@ -151,8 +151,8 @@ class _AddPageState extends State<AddPage> {
           middle: Text(AppLocalizations.of(context)!.addTitle),
           trailing: CupertinoButton(
               padding: const EdgeInsets.all(0),
-              child: Text(AppLocalizations.of(context)!.add),
-              onPressed: handleAdd)),
+              onPressed: handleAdd,
+              child: Text(AppLocalizations.of(context)!.add))),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -209,8 +209,8 @@ class _AddPageState extends State<AddPage> {
                         },
                         isExpanded: true,
                         items: const <DropdownMenuItem>[
-                          DropdownMenuItem(child: const Text("6"), value: 6),
-                          DropdownMenuItem(child: const Text("8"), value: 8),
+                          DropdownMenuItem(value: 6, child: Text("6")),
+                          DropdownMenuItem(value: 8, child: Text("8")),
                         ],
                       ),
                     ),
@@ -231,8 +231,8 @@ class _AddPageState extends State<AddPage> {
                         },
                         isExpanded: true,
                         items: const <DropdownMenuItem>[
-                          DropdownMenuItem(child: const Text("30"), value: 30),
-                          DropdownMenuItem(child: const Text("60"), value: 60),
+                          DropdownMenuItem(value: 30, child: Text("30")),
+                          DropdownMenuItem(value: 60, child: Text("60")),
                         ],
                       ),
                     ),
@@ -241,8 +241,8 @@ class _AddPageState extends State<AddPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: ElevatedButton(
-                        child: Text(AppLocalizations.of(context)!.add),
                         onPressed: handleAdd,
+                        child: Text(AppLocalizations.of(context)!.add),
                       ),
                     )
                   ]
@@ -282,14 +282,12 @@ class _AddPageState extends State<AddPage> {
                       child: ListBody(
                         children: [
                           Padding(
-                              child: Text(AppLocalizations.of(context)!.digits),
-                              padding: const EdgeInsets.only(bottom: 8)),
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child:
+                                  Text(AppLocalizations.of(context)!.digits)),
                           CupertinoSegmentedControl(
                             groupValue: _digits.toString(),
-                            children: {
-                              '6': const Text('6'),
-                              '8': const Text('8')
-                            },
+                            children: const {'6': Text('6'), '8': Text('8')},
                             onValueChanged: (v) {
                               setState(() {
                                 _digits = int.parse(v);
@@ -307,13 +305,14 @@ class _AddPageState extends State<AddPage> {
                       child: ListBody(
                         children: [
                           Padding(
-                              child: Text(AppLocalizations.of(context)!.period),
-                              padding: const EdgeInsets.only(bottom: 8)),
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child:
+                                  Text(AppLocalizations.of(context)!.period)),
                           CupertinoSegmentedControl(
                             groupValue: _period.toString(),
-                            children: {
-                              '30': const Text('30'),
-                              '60': const Text('60')
+                            children: const {
+                              '30': Text('30'),
+                              '60': Text('60')
                             },
                             onValueChanged: (v) {
                               setState(() {
