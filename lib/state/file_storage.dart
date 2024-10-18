@@ -13,6 +13,7 @@ class FileStorage extends FileStorageBase {
   FileStorage();
 
   /// Gets path of Application Documents Directory.
+  @override
   Future<String> getDataPath() async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;

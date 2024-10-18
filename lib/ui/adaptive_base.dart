@@ -10,6 +10,8 @@ import './adaptive.dart' show getPlatform;
 /// createCupertinoWidget and call the relevant method.
 abstract class AdaptiveBase<AWidget extends Widget, CWidget extends Widget>
     extends StatelessWidget {
+  const AdaptiveBase(Key? key) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (getPlatform() == TargetPlatform.android) {

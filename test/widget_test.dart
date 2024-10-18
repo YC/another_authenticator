@@ -47,13 +47,13 @@ TestLicense $i
     await tester.pumpWidget(
       MaterialApp(
           home: Localizations(
-        delegates: [
+        delegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        locale: Locale('en'),
-        child: AcknowledgementsPage(),
+        locale: const Locale('en'),
+        child: const AcknowledgementsPage(),
       )),
     );
 

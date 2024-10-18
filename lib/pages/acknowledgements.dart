@@ -1,7 +1,7 @@
-/// Acknowledgements page
-///
-/// Various code from:
-/// https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart
+// Acknowledgements page
+//
+// Various code from:
+// https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
