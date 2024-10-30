@@ -1,8 +1,7 @@
 # Another Authenticator
 A two-factor authentication app built with Flutter.
 
-This app is currently being worked on, with hopes of publishing it one day...\
-I don't consider it to be ready for production yet.\
+Not ready for production.\
 There will likely be bugs and upgrade issues.
 
 ## Development
@@ -19,6 +18,6 @@ There will likely be bugs and upgrade issues.
 
 Some outdated screenshots:
 
-|Material|Cupertino|
-|----|----|
-|<img src="../readme-assets/material.png" alt="Material" height="450">|<img src="../readme-assets/cupertino.png" alt="Cupertino" height="450">|
+|Material|
+|----|
+|<img src="../readme-assets/material.png" alt="Material" height="450">|
