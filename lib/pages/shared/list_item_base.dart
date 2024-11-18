@@ -1,18 +1,18 @@
-import 'package:another_authenticator/state/app_state.dart';
+import '../../state/app_state.dart';
 import 'package:flutter/widgets.dart';
 
 /// Abstract base class for TOTP list item.
 ///
 /// Contains useful methods which are used to display the item.
 abstract class TotpListItemBase extends StatefulWidget {
-  TotpListItemBase(this.item, {Key? key});
+  const TotpListItemBase(this.item, {super.key});
 
   /// The item/account that is displayed.
   final BaseItemType item;
 
   /// Seconds since epoch.
   static int get _secondsSinceEpoch {
-    return new DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    return DateTime.now().millisecondsSinceEpoch ~/ 1000;
   }
 
   /// Progress indicator value.

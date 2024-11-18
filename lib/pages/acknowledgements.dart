@@ -1,7 +1,7 @@
-/// Acknowledgements page
-///
-/// Various code from:
-/// https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart
+// Acknowledgements page
+//
+// Various code from:
+// https://github.com/flutter/flutter/blob/efb1346767e67d2577461baf671eb2d5d2c4bb90/packages/flutter/lib/src/material/about.dart
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart'
         Material,
         MaterialPageRoute,
         Theme;
-import 'package:another_authenticator/ui/adaptive.dart' show AppScaffold;
+import '../ui/adaptive.dart' show AppScaffold;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AcknowledgementsPage extends StatefulWidget {
@@ -97,14 +97,14 @@ class FullScreenLicense extends StatelessWidget {
   /// License
   final List<LicenseEntry> licenseEntries;
 
-  FullScreenLicense(this.title, this.licenseEntries);
+  const FullScreenLicense(this.title, this.licenseEntries, {super.key});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> licenses = <Widget>[];
-    for (var (index, licenseEntry) in this.licenseEntries.indexed) {
+    for (var (index, licenseEntry) in licenseEntries.indexed) {
       if (index != 0) {
-        licenses.add(Divider());
+        licenses.add(const Divider());
       }
       licenses.addAll(licenseEntry.paragraphs.map((p) {
         // Adapted from flutter/flutter
@@ -128,7 +128,7 @@ class FullScreenLicense extends StatelessWidget {
     }
 
     return AppScaffold(
-      title: Text(this.title),
+      title: Text(title),
       body: Material(
         child: SingleChildScrollView(
           child: Padding(

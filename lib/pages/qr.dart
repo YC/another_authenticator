@@ -1,22 +1,23 @@
 import 'dart:async' show Future;
+import 'package:another_authenticator/config/routes.dart';
 import 'package:another_authenticator/state/app_state.dart';
-import 'package:another_authenticator_otp/otp.dart';
+import 'package:another_authenticator_otp/models/otp_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:another_authenticator/ui/adaptive.dart'
-    show AppScaffold, AdaptiveDialogAction;
+import '../ui/adaptive.dart' show AppScaffold, AdaptiveDialogAction;
 import 'package:barcode_scan2/barcode_scan2.dart' show BarcodeScanner;
 
 /// Page for adding accounts by scanning QR.
 class ScanQRPage extends StatefulWidget {
-  const ScanQRPage({Key? key}) : super(key: key);
+  const ScanQRPage({super.key});
 
   @override
-  _ScanQRPageState createState() => _ScanQRPageState();
+  State<ScanQRPage> createState() => _ScanQRPageState();
 }
 
 class _ScanQRPageState extends State<ScanQRPage> {
+  @override
   void initState() {
     super.initState();
 
@@ -31,7 +32,8 @@ class _ScanQRPageState extends State<ScanQRPage> {
             throw Exception('HOTP not supported by UI');
           }
           // Pop until scan page
-          Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+          Navigator.of(context)
+              .popUntil(ModalRoute.withName(AppRoutes.addScan));
           // Pop with scanned item
           Navigator.of(context).pop(item);
         } catch (e) {
@@ -52,7 +54,8 @@ class _ScanQRPageState extends State<ScanQRPage> {
                   ],
                 );
               });
-          Navigator.of(context).popUntil(ModalRoute.withName('/add/scan'));
+          Navigator.of(context)
+              .popUntil(ModalRoute.withName(AppRoutes.addScan));
           Navigator.of(context).pop();
         }
       },

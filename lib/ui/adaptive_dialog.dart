@@ -1,9 +1,9 @@
-/// Adaptive Dialog
-/// Adapted from flutter/flutter, using FlatButton, CupertinoDialogAction
-/// showDialog, showCupertinoDialog
-///
-/// Licensed under:
-/// https://raw.githubusercontent.com/flutter/flutter/master/LICENSE
+// Adaptive Dialog
+// Adapted from flutter/flutter, using FlatButton, CupertinoDialogAction
+// showDialog, showCupertinoDialog
+//
+// Licensed under:
+// https://raw.githubusercontent.com/flutter/flutter/master/LICENSE
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,12 +34,15 @@ class AdaptiveDialogAction
   final VoidCallback onPressed;
   final Widget child;
 
-  AdaptiveDialogAction(
+  const AdaptiveDialogAction(
       {this.androidData,
       this.cupertinoData,
       required this.onPressed,
-      required this.child});
+      required this.child,
+      Key? key})
+      : super(key);
 
+  @override
   TextButton createAndroidWidget(BuildContext context) {
     return TextButton(
       key: androidData?.key,
@@ -48,6 +51,7 @@ class AdaptiveDialogAction
     );
   }
 
+  @override
   CupertinoDialogAction createCupertinoWidget(BuildContext context) {
     return CupertinoDialogAction(
       key: androidData?.key,
