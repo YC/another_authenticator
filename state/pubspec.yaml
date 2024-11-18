@@ -10,8 +10,8 @@ dependencies:
   uuid: 4.4.0
 
   # Internal
-  another_authenticator_totp:
-    path: ../totp
+  another_authenticator_otp:
+    path: ../otp
 
   sqflite: ^2.3.3
 

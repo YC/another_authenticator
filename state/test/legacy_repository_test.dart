@@ -1,7 +1,8 @@
+import 'package:test/test.dart';
+
+import 'package:another_authenticator_otp/otp.dart';
 import 'package:another_authenticator_state/legacy/legacy_repository.dart';
 import 'package:another_authenticator_state/state.dart';
-import 'package:another_authenticator_totp/totp.dart';
-import 'package:test/test.dart';
 
 import 'test_file_storage.dart';
 
@@ -19,7 +20,7 @@ void main() {
 
   test('Add Item', () async {
     var repository = LegacyRepository(TestFileStorage());
-    var item = TotpItem("ABCDEF");
+    var item = OtpItem(OtpType.totp, "ABCDEF", "Test");
     await repository.addItem(item);
 
     var items = await repository.loadItems();
@@ -29,10 +30,11 @@ void main() {
 
   test('Replace items', () async {
     var repository = LegacyRepository(TestFileStorage());
-    var item = TotpItem("A");
+    var item = OtpItem(OtpType.totp, "A", "Test");
     await repository.addItem(item);
 
-    var item2 = LegacyAuthenticatorItem("id", TotpItem("A"));
+    var item2 =
+        LegacyAuthenticatorItem("id", OtpItem(OtpType.totp, "A", "Test"));
     await repository.replaceItems([item2]);
 
     var newItems = await repository.loadItems();

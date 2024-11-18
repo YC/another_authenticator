@@ -26,7 +26,7 @@ jobs:
         channel: 'stable'
 
     - run: dart test
-      working-directory: ./totp
+      working-directory: ./otp
 
     - run: dart test
       working-directory: ./state

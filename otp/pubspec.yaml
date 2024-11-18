@@ -1,5 +1,5 @@
-name: another_authenticator_totp
-description: TOTP library used by another_authenticator.
+name: another_authenticator_otp
+description: OTP library used by another_authenticator.
 version: 1.0.0
 publish_to: none
 

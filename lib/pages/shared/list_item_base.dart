@@ -17,7 +17,7 @@ abstract class TotpListItemBase extends StatefulWidget {
 
   /// Progress indicator value.
   double get indicatorValue {
-    return (_secondsSinceEpoch % item.totp.period) / item.totp.period;
+    return (_secondsSinceEpoch % item.totp.getPeriod()) / item.totp.getPeriod();
   }
 
   /// Returns the code of the item for the current time.

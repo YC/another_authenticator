@@ -1,20 +1,20 @@
-import 'package:another_authenticator_totp/totp.dart';
+import 'package:another_authenticator_otp/otp.dart';
 import 'package:uuid/uuid.dart';
 
 class LegacyAuthenticatorItem {
   /// Legacy GUID id
   final String id;
 
-  final TotpItem totp;
+  final OtpItem totp;
 
   LegacyAuthenticatorItem(this.id, this.totp);
 
   static LegacyAuthenticatorItem newAuthenticatorItemFromUri(String uri) {
     var id = Uuid().v4();
-    return LegacyAuthenticatorItem(id, TotpItem.fromUri(uri));
+    return LegacyAuthenticatorItem(id, OtpItem.fromUri(uri));
   }
 
-  static LegacyAuthenticatorItem newAuthenticatorItem(TotpItem item) {
+  static LegacyAuthenticatorItem newAuthenticatorItem(OtpItem item) {
     var id = Uuid().v4();
     return LegacyAuthenticatorItem(id, item);
   }
@@ -33,18 +33,12 @@ class LegacyAuthenticatorItem {
   /// Legacy decode.
   LegacyAuthenticatorItem.fromMap(Map<String, dynamic> json)
       : id = json['id'],
-        totp = TotpItem.fromJSON(json);
+        totp = OtpItem.fromJson(json);
 
   /// Legacy encode.
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'accountName': totp.accountName,
-        'issuer': totp.issuer,
-        'secret': totp.secret,
-        'digits': totp.digits,
-        'period': totp.period,
-        'algorithm': totp.algorithm.name
-      };
+  Map<String, dynamic> toMap() {
+    return {'id': id, ...totp.toJson()};
+  }
 
   @override
   bool operator ==(Object other) =>
